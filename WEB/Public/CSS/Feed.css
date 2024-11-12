@@ -46,7 +46,7 @@ footer {
     left: 0;
     padding: 8px 0;
     font-family: "Armata", sans-serif;
-    background-color: #11212D;
+    background-color: ;
 }
 
 
@@ -260,6 +260,21 @@ nav {
 }
 
 
+
+
+.post-image {
+    width: 100%; /* A imagem vai ocupar toda a largura disponível do seu container */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave ao redor da imagem */
+    object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem distorcer */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves para efeitos de hover */
+  }
+  
+  .post-image:hover {
+    transform: scale(1.05); /* Aumenta um pouco a imagem ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais forte quando a imagem é hover */
+  }
 
 .post-form {
     margin-bottom: 20px;
