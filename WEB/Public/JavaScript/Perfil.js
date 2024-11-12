@@ -22,6 +22,291 @@ function alternarSecao(secao) {
   }
 }
 
+
+// Função para alternar a exibição das seções "Meus pets" e "Postagens"
+function alternarSecao(secao) {
+  // Oculta todas as seções inicialmente
+  document.getElementById("meus-pets").style.display = "none";
+  document.getElementById("postagens").style.display = "none";
+
+  // Exibe a seção correspondente ao botão clicado
+  document.getElementById(secao).style.display = "block";
+}
+
+// Função para buscar dados do perfil do usuário
+function buscarPerfilUsuario() {
+  fetch('/MyProfile', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erro ao buscar perfil do usuário');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+    
+    const postagem = data.minhasPostagens;
+    const dados = data.meusDados;
+    const pets = data.dadosMeusPets;
+
+    // Exibir dados do usuário
+    document.getElementById("nome-usuario").textContent = dados.Nome;
+
+    exibirImagemUsuario(dados);
+
+
+    // Exibir pets
+    estruturarDadosPets(pets);
+
+    // Exibir postagens
+    exibirPostagens(postagem);
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+  });
+}
+
+// Função para estruturar e exibir os dados dos pets
+function estruturarDadosPets(dadosMeusPets) {
+  const petsDiv = document.getElementById("lista-pets");
+  petsDiv.innerHTML = ""; // Limpa a lista antes de exibir
+
+  // Verifica se a lista de pets está vazia
+  if (!dadosMeusPets || dadosMeusPets.length === 0) {
+    petsDiv.innerHTML = "<p>Não há pets registrados.</p>";
+    return;
+  }
+
+  // Itera sobre cada pet e estrutura as informações
+  dadosMeusPets.forEach(pets => {
+    const petElemento = document.createElement("div");
+    petElemento.classList.add("pet-card");
+
+    petElemento.innerHTML = `
+      <img src="${pets.petPicture}" alt="${pets.TipoAnimal}" class="imagem-pet">
+      <h4>${pets.TipoAnimal} - ${pets.Cor}</h4>
+      <p><strong>Idade:</strong> ${pets.Idade}</p>
+      <p><strong>Linhagem:</strong> ${pets.Linhagem}</p>
+      <p><strong>Sexo:</strong> ${pets.Sexo}</p>
+      <p><strong>Status:</strong> ${pets.Status === 1 ? 'Ativo' : 'Inativo'}</p>
+      <p><strong>Descrição:</strong> ${pets.Descricao}</p>
+      <p><strong>Data de Registro:</strong> ${new Date(pets.dataRegistro).toLocaleDateString()}</p>
+    `;
+
+    // Adiciona o elemento de pet à lista de pets no DOM
+    petsDiv.appendChild(petElemento);
+  });
+}
+
+// Função para exibir a lista de postagens do usuário
+function exibirPostagens(postagensUsuario) {
+  const postagensDiv = document.getElementById("lista-postagens");
+  postagensDiv.innerHTML = ""; // Limpa a lista antes de exibir
+
+  postagensUsuario.forEach(postagem => {
+    const postagemElemento = document.createElement("div");
+    postagemElemento.classList.add("postagem-card");
+
+    postagemElemento.innerHTML = `
+      <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${postagem.ID}.jpg?alt=media" alt="Postagem">
+      <div class="descricao">
+        <p><strong>Descrição:</strong> ${postagem.Descricao}</p>
+        <p><strong>Data:</strong> ${new Date(postagem.dataPublicacao).toLocaleString()}</p>
+      </div>
+    `;
+
+    postagensDiv.appendChild(postagemElemento);
+  });
+}
+
+
+function exibirImagemUsuario(dados) {
+  // Seleciona a imagem pelo ID
+  const fotoUser = document.getElementById("foto-user");
+
+  // Define o atributo 'src' com a URL da imagem usando o 'ID' do usuário
+  fotoUser.src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${dados.ID}.jpg?alt=media`;
+}
+
+
+
+
+
+// Chame a função ao carregar a página
+document.addEventListener('DOMContentLoaded', buscarPerfilUsuario);
+
+
+// let countNewNotifies = 0;
+// let notifiesOnly = 0;
+// let friendInvites = 0;
+
+// async function getMyNotifies() {
+//   await fetch(`/Notificacoes`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (myBlob) {
+//       console.log(myBlob)
+//       if (myBlob.success) {
+//         document.getElementById("bodyNotifies").innerHTML = ``
+//         myBlob.notifications.forEach(e => {
+//           if (e.MensagemVisualizada == "False") {
+//             countNewNotifies = countNewNotifies + 1;
+//             notifiesOnly = notifiesOnly + 1;
+//           }
+
+//           document.getElementById("notificationButton").innerHTML = ` <i class="fa-solid fa-bell"></i>
+//           ${countNewNotifies}`
+
+    
+
+//           document.getElementById("bodyNotifies").innerHTML += ` <div class="notification">
+//                 <div class="notification-icon">
+//                   <i class="fas fa-comment"></i>
+//                 </div>
+//                 <div class="notification-content">
+//                   <p><strong></strong></p>
+//                   <p>${e.Texto}<a href="#"></a></p>
+//                 </div>
+//               </div>`
+
+//           document.getElementById("notifyContent").innerHTML = `Notificações <span style="border-radius:50%;width:20px;height:20px;display:flex;justify-content:center;align-items:center; color:white;background-color:red">${notifiesOnly}</span>`
+
+//         })
+//       } else {
+//         document.getElementById("notificationButton").innerHTML = ` <i class="fa-solid fa-bell"></i>
+//           ${friendInvites}`
+//         document.getElementById("notifyContent").innerHTML = `Notificações <span style="border-radius:50%;width:20px;height:20px;display:flex;justify-content:center;align-items:center; color:white;background-color:red">${notifiesOnly}</span>`
+//       }
+//     })
+// }
+
+
+// async function checkNotifies() {
+//   await fetch(`/MarcarNotificacoesVisto`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (myBlob) {
+//       if (myBlob.success) {
+//         countNewNotifies = 0;
+//         notifiesOnly = 0;
+//         countNewNotifies = friendInvites
+//         document.getElementById("notificationButton").innerHTML = ` <i class="fa-solid fa-bell"></i>
+//         ${countNewNotifies}`
+//       }
+//     })
+// }
+
+
+// async function myFriendInvites() {
+//   await fetch(`/MinhasSolicitacoes`, {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (myBlob) {
+//       console.log(myBlob)
+//       if (myBlob.success) {
+//         countNewNotifies = countNewNotifies + myBlob.invites.length;
+
+//         document.getElementById("notificationButton").innerHTML = ` <i class="fa-solid fa-bell"></i>
+//         ${countNewNotifies}`
+//         document.getElementById("friendInviter").innerHTML = `Solicitação de amizade  <span style="border-radius:50%; width:20px;height:20px;display:flex;justify-content:center;align-items:center; color:white;background-color:red">${myBlob.invites.length}</span>`
+//         document.getElementById("inviteBody").innerHTML = `<div class="solicitacao-amizade">`
+
+//         myBlob.invites.forEach(e => {
+
+//           document.getElementById("inviteBody").innerHTML += `
+//                 <div class="d-flex align-items-center">
+//                   <!-- Foto de Perfil -->
+//                   <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDSolicitante}.jpg?alt=media}" alt="Foto de Perfil" class="rounded-circle me-3">
+//                   <!-- Nome do Usuário -->
+//                   <div>
+//                     <p class="mb-0"><strong>${e.Nome}</strong></p>
+//                     ${e.Interessado === 1 ? '<small>está interessado em um de seus pets</small>' : '<small>Enviou uma Solicitação</small>'}
+//                   </div>
+//                 </div>
+//                 <!-- Botões de Ação -->
+//                 <div class="mt-3 d-flex justify-content-around">
+//                   <button class="btn btn-primary btn-sm" id="${e.ID}" onclick="acceptInvite(this)">Aceitar</button>
+//                   <button class="btn btn-secondary btn-sm" id="${e.ID}" onclick="rejectInvite(this)">Recusar</button>
+//                 </div>
+//               </div>
+//               <hr>`
+
+//         })
+
+//       } else {
+//         document.getElementById("friendInviter").innerHTML = `Solicitação de amizade <span style="border-radius:50%; width:20px;height:20px;display:flex;justify-content:center;align-items:center; color:white;background-color:red">0</span>`
+//       }
+//     })
+// }
+
+
+// async function acceptInvite(event) {
+//   await fetch(`/AceitaSolicitacaoAmizade`, {
+//     method: 'POST',
+//     body: JSON.stringify({ "inviteID": event.id }),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(async function (myBlob) {
+//       if (myBlob.success) {
+//         alert("Solicitação de amizade aceita.")
+//         await getingMyContacts()
+//         await friendInvites()
+//       }
+//     })
+// }
+
+
+
+
+// async function rejectInvite(event) {
+//   await fetch(`/RemoveSolicitacao`, {
+//     method: 'DELETE',
+//     body: JSON.stringify({ "inviteID": event.id }),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(async function (myBlob) {
+//       if (myBlob.success) {
+//         await myFriendInvites()
+
+//       }
+//     })
+// }
+
+
+
 // Evento de clique para exibir a seção "Meus pets"
 document.getElementById("meus-pets-link").addEventListener("click", function (event) {
   event.preventDefault();
@@ -67,60 +352,6 @@ function showContent(menuId) {
 
 }
 
-
-
-
-
-
-// Exemplo de dados dos pets do usuário
-const petsUsuario = [
-  {
-    id: 1,
-    nome: "Max",
-    idade: "2 anos",
-    raca: "Golden Retriever",
-    imagem: "https://example.com/max.jpg" // URL da imagem do pet
-  },
-  {
-    id: 2,
-    nome: "Luna",
-    idade: "1 ano",
-    raca: "Bulldog Francês",
-    imagem: "https://example.com/luna.jpg" // URL da imagem do pet
-  },
-  {
-    id: 3,
-    nome: "Mia",
-    idade: "3 anos",
-    raca: "Poodle",
-    imagem: "https://example.com/mia.jpg" // URL da imagem do pet
-  
-  }
-];
-
-// Função para exibir a lista de pets do usuário
-function exibirPets() {
-  const petsDiv = document.getElementById("lista-pets");
-  
-
-  petsUsuario.forEach(pet => {
-    const petElemento = document.createElement("div");
-    petElemento.classList.add("pet-card");
-
-    petElemento.innerHTML = `
-      <img src="${pet.imagem}" alt="${pet.nome}" class="imagem-pet">
-      <h4>${pet.nome}</h4>
-      <p><strong>Idade:</strong> ${pet.idade}</p>
-      <p><strong>Raça:</strong> ${pet.raca}</p>
-    `;
-    
-  });
-
-  document.getElementById("meus-pets").style.display = "block"; // Exibe a div dos pets
-}
-
-// Exibe a lista de pets ao carregar a página
-exibirPets();
 
 
 

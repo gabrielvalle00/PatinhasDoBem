@@ -26,19 +26,12 @@
 
   <nav class="nav1">
 
-    <!------------------------- Container na parte de cima da pagina ---------------------->
+    <!------------------------- Container na parte de cima da pagina ---------------------->!
     <div class="container">
-
-
       <h2 class="logo">
-  <a href="../Pages/home.html">
-    <img src="../../Public/Image/logo animada.gif" alt="Logo do Site">
-  </a>
-</h2>
+        <img src="../../Public/Image/logo animada.gif" alt="Logo do Site">
 
-
-
-
+      </h2>
       <div class="search-bar">
         <i class="uil uil-search"></i>
         <input type="search" id="search-input" placeholder="Procure usuários, inspirações e doações"
@@ -52,14 +45,14 @@
       <!------------------ NOTIFICAÇÕES E SOLICITAÇÕES DE AMIZADE ------------------>
 
       <!-- Botão de Notificação -->
-      <div class="dropdown">
+      <div class="dropdown" id="notify">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationButton"
-          data-bs-toggle="dropdown" aria-expanded="false">
+          data-bs-toggle="dropdown" aria-expanded="false" >
           <i class="fa-solid fa-bell"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="notificationButton">
-          <li><a class="dropdown-item" href="#" onclick="openModal('notificacoesModal')">Notificações</a></li>
-          <li><a class="dropdown-item" href="#" onclick="openModal('amizadeModal')">Solicitação de amizade</a></li>
+          <li onclick="checkNotifies()"><a class="dropdown-item" href="#" onclick="openModal('notificacoesModal')" id="notifyContent">Notificações</a></li>
+          <li><a class="dropdown-item" href="#" onclick="openModal('amizadeModal')" id="friendInviter"></a></li>
         </ul>
       </div>
 
@@ -75,20 +68,11 @@
             </div>
 
             <!-- Corpo do Modal -->
-            <div class="modal-body">
+            <div class="modal-body" id="bodyNotifies">
 
 
               <!-- Notificação adicional -->
-              <div class="notification">
-                <div class="notification-icon">
-                  <i class="fas fa-comment"></i>
-                </div>
-                <div class="notification-content">
-                  <p><strong>Comentário em sua postagem</strong></p>
-                  <p>Ana comentou: "Que fofura!" em sua foto. <a href="#">Ver comentário</a></p>
-
-                </div>
-              </div>
+            
             </div>
 
           </div>
@@ -103,39 +87,10 @@
               <h5 class="modal-title" id="amizadeModalLabel">Solicitação de Amizade</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="inviteBody">
               <!-- Exemplo de Solicitação de Amizade -->
-              <div class="solicitacao-amizade">
-                <div class="d-flex align-items-center">
-                  <!-- Foto de Perfil -->
-                  <img src="../../Public/Image/renato.png" alt="Foto de Perfil" class="rounded-circle me-3">
-                  <!-- Nome do Usuário -->
-                  <div>
-                    <p class="mb-0"><strong>João Pé de feijão</strong></p>
-                    <small>Enviou uma Solicitação</small>
-                  </div>
-                </div>
-                <!-- Botões de Ação -->
-                <div class="mt-3 d-flex justify-content-around">
-                  <button class="btn btn-primary btn-sm">Aceitar</button>
-                  <button class="btn btn-secondary btn-sm">Recusar</button>
-                </div>
-              </div>
+              
               <hr>
-              <!-- Adicione mais solicitações como desejar -->
-              <div class="solicitacao-amizade">
-                <div class="d-flex align-items-center">
-                  <img src="../../Public/Image/Ana.png" alt="Foto de Perfil" class="rounded-circle me-3">
-                  <div>
-                    <p class="mb-0"><strong>Ana Catarina</strong></p>
-                    <small>Enviou uma Solicitação</small>
-                  </div>
-                </div>
-                <div class="mt-3 d-flex justify-content-around">
-                  <button class="btn btn-primary btn-sm">Aceitar</button>
-                  <button class="btn btn-secondary btn-sm">Recusar</button>
-                </div>
-              </div>
             </div>
 
           </div>
@@ -158,6 +113,10 @@
           });
         }
       </script>
+
+
+      <!-------------------------------------------- FIM  ------------------------------------------>
+
 
 
       <!-------------------------------------------- FIM  ------------------------------------------>
@@ -191,10 +150,10 @@
 
       <div class="coluna__esquerda">
         <div class="img__container">
-          <img src="../../Public/Image/user (1).png" alt="Thiago" />
+          <img id="foto-user" />
           <span></span>
         </div>
-        <h2>Thiago Antonio</h2>
+        <h2 id="nome-usuario"></h2>
       </div>
 
 
@@ -219,11 +178,12 @@
         <!-- Seção "Meus pets" -->
         <div class="conteudo" id="meus-pets" style="display: none;">
           <h3>Meus pets</h3>
+          
           <button class="btn-cadastrar" onclick="toggleModal()">Cadastrar Animais</button>
           <div class="fotos1">
             <div class="publicacao">
 
-              <img src="../../Public/Image/cachorro.png" alt="Foto Pet 1" class="imagem-pet" />
+              <div id="lista-pets"></div>
 
 
 
@@ -252,6 +212,8 @@
         <!-- Seção "Postagens" -->
         <div class="conteudo" id="postagens" style="display: none;">
           <h3>Suas postagens</h3>
+
+          <div id="lista-postagens"></div>
         
         </div>
       </div>

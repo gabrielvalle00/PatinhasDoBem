@@ -675,10 +675,13 @@ async function getMostRecentPosts() {
   })
     .then(function (response) {
       return response.json();
+      
     })
     .then(async function (myBlob) {
 
       if (myBlob.success) {
+        console.log(myBlob);
+        
         document.getElementById("mural-content").innerHTML = `
                 <!-- Botão para abrir o modal -->
         <button id="open-modal" class="btn btn-primary" onclick="openPublishModal()">Criar
@@ -695,10 +698,12 @@ async function getMostRecentPosts() {
         </div>
         `
         myBlob.posts.forEach(e => {
+          
 
           if (e === true) { return }
 
           const dataObj = new Date(e.dataPublicacao)
+          
           const dataAmigavel = dataObj.toLocaleString('pt-BR');
 
 
@@ -728,7 +733,7 @@ async function getMostRecentPosts() {
 
             <div class="post-content">
               <p class="post-text">${e.Descricao}</p>
-              <img class="post-image" src="${e.PostPicture}" alt="">
+              <img class="post-image" src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${e.ID}.jpg?alt=media" alt="">
             </div>
 
             <div class="post-actions" id="interactContent-${e.ID}">
@@ -895,6 +900,7 @@ async function finalSession() {
     alert("você deslogou com sucesso")
   })
 }
+
 
 
 
