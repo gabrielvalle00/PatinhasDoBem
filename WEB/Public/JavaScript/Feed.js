@@ -93,11 +93,14 @@ function getMyData() {
     }
   })
     .then(function (response) {
+      
       return response.json();
     })
     .then(function (myBlob) {
 
       if (myBlob.success) {
+        console.log(myBlob);
+        
         Cookies.remove('usuarioLogado')
         Cookies.remove('imagemUsuario')
         Cookies.remove("usuarioID")
@@ -109,7 +112,7 @@ function getMyData() {
 
         Cookies.set("imagemUsuario", myBlob.meusDados.UserPicture)
 
-        document.getElementById("userImage").src = `${myBlob.meusDados.UserPicture}`
+        document.getElementById("userImage").src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${myBlob.meusDados.ID}.jpg?alt=media`
         document.getElementById("userNameContent").innerHTML = `<a href="/PerfilUser" style ="list-style:none">${myBlob.meusDados.Nome}</a>`
       } else {
         window.location("/LoginPage")
