@@ -192,8 +192,8 @@ nav {
 }
 
 .profile-dropdown-pic {
-    width: 40px; /* Tamanho da imagem do perfil */
-    height: 40px; /* Tamanho da imagem do perfil */
+    width: 45px; /* Tamanho da imagem do perfil */
+    height: 45px; /* Tamanho da imagem do perfil */
     border-radius: 50%; /* Tornar imagem redonda */
     cursor: pointer; /* Muda o cursor ao passar por cima */
     margin-left: 0px;
