@@ -80,6 +80,12 @@ inputs.forEach(input => {
 // });
 
 
+function toggleMenu(event) {
+  const menu = event.target.nextElementSibling;
+  menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+
 
 //CONSUMO DE APIS 
 
@@ -726,7 +732,7 @@ async function getMostRecentPosts() {
                 <div class="three-dots">
                   <button class="dots-button" onclick="toggleMenu(event)">&#8230;</button>
                   <div class="menu" style="display: none;">
-                    <button class="report-button" onclick="reportPost()">Denunciar Postagem</button>
+                    <button class="report-button" onclick="reportPost(${e.ID})">Denunciar Postagem</button>
                   </div>
                 </div>
               </div>
@@ -753,7 +759,7 @@ async function getMostRecentPosts() {
             document.getElementById(`interactContent-${e.ID}`).innerHTML += `
               <div>
                 <div class = "userCommentContent" style="display:flex; align-items:center; gap:5px">
-                  <img style ="border-radius:50%;width:30px;height:30px" src = "https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${y.IDUsuario}?alt=media"
+                  <img style ="border-radius:50%;width:40px;height:40px" src = "https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${y.IDUsuario}?alt=media"
                   <div> <a href="perfilUser(${y.IDUsuario})" style="text-decoration:none; font-size:13px">${y.Nome}</a></div> 
                 </div>
                <p style=" display:flex;flex-direction:column"><p style="font-size:14px;color:#808080;">${y.Texto}</<p><p style="font-size:10px">${data.toLocaleString('pt-BR')}</<p></p> 
@@ -818,6 +824,29 @@ async function createNewPost() {
       }
     })
 }
+
+
+async function reportPost(postID) {
+  await fetch(`/DenunciarPostagem`, {
+    method: 'POST',
+    body: JSON.stringify({ 
+      "Causa": "nao me interessou",
+      "IDPostagem": postID
+     }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(async function (myBlob) {
+      if(myBlob.success) {
+        alert("você denunciou esta postagem e a mesma não tornará a aparecer em seu feed")
+      }
+    })
+}
+
 
 
 
