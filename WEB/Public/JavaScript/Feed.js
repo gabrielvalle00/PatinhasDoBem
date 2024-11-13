@@ -732,7 +732,7 @@ async function getMostRecentPosts() {
                 <div class="three-dots">
                   <button class="dots-button" onclick="toggleMenu(event)">&#8230;</button>
                   <div class="menu" style="display: none;">
-                    <button class="report-button" onclick="reportPost()">Denunciar Postagem</button>
+                    <button class="report-button" onclick="reportPost(${e.ID})">Denunciar Postagem</button>
                   </div>
                 </div>
               </div>
@@ -824,6 +824,29 @@ async function createNewPost() {
       }
     })
 }
+
+
+async function reportPost(postID) {
+  await fetch(`/DenunciarPostagem`, {
+    method: 'POST',
+    body: JSON.stringify({ 
+      "Causa": "nao me interessou",
+      "IDPostagem": postID
+     }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(async function (myBlob) {
+      if(myBlob.success) {
+        alert("você denunciou esta postagem e a mesma não tornará a aparecer em seu feed")
+      }
+    })
+}
+
 
 
 
