@@ -71,7 +71,7 @@ const UserProfileScreen = ({ route, navigation }) => {
             <View style={styles.profileImageContainer}>
               <Image
                 source={{
-                  uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${postagens.IDUsuario}.jpg?alt=media`,
+                  uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${postagens.IDUsuario}?alt=media`,
                 }}
                 style={styles.profileImage}
               />

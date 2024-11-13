@@ -135,7 +135,7 @@ const TelaDePerfil = ({ route, navigation }) => {
             <View style={styles.profileImageContainer}>
               <Image
                 source={{
-                  uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${profileData.meusDados.ID}.jpg?alt=media`,
+                  uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${profileData.meusDados.ID}?alt=media`,
                 }}
                 style={styles.profileImage}
               />

@@ -141,7 +141,7 @@ const TelaMeusInteresses = ({ navigation }) => {
                       >
                         <Image
                           source={{
-                            uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${pet.IDDoador}.jpg?alt=media`,
+                            uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${pet.IDDoador}?alt=media`,
                           }}
                           style={styles.doadorImage}
                         />
@@ -149,7 +149,7 @@ const TelaMeusInteresses = ({ navigation }) => {
 
                       <Image
                         source={{
-                          uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${pet.ID}.jpg?alt=media`,
+                          uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${pet.ID}?alt=media`,
                         }}
                         style={styles.petImage}
                       />

@@ -170,7 +170,7 @@ class TelaRegistro extends Component {
           const responseImage = await fetch(manipResult.uri);
           const blob = await responseImage.blob();
 
-          const imageRef = ref(storage, `perfil/${IDUsuario}.jpg`);
+          const imageRef = ref(storage, `perfil/${IDUsuario}`);
           return uploadBytes(imageRef, blob);
         })
         .then(() => {
