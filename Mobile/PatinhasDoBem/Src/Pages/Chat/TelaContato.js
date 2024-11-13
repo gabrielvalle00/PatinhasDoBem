@@ -63,7 +63,7 @@ export default function TelaContatos() {
       {/* Imagem do contato */}
       <Image
         source={{
-          uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${item.IDUsuario}.jpg?alt=media`,
+          uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${item.IDUsuario}?alt=media`,
         }}
         style={styles.contactImage}
       />

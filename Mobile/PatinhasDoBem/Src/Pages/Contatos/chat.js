@@ -106,7 +106,7 @@ export default function TelaMensagens() {
           >
             <Image
               source={{
-                uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${contatoID}.jpg?alt=media`,
+                uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${contatoID}?alt=media`,
               }}
               style={styles.avatar}
             />

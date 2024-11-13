@@ -56,6 +56,9 @@ function buscarPerfilUsuario() {
 
     // Exibir dados do usuário
     document.getElementById("nome-usuario").textContent = dados.Nome;
+    document.getElementById("usuario-email").textContent = dados.Email;
+    document.getElementById("usuario-estado").textContent = dados.Estado;
+    document.getElementById("usuario-cidade").textContent = dados.Cidade;
 
     exibirImagemUsuario(dados);
 
@@ -113,7 +116,7 @@ function exibirPostagens(postagensUsuario) {
     postagemElemento.classList.add("postagem-card");
 
     postagemElemento.innerHTML = `
-      <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${postagem.ID}.jpg?alt=media" alt="Postagem">
+      <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/postagem%2F${postagem.ID}?alt=media" alt="Postagem">
       <div class="descricao">
         <p><strong>Descrição:</strong> ${postagem.Descricao}</p>
         <p><strong>Data:</strong> ${new Date(postagem.dataPublicacao).toLocaleString()}</p>
@@ -130,7 +133,7 @@ function exibirImagemUsuario(dados) {
   const fotoUser = document.getElementById("foto-user");
 
   // Define o atributo 'src' com a URL da imagem usando o 'ID' do usuário
-  fotoUser.src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${dados.ID}.jpg?alt=media`;
+  fotoUser.src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${dados.ID}?alt=media`;
 }
 
 

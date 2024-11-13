@@ -118,7 +118,7 @@ const TelaNotificacoes = () => {
         {/* Exibindo a foto do solicitante */}
         <Image
           source={{
-            uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${item.IDSolicitante}.jpg?alt=media`, 
+            uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${item.IDSolicitante}?alt=media`, 
           }}
           style={styles.fotoUsuario}
         />
