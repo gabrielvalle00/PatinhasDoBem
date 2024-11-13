@@ -1,4 +1,5 @@
 
+
 document.addEventListener('click', function (event) {
   if (event.target && event.target.classList.contains('comment-button')) {
     const commentSection = event.target.closest('.feed-post').querySelector('.comment-section');
@@ -93,14 +94,11 @@ function getMyData() {
     }
   })
     .then(function (response) {
-      
       return response.json();
     })
     .then(function (myBlob) {
 
       if (myBlob.success) {
-        console.log(myBlob);
-        
         Cookies.remove('usuarioLogado')
         Cookies.remove('imagemUsuario')
         Cookies.remove("usuarioID")
@@ -112,7 +110,7 @@ function getMyData() {
 
         Cookies.set("imagemUsuario", myBlob.meusDados.UserPicture)
 
-        document.getElementById("userImage").src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${myBlob.meusDados.ID}.jpg?alt=media`
+        document.getElementById("userImage").src = `${myBlob.meusDados.UserPicture}`
         document.getElementById("userNameContent").innerHTML = `<a href="/PerfilUser" style ="list-style:none">${myBlob.meusDados.Nome}</a>`
       } else {
         window.location("/LoginPage")
@@ -678,13 +676,10 @@ async function getMostRecentPosts() {
   })
     .then(function (response) {
       return response.json();
-      
     })
     .then(async function (myBlob) {
 
       if (myBlob.success) {
-        console.log(myBlob);
-        
         document.getElementById("mural-content").innerHTML = `
                 <!-- Botão para abrir o modal -->
         <button id="open-modal" class="btn btn-primary" onclick="openPublishModal()">Criar
@@ -696,17 +691,19 @@ async function getMostRecentPosts() {
             <h2>Criar Publicação</h2>
             <textarea id="post-content" placeholder="Conteúdo da Postagem" required></textarea>
             <input type="file" id="post-image" accept="image/*"> <!-- Campo para imagem -->
+             <label for="post-image" class="upload-icon">
+                            <img src="../../Public/Image/simbolo-de-interface-de-camera-fotografica-para-botao.png"
+                                alt="Upload" class="icon">
+                        </label>
             <button onclick="createNewPost()">Publicar</button>
           </div>
         </div>
         `
         myBlob.posts.forEach(e => {
-          
 
           if (e === true) { return }
 
           const dataObj = new Date(e.dataPublicacao)
-          
           const dataAmigavel = dataObj.toLocaleString('pt-BR');
 
 
@@ -736,7 +733,7 @@ async function getMostRecentPosts() {
 
             <div class="post-content">
               <p class="post-text">${e.Descricao}</p>
-              <img class="post-image" src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${e.ID}.jpg?alt=media" alt="">
+              <img class="post-image" src="${e.PostPicture}" alt="">
             </div>
 
             <div class="post-actions" id="interactContent-${e.ID}">
@@ -783,7 +780,11 @@ async function getMostRecentPosts() {
                 <input type="text" id="post-title" placeholder="Título da Postagem" required>
                   <textarea id="post-content" placeholder="Conteúdo da Postagem" required></textarea>
                   <input type="file" id="post-image" accept="image/*"> <!-- Campo para imagem -->
-                    <button onclick="publishPost()">Publicar</button>
+                     <label for="post-image" class="upload-icon">
+                            <img src="../../Public/Image/simbolo-de-interface-de-camera-fotografica-para-botao.png"
+                                alt="Upload" class="icon">
+                        </label>
+                  <button onclick="publishPost()">Publicar</button>
                   </div>
               </div>
               `
@@ -795,8 +796,8 @@ async function getMostRecentPosts() {
 async function createNewPost() {
   await fetch(`/CriarPostagem`, {
     method: 'POST',
-    body: JSON.stringify({ "IDPostagem": postID,
-      "Texto": document.getElementById(`inputComment-${postID}`).value
+    body: JSON.stringify({ 
+      "Descricao": document.getElementById(`post-content`).value
      }),
     headers: {
       'Content-Type': 'application/json'
@@ -808,7 +809,15 @@ async function createNewPost() {
     .then(async function (myBlob) {
       console.log("retorno",myBlob)
       if (myBlob.success) {
-        
+        const file = document.getElementById("post-image").files[0];
+        if (file) {
+          const storageRef = storage.ref().child(`postagem/${myBlob.idPostagem}`);
+          return storageRef.put(file)
+            .then((snapshot) => {
+              console.log("Upload concluído com sucesso!", snapshot);
+              alert("Cadastro realizado com sucesso e imagem enviada!");
+            })
+          }
       }
     })
 }
@@ -903,7 +912,6 @@ async function finalSession() {
     alert("você deslogou com sucesso")
   })
 }
-
 
 
 
