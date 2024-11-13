@@ -71,7 +71,7 @@ class Postagem {
         e.comentariosDoPost = verifyComments[0]
         e.quantidadeDeLike = verifyLikeQuantity[0].length //define a quantidade de like
         e.UserPicture = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDUsuario}.jpg?alt=media`  //url da qual hipoteticamente deveria estar a foto de perfil do usuário
-        e.PostPicture = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/postagem%2F${e.ID}.jpg?alt=media`  //url de onde deveria estar a foto que o usuário utilizou no post/postagem.
+        e.PostPicture = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/postagem%2F${e.ID}?alt=media`  //url de onde deveria estar a foto que o usuário utilizou no post/postagem.
         return e
       })
        getingPosts[0] = await Promise.all(getReturnPosts) // faz com que a função aguarde terminar todo o preenchimento/ tratamento de dados do getingPosts sendo feito dentro do for each
