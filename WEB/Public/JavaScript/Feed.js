@@ -112,7 +112,7 @@ function getMyData() {
 
         Cookies.set("imagemUsuario", myBlob.meusDados.UserPicture)
 
-        document.getElementById("userImage").src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${myBlob.meusDados.ID}.jpg?alt=media`
+        document.getElementById("userImage").src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${myBlob.meusDados.ID}?alt=media`
         document.getElementById("userNameContent").innerHTML = `<a href="/PerfilUser" style ="list-style:none">${myBlob.meusDados.Nome}</a>`
       } else {
         window.location("/LoginPage")
@@ -392,7 +392,7 @@ async function getingMyContacts() {
           myBlob.contatosDeInteresses.forEach(e => {
             document.getElementById('interestedContent').innerHTML += `
            <li id="${e.contatoID}" class="${e.Nome}" onclick="abrirChat(this)" style = "display:flex; align-items:center; gap:5px; cursor:pointer">
-              <div class="img1"><img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDUsuario}.jpg?alt=media" alt=""></div>
+              <div class="img1"><img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDUsuario}?alt=media" alt=""></div>
              ${e.Nome}
             </li>`
           })
@@ -402,7 +402,7 @@ async function getingMyContacts() {
           myBlob.contatosSemInteresses.forEach(e => {
             document.getElementById('listContent').innerHTML += `
           <li id="${e.contatoID}" class="${e.Nome}" onclick="abrirChat(this)" style = "display:flex; align-items:center; gap:5px; cursor:pointer">
-             <img class="img1" src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDUsuario}.jpg?alt=media" alt="">
+             <img class="img1" src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDUsuario}?alt=media" alt="">
             ${e.Nome}
            </li>`
           })
@@ -439,7 +439,7 @@ async function getMyInterests() {
                   </div>
       
                   <div class="formulario-do-pet">
-                    <p class="descrição" onclick="perfilUser(${e.IDDoador})"><strong>Dono do pet:</strong> <img src ="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDDoador}.jpg?alt=media" style="border-radius:50%; width:30px;heigth:30px" alt="">"</img>  <a href ="/UserPerfil"> ${e.NomeDoDono} </a></p>
+                    <p class="descrição" onclick="perfilUser(${e.IDDoador})"><strong>Dono do pet:</strong> <img src ="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDDoador}?alt=media" style="border-radius:50%; width:30px;heigth:30px" alt="">"</img>  <a href ="/UserPerfil"> ${e.NomeDoDono} </a></p>
                     <p class="descrição"><strong>Tipo de Animal:</strong> ${e.TipoAnimal}</p>
                     <p class="descrição"><strong>Linhagem:</strong> ${e.Linhagem}</p>
                     <p class="descrição"><strong>Idade:</strong>  ${e.Idade}</p>
@@ -451,7 +451,7 @@ async function getMyInterests() {
                  '<button class="btn-interesse" style = "background-color:red" id="${e.ID}" onclick = "removeInterest(this)">Remover Interesse no pet</button>'
                 </div>
                 <div class="animal-post">
-                  <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${e.ID}.jpg?alt=media" alt="Imagem do animal" class="animal-photo">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${e.ID}?alt=media" alt="Imagem do animal" class="animal-photo">
                 </div>
               </div>
             `
@@ -599,7 +599,7 @@ async function myFriendInvites() {
           document.getElementById("inviteBody").innerHTML += `
                 <div class="d-flex align-items-center">
                   <!-- Foto de Perfil -->
-                  <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDSolicitante}.jpg?alt=media}" alt="Foto de Perfil" class="rounded-circle me-3">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDSolicitante}?alt=media}" alt="Foto de Perfil" class="rounded-circle me-3">
                   <!-- Nome do Usuário -->
                   <div>
                     <p class="mb-0"><strong>${e.Nome}</strong></p>
@@ -753,7 +753,7 @@ async function getMostRecentPosts() {
             document.getElementById(`interactContent-${e.ID}`).innerHTML += `
               <div>
                 <div class = "userCommentContent" style="display:flex; align-items:center; gap:5px">
-                  <img style ="border-radius:50%;width:30px;height:30px" src = "https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${y.IDUsuario}.jpg?alt=media"
+                  <img style ="border-radius:50%;width:30px;height:30px" src = "https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${y.IDUsuario}?alt=media"
                   <div> <a href="perfilUser(${y.IDUsuario})" style="text-decoration:none; font-size:13px">${y.Nome}</a></div> 
                 </div>
                <p style=" display:flex;flex-direction:column"><p style="font-size:14px;color:#808080;">${y.Texto}</<p><p style="font-size:10px">${data.toLocaleString('pt-BR')}</<p></p> 
