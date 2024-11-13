@@ -586,7 +586,6 @@ async function myFriendInvites() {
       return response.json();
     })
     .then(function (myBlob) {
-      console.log(myBlob)
       if (myBlob.success) {
         countNewNotifies = countNewNotifies + myBlob.invites.length;
 
@@ -683,7 +682,6 @@ async function getMostRecentPosts() {
     .then(async function (myBlob) {
 
       if (myBlob.success) {
-        console.log(myBlob);
         
         document.getElementById("mural-content").innerHTML = `
                 <!-- Botão para abrir o modal -->
@@ -736,7 +734,7 @@ async function getMostRecentPosts() {
 
             <div class="post-content">
               <p class="post-text">${e.Descricao}</p>
-              <img class="post-image" src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${e.ID}.jpg?alt=media" alt="">
+              <img class="post-image" src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/postagem%2F${e.ID}?alt=media" alt="">
             </div>
 
             <div class="post-actions" id="interactContent-${e.ID}">
@@ -795,8 +793,8 @@ async function getMostRecentPosts() {
 async function createNewPost() {
   await fetch(`/CriarPostagem`, {
     method: 'POST',
-    body: JSON.stringify({ "IDPostagem": postID,
-      "Texto": document.getElementById(`inputComment-${postID}`).value
+    body: JSON.stringify({ 
+      "Descricao": document.getElementById(`post-content`).value
      }),
     headers: {
       'Content-Type': 'application/json'
@@ -808,7 +806,15 @@ async function createNewPost() {
     .then(async function (myBlob) {
       console.log("retorno",myBlob)
       if (myBlob.success) {
-        
+        const file = document.getElementById("post-image").files[0];
+        if (file) {
+          const storageRef = storage.ref().child(`postagem/${myBlob.idPostagem}`);
+          return storageRef.put(file)
+            .then((snapshot) => {
+              console.log("Upload concluído com sucesso!", snapshot);
+              alert("Cadastro realizado com sucesso e imagem enviada!");
+            })
+          }
       }
     })
 }
@@ -816,8 +822,6 @@ async function createNewPost() {
 
 
 async function sendComment (postID) {
-  console.log("chegou")
-  console.log(document.getElementById(`inputComment-${postID}`).textContent)
   await fetch(`/comentarPost`, {
     method: 'POST',
     body: JSON.stringify({ "IDPostagem": postID,
