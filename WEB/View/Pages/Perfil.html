@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <title>Patinhas do Bem</title>
 
 
@@ -14,6 +15,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
 
   <!-- CSS -->
   <link rel="stylesheet" href="../../Public/CSS/Perfil.css" />
@@ -42,16 +45,18 @@
 
 
 
+
       <!------------------ NOTIFICAÇÕES E SOLICITAÇÕES DE AMIZADE ------------------>
 
       <!-- Botão de Notificação -->
       <div class="dropdown" id="notify">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationButton"
-          data-bs-toggle="dropdown" aria-expanded="false" >
+          data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa-solid fa-bell"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="notificationButton">
-          <li onclick="checkNotifies()"><a class="dropdown-item" href="#" onclick="openModal('notificacoesModal')" id="notifyContent">Notificações</a></li>
+          <li onclick="checkNotifies()"><a class="dropdown-item" href="#" onclick="openModal('notificacoesModal')"
+              id="notifyContent">Notificações</a></li>
           <li><a class="dropdown-item" href="#" onclick="openModal('amizadeModal')" id="friendInviter"></a></li>
         </ul>
       </div>
@@ -72,7 +77,7 @@
 
 
               <!-- Notificação adicional -->
-            
+
             </div>
 
           </div>
@@ -89,7 +94,7 @@
             </div>
             <div class="modal-body" id="inviteBody">
               <!-- Exemplo de Solicitação de Amizade -->
-              
+
               <hr>
             </div>
 
@@ -153,10 +158,30 @@
           <img id="foto-user" />
           <span></span>
         </div>
-        <h2 id="nome-usuario"></h2>
-        <h3 id="usuario-email"></h3>
-        <h3 id="usuario-estado"></h3>
-        <h3 id="usuario-cidade"></h3>
+
+
+
+        <div class="perfil-usuario">
+          <h1 class="nome-usuario" id="nome-usuario">#</h1>
+          
+          <p class="email">
+            <i class="fa-regular fa-envelope"></i>
+            <span id="usuario-email">#</span>
+          </p><BR>
+        
+          <p class="estado">
+            <i class="fa-solid fa-map-marker-alt"></i>
+            <span id="usuario-estado">#</span>
+          </p><BR>
+        
+          <p class="cidade">
+            <i class="fa-solid fa-city"></i>
+            <span id="usuario-cidade">#</span>
+          </p>
+        </div>
+        
+
+
       </div>
 
 
@@ -172,54 +197,47 @@
       <div class="coluna__direita">
         <nav>
           <ul>
-            <li><a href="#" id="meus-pets-link" class="nav-link" onclick="showSection('meus-pets')">Meus pets</a></li>
-            <li><a href="#" id="postagens-link" class="nav-link" onclick="showSection('postagens')">Postagens</a></li>
+            <li><a href="#" id="meus-pets-link" class="nav-link">Meus pets</a></li>
+            <li><a href="#" id="postagens-link" class="nav-link">Postagens</a></li>
           </ul>
           <div id="indicator"></div>
         </nav>
-
+      
         <!-- Seção "Meus pets" -->
-        <div class="conteudo" id="meus-pets" style="display: none;">
+        <div class="conteudo" id="meus-pets">
           <h3>Meus pets</h3>
-          
-          <button class="btn-cadastrar" onclick="toggleModal()">Cadastrar Animais</button>
+      
+          <button class="btn-cadastrar">Cadastrar Animais</button>
           <div class="fotos1">
             <div class="publicacao">
-
               <div id="lista-pets"></div>
-
-
-
+      
               <div class="botoes">
-                <!-- Botão para abrir o modal -->
-                <button class="btn-editar" onclick="abrirModal()">Editar</button>
-
+                <button class="btn-editar">Editar</button>
+      
                 <!-- Estrutura do modal -->
                 <div id="modal-editar" class="modal">
                   <div class="modal-content">
-                    <span class="close" onclick="fecharModal()">&times;</span>
+                    <span class="close">&times;</span>
                     <h2>Editar Item</h2><br>
                     <input type="text" id="input-editar" placeholder="O que você deseja editar?"><br>
-                    <button onclick="salvarEdicao()">Salvar</button>
+                    <button>Salvar</button>
                   </div>
                 </div>
-
-                <button class="btn-excluir" onclick="excluirItem()">Excluir</button>
+      
+                <button class="btn-excluir">Excluir</button>
               </div>
-
             </div>
-
           </div>
         </div>
-
+      
         <!-- Seção "Postagens" -->
-        <div class="conteudo" id="postagens" style="display: none;">
+        <div class="conteudo" id="postagens">
           <h3>Suas postagens</h3>
-
           <div id="lista-postagens"></div>
-        
         </div>
       </div>
+      
     </div>
 
     <!-- Modal para Cadastro de Animais -->
@@ -305,11 +323,19 @@
       modal.style.display = modal.style.display === "none" || modal.style.display === "" ? "flex" : "none";
     }
 
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('.conteudo');
-      sections.forEach(section => section.style.display = 'none');
-      document.getElementById(sectionId).style.display = 'block';
-    }
+   
+  function showSection(sectionId) {
+    const sections = document.querySelectorAll('.conteudo');
+    sections.forEach(section => section.style.display = 'none');
+    document.getElementById(sectionId).style.display = 'block';
+  }
+
+  // Função para ser executada quando a página carregar
+  window.onload = function() {
+    showSection('meus-pets'); // Mostra a seção dos pets cadastrados ao carregar a página
+  };
+
+
 
     // Fecha o modal ao clicar fora dele
     window.onclick = function (event) {
