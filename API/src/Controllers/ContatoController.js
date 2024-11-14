@@ -1,4 +1,4 @@
-const Contato = require("../Models/Class/contato");
+const Contato = require("../Models/Class/Contato");
 const Interesse = require("../Models/Class/Interesse");
 
 
