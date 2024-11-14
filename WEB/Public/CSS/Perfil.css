@@ -31,7 +31,7 @@ body {
 /* Estilos para o rodapé */
 footer {
   display: block; /* Exibe o rodapé como um bloco */
-  background: #11212D; /* Define a cor de fundo */
+  background-color: #11212D;
   color: #fff; /* Define a cor do texto */
   text-align: center; /* Alinha o texto ao centro */
   font-size: 14px; /* Tamanho da fonte */

@@ -89,13 +89,8 @@ header ul li a{
     position: relative;
 }
 
-.rodape { /* rodapé */
-position: absolute;
-color: white; /*cor do conteúdo interno, como o texto*/
-background-color: #124872; /* cor de fundo do rodapé*/
-width: 100%; /*largura de 100%*/
-text-align: center; /*alinhamento de texto*/
-}
+
+
 .imgBox img{
     max-width: 950px;
     width: 1000px;
@@ -241,3 +236,24 @@ h1 {
 max-width: 100px;
 border-radius: 20%;
 }
+
+
+
+
+footer {
+    position: relative;
+        margin-top: -10px;
+        display: block;
+        background-color: #11212D;
+        color: #fff;
+        text-align: center;
+        font-size: 14px;
+        width: 100%;
+        bottom: 0; /* Garante que o footer esteja no fundo da página */
+        left: 0; /* Garante que o footer esteja alinhado à esquerda */
+        padding: 12px 0;
+        font-family: "Armata", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        z-index: 1000; /* Garante que o footer fique sobre outros elementos */
+    }
