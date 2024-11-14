@@ -1,4 +1,4 @@
-const Pet = require("../Models/Class/Pet.js")
+const Pet = require("../Models/Class/Pet")
 
 const petManagement = {
   cadastraPet: async (req, res) => {
