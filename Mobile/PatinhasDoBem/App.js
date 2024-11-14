@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"; // Usando react-navigation/bottom-tabs
 import { FontAwesome } from "react-native-vector-icons";
 import Toast from "react-native-toast-message";
+import { StatusBar } from 'react-native';
 
 import TelaLogin from "./Src/Pages/Login/TelaLogin";
 import TelaLoading from "./Src/Pages/Loading/TelaLoading";
@@ -35,6 +36,7 @@ const Tab = createBottomTabNavigator();
 // Configurando as Tabs (Home, Mensagem, Notificação, Perfil)
 function HomeTabs() {
   return (
+    
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size, focused }) => {
@@ -102,7 +104,9 @@ function HomeTabs() {
       <Tab.Screen name="Notificação" component={TelaDeNotificacao}
       options={{ headerShown: false }} 
        />
-      <Tab.Screen name="Perfil" component={TelaDePerfil} />
+      <Tab.Screen name="Perfil" component={TelaDePerfil}
+      options={{ headerShown: false }}
+       />
     </Tab.Navigator>
   );
 }
@@ -110,6 +114,7 @@ function HomeTabs() {
 export default function App() {
   return (
     <NavigationContainer>
+    
       <Stack.Navigator initialRouteName="TelaApresentacao">
         <Stack.Screen
           name="TelaApresentacao"

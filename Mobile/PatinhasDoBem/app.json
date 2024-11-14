@@ -1,5 +1,6 @@
 {
   "expo": {
+    "newArchEnabled": true,
     "name": "PatinhasDoBem",
     "slug": "PatinhasDoBem",
     "version": "1.0.0",
