@@ -12,6 +12,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
+
 import { Ionicons } from '@expo/vector-icons'; // Ícones do Ionicons
 import api from '../../Service/tokenService'; // Importa o Axios já configurado
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,7 +31,7 @@ class LoginScreen extends Component {
 
   async componentDidMount() {
     await this.loadFonts(); // Carrega as fontes
-   
+
   }
 
   // Função para carregar a fonte
@@ -70,12 +71,12 @@ class LoginScreen extends Component {
 
       if (response.data.token) {
         console.log("Login bem-sucedido, token recebido:", response.data.token);
-        
+
         // Armazena o token no AsyncStorage para persistência do login
-         await AsyncStorage.setItem('token',response.data.token);
-         console.log( await AsyncStorage.getItem('token'));
-  
-      
+        await AsyncStorage.setItem('token', response.data.token);
+        console.log(await AsyncStorage.getItem('token'));
+
+
         this.props.navigation.navigate('Home');
         Toast.show({
           text1: 'Sucesso',
@@ -94,16 +95,16 @@ class LoginScreen extends Component {
         });
         console.log('Login inválido');
       }
-      
+
     } catch (error) {
       console.log('Erro ao fazer login:', error),
-      Toast.show({
-        text1: 'Erro',
-        text2: 'Usuário invalido',
-        position: 'top',
-        type: 'warning',
-        visibilityTime: 3000, // Tempo em milissegundos para mostrar a notificação
-      });
+        Toast.show({
+          text1: 'Erro',
+          text2: 'Usuário invalido',
+          position: 'top',
+          type: 'warning',
+          visibilityTime: 3000, // Tempo em milissegundos para mostrar a notificação
+        });
       this.setState({ errorMessage: 'Erro ao conectar ao servidor. Tente novamente.' });
     }
   };
@@ -122,7 +123,19 @@ class LoginScreen extends Component {
               source={{
                 uri: 'https://img.freepik.com/fotos-gratis/colagem-de-animal-de-estimacao-bonito-isolada_23-2150007407.jpg?w=740&t=st=1726268282~exp=1726268882~hmac=a7b97e6ec229c718b75f0a9c6b6f2c0b6f948559714034c5cf6312780321d2b6',
               }}
-              style={{ marginTop: -100, width: 460, height: 350 }}
+              style={{
+                marginTop: -100,
+                width: 460,
+                height: 350,
+                borderBottomLeftRadius: 110,  // Arredonda o canto inferior esquerdo
+                borderBottomRightRadius: 20,  // Arredonda o canto inferior direito
+                overflow: 'hidden',           // Garante que o arredondamento seja aplicado corretamente
+                shadowColor: '#000',          // Cor da sombra
+                shadowOffset: { width: 0, height: 4 },  // Posição da sombra
+                shadowOpacity: 0.3,           // Opacidade da sombra
+                shadowRadius: 10,             // Suavidade da sombra
+                elevation: 10,                // Sombra para Android
+              }}
             />
             {this.state.fontLoaded && ( // Verifica se a fonte está carregada
               <Text style={styles.greeting}>{`Bem-vindo ao\nPatinhas do Bem`}</Text>
@@ -141,7 +154,7 @@ class LoginScreen extends Component {
               <View style={styles.form}>
                 <Text style={styles.inputTitle}>Endereço de E-mail</Text>
                 <View style={styles.inputContainer}>
-                  <Ionicons name="mail-outline" size={20} color="#134973" />
+                  <Ionicons name="mail-outline" size={20} color="orange" />
                   <TextInput
                     style={styles.input}
                     autoCapitalize="none"
@@ -155,7 +168,7 @@ class LoginScreen extends Component {
               <View style={styles.form}>
                 <Text style={styles.inputTitle}>Senha</Text>
                 <View style={styles.inputContainer}>
-                  <Ionicons name="lock-closed-outline" size={20} color="#134973" />
+                  <Ionicons name="lock-closed-outline" size={20} color="orange" />
                   <TextInput
                     style={styles.input}
                     secureTextEntry
@@ -176,9 +189,9 @@ class LoginScreen extends Component {
               style={{ alignSelf: "center", margin: 32 }}
               onPress={() => this.props.navigation.navigate("Register")}
             >
-              <Text style={{ color: "#414959", fontSize: 13 }}>
+              <Text style={{ color: "#11212D", fontSize: 13 }}>
                 Não tem conta?{" "}
-                <Text style={{ fontWeight: "500", color: "#134973" }}>
+                <Text style={{ fontWeight: "500", color: "orange" }}>
                   Cadastre-se
                 </Text>
               </Text>
@@ -200,9 +213,13 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "400",
     textAlign: "center",
-    color: "#FFF", // Ajuste a cor aqui: #FF8C00 (laranja) ou #134973 (azul escuro)
+    color: "orange", // Ajuste a cor aqui: #FF8C00 (laranja) ou #134973 (azul escuro)
     fontFamily: 'Kavoon', // Aplicando a fonte Kavoon
-    borderColor: '#134973', // Cor da borda do título (Azul escuro)
+    borderColor: 'black', // Cor da borda do título (Azul escuro)
+     // Configurações de sombra
+     textShadowColor: '#000',     // Cor da sombra
+     textShadowOffset: { width: 2, height: 2 },  // Posição da sombra
+     textShadowRadius: 3,         // Suavidade da sombra
   },
   errorMessage: {
     height: 72,
@@ -227,26 +244,28 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   inputTitle: {
-    color: "#8A8F9E",
+    color: "#11212D",
     textTransform: "uppercase",
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: "#134973", // Cor da borda do campo de input
-    borderBottomWidth: 1,
+    borderBottomColor: "orange", // Cor da borda do campo de input
+    borderBottomWidth: 2,
     height: 40,
   },
   input: {
     flex: 1,
     marginLeft: 10,
     fontSize: 15,
-    color: "#161F3D",
+    color: "orange",
   },
   button: {
     marginHorizontal: 30,
-    backgroundColor: "#134973", // Cor do botão
-    borderRadius: 4,
+    backgroundColor: "#11212D", // Cor do botão
+    borderRadius: 20,
+    borderWidth: 3,        // Define a espessura da borda
+    borderColor: 'orange', // Define a cor da borda
     height: 52,
     alignItems: "center",
     justifyContent: "center",

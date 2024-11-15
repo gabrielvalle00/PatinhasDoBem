@@ -91,8 +91,10 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   button: {
-    backgroundColor: '#134973',
+    backgroundColor: '#11212D',
     paddingVertical: 15,
+    borderWidth: 3,        // Define a espessura da borda
+    borderColor: 'orange', // Define a cor da borda
     paddingHorizontal: 40,
     borderRadius: 30,
   },

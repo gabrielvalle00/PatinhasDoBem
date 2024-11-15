@@ -97,12 +97,12 @@ const TelaDePets = ({ navigation }) => {
     
     {/* Botão com ícone de patinha para navegar para outra tela */}
     <TouchableOpacity style={styles.navigateButton} onPress={() => navigation.navigate('interesses')}>
-      <Icon name="paw" size={30} color="#3DAAD9" />
+      <Icon name="paw" size={30} color="orange" />
     </TouchableOpacity>
     
     {isLoading ? (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#3DAAD9" />
+        <ActivityIndicator size="large" color="orange" />
       </View>
     ) : (
       Petts && Petts.length > 0 ? (
