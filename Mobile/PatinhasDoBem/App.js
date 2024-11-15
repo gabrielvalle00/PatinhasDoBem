@@ -36,6 +36,10 @@ const Tab = createBottomTabNavigator();
 // Configurando as Tabs (Home, Mensagem, Notificação, Perfil)
 function HomeTabs() {
   return (
+    <>
+      {/* Define a StatusBar com fundo azul e conteúdo branco */}
+      <StatusBar backgroundColor="orange" barStyle="light-content" />
+      {/* Resto do aplicativo */}
     
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -53,7 +57,7 @@ function HomeTabs() {
           } else if (route.name === "Pets") {
             iconName = "paw";
             size = focused ? 50 : 40; // Maior quando focado
-            color = "#3DAAD9"; // Cor personalizada
+            color = "#11212D"; // Cor personalizada
             iconStyle = {
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 10 },
@@ -70,6 +74,7 @@ function HomeTabs() {
           }
 
           return (
+            
             <FontAwesome
               name={iconName}
               size={size}
@@ -81,7 +86,7 @@ function HomeTabs() {
           );
         },
         tabBarShowLabel: false, // Remove os nomes
-        tabBarActiveTintColor: "#3DAAD9",
+        tabBarActiveTintColor: "#11212D",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: { display: "flex" }, // Estilo da barra de navegação
       })}
@@ -108,11 +113,16 @@ function HomeTabs() {
       options={{ headerShown: false }}
        />
     </Tab.Navigator>
+    </>
   );
 }
 // Configuração do App com Stack Navigator
 export default function App() {
   return (
+    <>
+      {/* Define a StatusBar com fundo azul e conteúdo branco */}
+      <StatusBar backgroundColor="orange" barStyle="light-content" />
+      {/* Resto do aplicativo */}
     <NavigationContainer>
     
       <Stack.Navigator initialRouteName="TelaApresentacao">
@@ -201,5 +211,6 @@ export default function App() {
       </Stack.Navigator>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>
+    </>
   );
 }

@@ -10,6 +10,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
+
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -196,7 +197,7 @@ class TelaRegistro extends Component {
     <View style={styles.form}>
       <Text style={styles.inputTitle}>{title}</Text>
       <View style={styles.inputContainer}>
-        <Ionicons name={iconName} size={20} color="#134973" />
+        <Ionicons name={iconName} size={20} color="orange" />
         <TextInput
           style={styles.input}
           keyboardType={keyboardType}
@@ -226,7 +227,19 @@ class TelaRegistro extends Component {
           source={{
             uri: "https://img.freepik.com/fotos-gratis/colagem-de-animal-de-estimacao-bonito-isolada_23-2150007407.jpg?w=740&t=st=1726268282~exp=1726268882~hmac=a7b97e6ec229c718b75f0a9c6b6f2c0b6f948559714034c5cf6312780321d2b6",
           }}
-          style={{ marginTop: -100, width: 460, height: 350 }}
+          style={{
+            marginTop: -100,
+            width: 460,
+            height: 350,
+            borderBottomLeftRadius: 110,  // Arredonda o canto inferior esquerdo
+            borderBottomRightRadius: 20,  // Arredonda o canto inferior direito
+            overflow: 'hidden',           // Garante que o arredondamento seja aplicado corretamente
+            shadowColor: '#000',          // Cor da sombra
+            shadowOffset: { width: 0, height: 4 },  // Posição da sombra
+            shadowOpacity: 0.3,           // Opacidade da sombra
+            shadowRadius: 10,             // Suavidade da sombra
+            elevation: 10,                // Sombra para Android
+          }}
         />
         {this.state.fontLoaded && (
           <Text style={styles.greeting}>{"Bem-vindo ao\nPatinhas do Bem"}</Text>
@@ -239,7 +252,7 @@ class TelaRegistro extends Component {
               style={{ width: 100, height: 100, borderRadius: 50 }}
             />
           ) : (
-            <Ionicons name="add-outline" size={40} color="#fff" style={{ marginTop: 6 }} />
+            <Ionicons name="person-outline" size={40} color="orange" style={{ marginTop: 6 }} />
           )}
         </TouchableOpacity>
 
@@ -258,7 +271,7 @@ class TelaRegistro extends Component {
               style={styles.inputContainer}
               onPress={() => this.setState({ showDatePicker: true })}
             >
-              <Ionicons name="calendar-outline" size={20} color="#134973" />
+              <Ionicons name="calendar-outline" size={20} color="orange" />
               <Text style={[styles.input, { paddingTop: 7 }]}>
                 {dataNascimento.toLocaleDateString()}
               </Text>
@@ -290,9 +303,9 @@ class TelaRegistro extends Component {
             style={{ alignSelf: "center", margin: 32 }}
             onPress={() => this.props.navigation.navigate("Login")}
           >
-            <Text style={{ color: "#414959", fontSize: 13 }}>
+            <Text style={{ color: "#11212D", fontSize: 13 }}>
               Já tem conta?{" "}
-              <Text style={{ fontWeight: "500", color: "#134973" }}>
+              <Text style={{ fontWeight: "500", color: "orange" }}>
                 Faça login
               </Text>
             </Text>
@@ -315,37 +328,44 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "400",
     textAlign: "center",
-    color: "#FFF",
-    fontFamily: "Kavoon",
+    color: "orange", // Ajuste a cor aqui: #FF8C00 (laranja) ou #134973 (azul escuro)
+    fontFamily: 'Kavoon', // Aplicando a fonte Kavoon
+    borderColor: 'black', // Cor da borda do título (Azul escuro)
+     // Configurações de sombra
+     textShadowColor: '#000',     // Cor da sombra
+     textShadowOffset: { width: 2, height: 2 },  // Posição da sombra
+     textShadowRadius: 3,         // Suavidade da sombra
   },
   form: {
     marginBottom: 48,
     marginHorizontal: 30,
   },
   inputTitle: {
-    color: "#8A8F9E",
+    color: "#11212D",
     textTransform: "uppercase",
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomColor: "#134973",
-    borderBottomWidth: 1,
+    borderBottomColor: "orange",
+    borderBottomWidth: 2,
     paddingBottom: 5,
   },
   input: {
     height: 40,
     flex: 1,
-    color: "#134973",
+    color: "orange",
     paddingHorizontal: 10,
   },
   button: {
     marginHorizontal: 30,
-    backgroundColor: "#134973",
-    borderRadius: 5,
+    backgroundColor: "#11212D",
+    borderRadius: 20,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 3,        // Define a espessura da borda
+    borderColor: 'orange', // Define a cor da borda
   },
   avatar: {
     width: 100,
@@ -356,6 +376,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center", // Centraliza o botão na tela
+    borderWidth: 3,        // Define a espessura da borda
+    borderColor: 'orange', // Define a cor da borda
   },
 });
 

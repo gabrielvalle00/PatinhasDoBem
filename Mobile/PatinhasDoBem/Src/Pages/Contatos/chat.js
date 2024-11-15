@@ -15,17 +15,18 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../Service/tokenService";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons"; // Importando ícones
+import moment from 'moment';
 
 export default function TelaMensagens() {
   const route = useRoute();
-  const navigation = useNavigation(); // Hook para navegação
+  const navigation = useNavigation();
   const { contatoID, nome } = route.params;
   const [mensagens, setMensagens] = useState([]);
   const [novaMensagem, setNovaMensagem] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const inputRef = useRef(null); // Referência para o TextInput
+  const inputRef = useRef(null);
 
   const buscarMensagens = () => {
     setIsLoading(true);
@@ -40,8 +41,10 @@ export default function TelaMensagens() {
         });
       })
       .then((response) => {
+        console.log(response.data);
+        
         if (response.data.success) {
-          setMensagens(response.data.mensagens);
+          setMensagens(response.data.messages || []);
         } else {
           Alert.alert("Erro", response.data.error || "Erro ao carregar mensagens.");
         }
@@ -65,7 +68,7 @@ export default function TelaMensagens() {
         }
         return api.post(
           "/EnviaMensagem",
-          { contatoID, texto: novaMensagem },
+          { IDContato: contatoID, Texto: novaMensagem },
           { headers: { authorization: token } }
         );
       })
@@ -73,7 +76,7 @@ export default function TelaMensagens() {
         if (response.data.success) {
           setNovaMensagem("");
           buscarMensagens();
-          Keyboard.dismiss(); // Esconde o teclado após enviar a mensagem
+          Keyboard.dismiss(); 
         } else {
           Alert.alert("Erro", response.data.error || "Erro ao enviar mensagem.");
         }
@@ -85,59 +88,75 @@ export default function TelaMensagens() {
 
   useEffect(() => {
     buscarMensagens();
-    inputRef.current?.focus(); // Força o foco no campo de entrada assim que a tela é carregada
-  }, []);
+    inputRef.current?.focus();
+  }, [contatoID]);
+
+  const formatarHora = (data) => {
+    return moment(data).format('HH:mm');
+  };
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0} // Ajuste o valor conforme necessário
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <View style={styles.container}>
-        {/* Cabeçalho com nome e foto do usuário */}
+        {/* Cabeçalho */}
         <View style={styles.header}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("User", {
-                userID: contatoID, // Navega para o perfil do contato
-              })
-            }
-          >
-            <Image
-              source={{
-                uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${contatoID}?alt=media`,
-              }}
-              style={styles.avatar}
-            />
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={30} color="#fff" />
           </TouchableOpacity>
-          <Text style={styles.contactName}>{nome}</Text>
+
+          <Image
+            source={{
+              uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${contatoID}?alt=media`,
+            }}
+            style={styles.avatar}
+          />
+
+          <View style={styles.headerInfo}>
+            <Text style={styles.contactName}>{nome}</Text>
+          </View>
         </View>
 
         <FlatList
           data={mensagens}
-          keyExtractor={(item) => item.ID.toString()}
+          keyExtractor={(item) => item.IDMensagem.toString()}
           renderItem={({ item }) => (
             <View
-              style={[
+              style={[ 
                 styles.messageItem,
-                item.IDUsuario === contatoID
-                  ? styles.receivedMessage
-                  : styles.sentMessage,
+                item.quemEnviouAMensagem === "Você Enviou"
+                  ? styles.sentMessage
+                  : styles.receivedMessage,
               ]}
             >
-              <Text style={styles.messageText}>{item.Texto}</Text>
+              <Text
+                style={[
+                  styles.messageText,
+                  item.quemEnviouAMensagem === "Você Enviou"
+                    ? styles.sentText
+                    : styles.receivedText,
+                ]}
+              >
+                {item.Texto}
+              </Text>
+              <Text style={styles.timeText}>
+                {formatarHora(item.DataDeEnvio)}
+              </Text>
             </View>
           )}
           refreshing={isLoading}
           onRefresh={buscarMensagens}
           contentContainerStyle={styles.messagesContainer}
-          keyboardShouldPersistTaps="handled" // Permite que o teclado não desapareça ao tocar na lista
+          keyboardShouldPersistTaps="handled"
+          ListEmptyComponent={<Text style={styles.emptyText}>Nenhuma mensagem.</Text>}
         />
 
         <View style={styles.inputContainer}>
           <TextInput
-            ref={inputRef} // Referência para o TextInput
+            ref={inputRef}
             style={styles.input}
             value={novaMensagem}
             onChangeText={setNovaMensagem}
@@ -162,39 +181,75 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    justifyContent: "flex-start", // Ajustando para a seta e a foto ficarem à esquerda
+    padding: 10,
+    borderBottomColor: "#ddd",
+    backgroundColor: "rgba(0, 0, 0, 0.8)", // Fundo semi-transparente (pode ajustar a opacidade)
+    position: "absolute", // Para fazer o cabeçalho flutuar sobre a tela
+    top: 0, // Certificando que o cabeçalho vai para o topo
+    left: 0,
+    right: 0,
+    zIndex: 10, // Garante que o cabeçalho fique sobre outros elementos
+    height: 80, // Ajuste a altura do cabeçalho conforme necessário
+    elevation: 5,
+  },
+  
+  backButton: {
+    marginRight: 10,
   },
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginRight: 10,
+  },
+  headerInfo: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flex: 1,
+    marginLeft: 10,
   },
   contactName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#333",
+    color: "#fff",
   },
   messagesContainer: {
-    paddingBottom: 80, // Espaço para a barra de entrada
+    paddingBottom: 80,
   },
   messageItem: {
     padding: 10,
     marginBottom: 10,
-    borderRadius: 8,
+    borderRadius: 15,
     maxWidth: "80%",
+    position: "relative",
   },
   receivedMessage: {
-    backgroundColor: "#e5e5ea",
+    backgroundColor: "gray",
     alignSelf: "flex-start",
+    marginLeft: 10,
+    borderBottomLeftRadius: 0,
   },
   sentMessage: {
-    backgroundColor: "#0078ff",
+    backgroundColor: "#11212D",
     alignSelf: "flex-end",
+    marginRight: 10,
+    borderBottomRightRadius: 0,
   },
   messageText: {
-    color: "#fff",
     fontSize: 16,
+  },
+  receivedText: {
+    color: "#fff",
+  },
+  sentText: {
+    color: "#fff",
+  },
+  timeText: {
+    fontSize: 12,
+    color: "#999",
+    marginTop: 5,
+    textAlign: "right",
   },
   inputContainer: {
     flexDirection: "row",
@@ -218,11 +273,16 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   sendButton: {
-    backgroundColor: "#0078ff",
+    backgroundColor: "#11212D",
     padding: 10,
     borderRadius: 50,
     marginLeft: 10,
     justifyContent: "center",
     alignItems: "center",
+  },
+  emptyText: {
+    textAlign: "center",
+    color: "#999",
+    marginTop: 20,
   },
 });

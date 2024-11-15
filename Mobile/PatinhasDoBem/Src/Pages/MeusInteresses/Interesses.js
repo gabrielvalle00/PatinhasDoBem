@@ -114,12 +114,12 @@ const TelaMeusInteresses = ({ navigation }) => {
         style={styles.navigateButton}
         onPress={() => navigation.navigate("Pets")}
       >
-        <Icon name="arrow-left" size={25} color="#3DAAD9" />
+        <Icon name="arrow-left" size={25} color="#11212D" />
       </TouchableOpacity>
 
       {isLoading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#3DAAD9" />
+          <ActivityIndicator size="large" color="orange" />
         </View>
       ) : (
         <ScrollView contentContainerStyle={styles.scrollContainer}>

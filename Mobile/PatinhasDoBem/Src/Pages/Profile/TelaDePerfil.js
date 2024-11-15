@@ -118,7 +118,7 @@ const TelaDePerfil = ({ route, navigation }) => {
   if (loading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#1a73e8" />
+        <ActivityIndicator size="large" color="orange" />
       </View>
     );
   }
@@ -243,7 +243,7 @@ const TelaDePerfil = ({ route, navigation }) => {
       )}
 
       <TouchableOpacity style={styles.settingsIcon} onPress={handleAddPet}>
-        <Ionicons name="paw" size={30} color="#1a73e8" />
+        <Ionicons name="paw" size={30} color="orange" />
       </TouchableOpacity>
     </ScrollView>
 

@@ -87,7 +87,7 @@ export default function TelaContatos() {
           ]}
           onPress={() => setMostrarInteresses(true)}
         >
-          <Text style={styles.tabText}>Contatos de Interesse</Text>
+          <Text style={styles.tabText}>Interessados</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -96,7 +96,7 @@ export default function TelaContatos() {
           ]}
           onPress={() => setMostrarInteresses(false)}
         >
-          <Text style={styles.tabText}>Contatos Sem Interesse</Text>
+          <Text style={styles.tabText}>Amigos</Text>
         </TouchableOpacity>
       </View>
 
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomWidth: 2,
-    borderBottomColor: "#3DAAD9", // Cor da barrinha quando o botão estiver ativo
+    borderBottomColor: "orange", // Cor da barrinha quando o botão estiver ativo
   },
   noContactsText: {
     fontSize: 16,
