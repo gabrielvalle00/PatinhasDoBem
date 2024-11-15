@@ -83,69 +83,17 @@ footer {
   margin-bottom: 5px;
 }
 
-/* Estilos para a biografia do usuário */
-.cabecalho__container .colunas__container .coluna__esquerda p {
-  font-size: 0.9rem;
-  color: #818181;
-  margin: 0;
-}
 
-/* Estilos para a seção "sobre" */
-.cabecalho__container .colunas__container .coluna__esquerda .sobre {
-  justify-content: space-between;
-  position: relative;
-  margin: 35px 0;
-}
 
-/* Estilos para os itens da lista de "sobre" */
-.cabecalho__container .colunas__container .coluna__esquerda .sobre li {
-  display: flex;
-  flex-direction: column;
-  color: #818181;
-  font-size: 0.9rem;
-}
 
-/* Estilos para o número de seguidores, seguindo, etc. */
-.cabecalho__container .colunas__container .coluna__esquerda .sobre li span {
-  color: #1d1d1d;
-  font-weight: 600;
-}
 
-/* Linha divisória abaixo da seção "sobre" */
-.cabecalho__container .colunas__container .coluna__esquerda .sobre:after {
-  position: absolute;
-  content: "";
-  bottom: -16px;
-  display: block;
-  background: #cccccc;
-  height: 1px;
-  width: 100%;
-}
 
-/* Estilos para o texto de biografia do usuário */
-.cabecalho__container .colunas__container .conteudo p {
-  font-size: 1rem;
-  color: #1d1d1d;
-  line-height: 1.8em;
-}
 
-/* Estilos para a lista de ícones de contato/links */
-.cabecalho__container .colunas__container .conteudo ul {
-  gap: 30px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 25px;
-}
 
-/* Estilos para os itens da lista de ícones */
-.cabecalho__container .colunas__container .conteudo ul li {
-  display: flex;
-}
 
-/* Estilos para os ícones de contato/links */
-.cabecalho__container .colunas__container .conteudo ul i {
-  font-size: 1.3rem;
-}
+
+
+
 
 /* Estilos para a navegação no perfil */
 .cabecalho__container .colunas__container .coluna__direita nav {
@@ -169,43 +117,12 @@ footer {
   color: #818181;
 }
 
-/* Estilos para o botão de navegação */
-.cabecalho__container .colunas__container .coluna__direita nav button {
-  background: #0091ff;
-  color: #fff;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-/* Efeito de hover para o botão */
-.cabecalho__container .colunas__container .coluna__direita nav button:hover {
-  opacity: 0.8;
-}
-
-/* Estilos para a galeria de fotos dos pets */
-.cabecalho__container .colunas__container .coluna__direita .fotos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-  gap: 20px;
-}
-
-/* Estilos para as imagens dos pets */
-.cabecalho__container .colunas__container .coluna__direita .fotos img {
-  max-width: 130%;
-  display: block;
-  height: 70%;
-  object-fit: cover;
-}
-
-
 
 .fotos1 {
   border-radius: 20px;
+  margin-top: -0px;
+  margin-left: 50px;
 }
-
 
 
 /* Responsividade */
@@ -331,149 +248,9 @@ ul {
   /* Cor do texto */
   transition: color 0.3s;
   /* Transição suave para a cor */
+  margin-left: 180px;
 }
 
-
-
-
-
-
-
-
-/* ------------------ ESTILIZAÇÃO DO MODAL DO CADASTRO DOS PETS ----------------*/
-
-#Cadastrar-Pets {
-  display: none;
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 0 auto;
-  font-family: 'Arial', sans-serif;
-}
-
-#Cadastrar-Pets h2 {
-  text-align: center;
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.Cadastro-pets,
-.Cadastro-pets-2 {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.label-animal {
-  font-weight: bold;
-  color: #555;
-}
-
-.animal {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  background-color: #fff;
-}
-
-
-
-.Cadastro-pets,
-.Cadastro-pets-2 {
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-}
-
-.label-animal {
-  font-weight: bold;
-}
-/* ------------------ FIM DO ESTILIZAÇÃO DO MODAL DO CADASTRO DOS PETS ----------------*/
-
-
-
-
-
-
-/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  padding: 150px;
-  margin-left: -10%;
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.Cadastro-pets {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-  
-
-.botao-salvar {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.btn-salvar {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #fff;
-  background-color: #4CAF50;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-salvar:hover {
-  background-color: #45a049;
-}
-
-/* Estilos para o botão */
-.btn-cadastrar {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 15px;
-}
-/* --------------------------------- FIM DO MODAL PARA CADASTRO DE ANIMAIS --------------------------*/
 
 
 
@@ -482,30 +259,30 @@ ul {
 
 /* ------------------------- ESTILIZAÇÃO PARA MEUS-PETS ----------------------- */
 
+/* Estilos da publicação */
 .publicacao {
   text-align: center;
-  /* Centraliza o texto e a imagem */
-  border: #fff;
-  margin-right: 80px;
+  border: 2px solid #fff; /* Define uma borda branca ao redor */
   padding: 20px;
-  margin: 20px 0;
+  margin: 20px auto; /* Centraliza a publicação horizontalmente */
   background-color: #fff;
-  margin-left: -80%;
+  max-width: 80%; /* Define a largura máxima da publicação */
+  border-radius: 10px; /* Borda arredondada para a publicação */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar destaque */
+  
 }
 
+/* Estilos da imagem do pet */
 .imagem-pet {
-  padding: 20px;
+  padding: 10px;
   width: 150px;
   height: 150px;
-  /* Define uma altura para a imagem */
-  border-radius: 50%;
-  /* Faz a imagem ficar redonda */
-  object-fit: cover;
-  /* Ajusta a imagem para cobrir o espaço sem distorcer */
-  border: 2px solid #4CAF50;
-  /* Adiciona uma borda verde ao redor da imagem */
-  margin-left: 60PX;
+  border-radius: 50%; /* Faz a imagem ficar redonda */
+  object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem distorcer */
+  border: 2px solid #4CAF50; /* Borda verde ao redor da imagem */
+  margin: 0 auto 15px auto; /* Centraliza a imagem e aplica margem inferior */
 }
+
 
 
 
@@ -544,8 +321,126 @@ ul {
 
 /* ------------------------- FIM ----------------------- */
 
-/* ------------------------- FIM DA ESTILIZAÇÃO PARA POSTAGENS ----------------------- */
 
+
+
+
+/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
+
+/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
+
+/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
+
+/* Modal de fundo */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo mais escuro */
+  z-index: 1000;
+  padding: 30px;
+  overflow-y: auto; /* Permite rolagem vertical se necessário */
+}
+
+/* Conteúdo do modal */
+.modal-content {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 90vw; /* O modal terá até 90% da largura da tela */
+  width: 100%;
+  max-height: 90vh; /* Limita a altura a 90% da tela */
+  overflow-y: auto; /* Adiciona rolagem interna se o conteúdo ultrapassar a altura */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.modal-content h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #4CAF50;
+  margin-bottom: 25px;
+}
+
+.Cadastro-pets .form-group {
+  margin-bottom: 20px;
+}
+
+.Cadastro-pets label {
+  display: block;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.animal {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.animal:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.adc-image {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.adc-image h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.botao-salvar {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-salvar {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-salvar:hover {
+  background-color: #45A049;
+}
+
+
+/* ------------------------ FIM MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
 
 
 
@@ -693,74 +588,8 @@ border-radius: 50%;
 }
 
 
-.sair{
-  margin-left: 15px;
-}
 
 
-
-
-
-
-
-
-
-
-
-/* Estilo básico para o botão de editar */
-.btn-editar {
-  padding: 8px 16px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-editar:hover {
-  background-color: #45a049;
-}
-
-/* Estilos do modal */
-.modal {
-  display: none; /* Oculto por padrão */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
-  justify-content: center;
-  align-items: center;
-  margin-left: 0px;
-}
-
-/* Conteúdo do modal */
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  max-width: 80%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-/* Botão de fechar o modal */
-.close {
-  color: #aaa;
-  font-size: 24px;
-  font-weight: bold;
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  cursor: pointer;
-}
-
-.close:hover {
-  color: #000;
-}
 
 
 /* ------------------------- ESTILIZAÇÃO PARA INFORMAÇOES DO PERFIL ------------------------------ */
@@ -813,8 +642,8 @@ border-radius: 50%;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  margin-left: 500px;
+  width: 800px;
+  margin-left: 300px;
   margin-top: -330px;
 }
 
@@ -887,4 +716,72 @@ nav ul {
   right: 10px;
   cursor: pointer;
  
+}
+
+
+.h3-meus-pets{
+  margin-top: -50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Modal do Pet */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  width: 70%;
+  max-width: 600px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.imagem-pet {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4CAF50;
+  margin: 0 auto 15px;
 }

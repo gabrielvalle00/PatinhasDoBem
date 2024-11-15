@@ -75,12 +75,14 @@
             <!-- Corpo do Modal -->
             <div class="modal-body" id="bodyNotifies">
 
-
               <!-- Notificação adicional -->
 
             </div>
 
+
+
           </div>
+
         </div>
       </div>
 
@@ -124,21 +126,12 @@
 
 
 
-      <!-------------------------------------------- FIM  ------------------------------------------>
 
 
 
     </div>
   </nav>
   <!---------------------------- Fim do Container na parte de cima da pagina ---------------------->
-
-
-
-
-
-
-
-
 
 
 
@@ -163,23 +156,23 @@
 
         <div class="perfil-usuario">
           <h1 class="nome-usuario" id="nome-usuario">#</h1>
-          
+
           <p class="email">
             <i class="fa-regular fa-envelope"></i>
             <span id="usuario-email">#</span>
           </p><BR>
-        
+
           <p class="estado">
             <i class="fa-solid fa-map-marker-alt"></i>
             <span id="usuario-estado">#</span>
           </p><BR>
-        
+
           <p class="cidade">
             <i class="fa-solid fa-city"></i>
             <span id="usuario-cidade">#</span>
           </p>
         </div>
-        
+
 
 
       </div>
@@ -202,140 +195,148 @@
           </ul>
           <div id="indicator"></div>
         </nav>
-      
+
         <!-- Seção "Meus pets" -->
         <div class="conteudo" id="meus-pets">
-          <h3>Meus pets</h3>
-      
-          <button class="btn-cadastrar">Cadastrar Animais</button>
+          <h3 class="h3-meus-pets">Meus pets</h3>
+
+          <button class="btn-cadastrar" onclick="toggleModal()">Cadastrar Animais</button>
           <div class="fotos1">
+
+            <!-- Dentro da seção "Meus Pets", dentro do <div class="publicacao"> -->
             <div class="publicacao">
-              <div id="lista-pets"></div>
-      
-              <div class="botoes">
-                <button class="btn-editar">Editar</button>
-      
-                <!-- Estrutura do modal -->
-                <div id="modal-editar" class="modal">
-                  <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Editar Item</h2><br>
-                    <input type="text" id="input-editar" placeholder="O que você deseja editar?"><br>
-                    <button>Salvar</button>
-                  </div>
-                </div>
-      
-                <button class="btn-excluir">Excluir</button>
+
+
+              
+              <div class="foto-pet" id="lista-pets"
+                onclick="openPetModal()">
+
+                <img src="foto-do-pet.jpg" alt="Foto do Pet" class="imagem-pet">
+              </div>
+
+
+              <div class="informacoes-pet" id="lista-pets">
+             
               </div>
             </div>
-          </div>
-        </div>
-      
-        <!-- Seção "Postagens" -->
-        <div class="conteudo" id="postagens">
-          <h3>Suas postagens</h3>
-          <div id="lista-postagens"></div>
-        </div>
-      </div>
-      
-    </div>
 
-    <!-- Modal para Cadastro de Animais -->
-    <div id="modalCadastro" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="toggleModal()">&times;</span>
-        <h2>Cadastre seu pet</h2>
+            <!-- Modal para exibir as informações do pet -->
+            <div id="petModal" class="modal" style="display: none;">
+              <div class="modal-content">
+                <span class="close-btn" onclick="closePetModal()">&times;</span>
+                <h2>Informações do Pet</h2>
+                <div id="pet-info">
+                  <!-- As informações do pet serão exibidas aqui -->
+                </div>
+              </div>
+            </div>
 
-        <div class="Cadastro-pets">
-          <div>
-            <h6>Data de nascimento</h6>
-            <input type="date" class="animal" required>
-          </div>
+            <div id="lista-pets"></div>
 
-          <div>
-            <label for="tipo-animal" class="label-animal">Tipo de Animal</label>
-            <select id="tipo-animal" class="animal" name="tipo" required>
-              <option value="" disabled selected>Selecione o tipo</option>
-              <option value="Cachorro">Cachorro</option>
-              <option value="Gato">Gato</option>
-              <option value="Coelho">Coelho</option>
-              <option value="Hamster">Hamster</option>
-              <option value="Porquinho-da-índia">Porquinho-da-índia</option>
-              <option value="Papagaio">Papagaio</option>
-              <option value="Calopsita">Calopsita</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="raca" class="label-animal">Raça</label>
-            <input type="text" id="raca" class="animal" required>
-          </div>
-
-          <div>
-            <label for="idade" class="label-animal">Idade</label>
-            <input type="number" id="idade" class="animal" required>
-          </div>
-
-          <div>
-            <label for="sexo" class="label-animal">Sexo</label>
-            <select id="sexo" class="animal" name="sexo" required>
-              <option value="" disabled selected>Selecione o sexo</option>
-              <option value="Feminino">Fêmea</option>
-              <option value="Masculino">Macho</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="cor" class="label-animal">Cor</label>
-            <input type="text" id="cor" class="animal" required>
-          </div>
-
-          <div>
-            <label for="descricao" class="label-animal">Descrição</label>
-            <textarea id="descricao" class="animal" rows="4" cols="30" placeholder="Descreva o pet aqui..."
-              required></textarea>
-          </div>
-
-          <div class="adc-image">
-            <h3>Adicione a imagem do animal</h3>
-            <input type="file" id="post-image" accept="image/*">
-          </div>
-
-          <div class="botao-salvar">
-            <button type="button" class="btn-salvar">Salvar</button>
+          
+            <button class="btn-excluir">Excluir</button>
           </div>
         </div>
       </div>
-
     </div>
 
+    <!-- Seção "Postagens" -->
+    <div class="conteudo" id="postagens">
+      <h3>Suas postagens</h3>
+      <div id="lista-postagens"></div>
+    </div>
+  </div>
 
-    <!-- Rodapé -->
-    <footer class="rodape">
-      <p>&copy; Patinhas Do Bem 2024 | Todos os Direitos Reservados</p>
-    </footer>
+  </div>
+
+  <!-- Modal para Cadastro de Animais -->
+  <div id="modalCadastro" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="toggleModal()">&times;</span>
+      <h2>Cadastre seu pet</h2>
+
+      <div class="Cadastro-pets">
+        <div class="form-group">
+          <label for="data-nascimento">Data de nascimento</label>
+          <input type="date" id="data-nascimento" class="animal" required>
+        </div>
+
+        <div class="form-group">
+          <label for="tipo-animal">Tipo de Animal</label>
+          <select id="tipo-animal" class="animal" name="tipo" required>
+            <option value="" disabled selected>Selecione o tipo</option>
+            <option value="Cachorro">Cachorro</option>
+            <option value="Gato">Gato</option>
+            <option value="Coelho">Coelho</option>
+            <option value="Hamster">Hamster</option>
+            <option value="Porquinho-da-índia">Porquinho-da-índia</option>
+            <option value="Papagaio">Papagaio</option>
+            <option value="Calopsita">Calopsita</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="raca">Raça</label>
+          <input type="text" id="raca" class="animal" required>
+        </div>
+
+        <div class="form-group">
+          <label for="idade">Idade</label>
+          <input type="number" id="idade" class="animal" required>
+        </div>
+
+        <div class="form-group">
+          <label for="sexo">Sexo</label>
+          <select id="sexo" class="animal" name="sexo" required>
+            <option value="" disabled selected>Selecione o sexo</option>
+            <option value="Feminino">Fêmea</option>
+            <option value="Masculino">Macho</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cor">Cor</label>
+          <input type="text" id="cor" class="animal" required>
+        </div>
+
+        <div class="form-group">
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" class="animal" rows="4" placeholder="Descreva o pet aqui..." required></textarea>
+        </div>
+
+        <div class="adc-image">
+          <h3>Adicione a imagem do animal</h3>
+          <input type="file" id="post-image" accept="image/*">
+        </div>
+
+        <div class="botao-salvar">
+          <button type="button" class="btn-salvar">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <p>&copy; Patinhas Do Bem 2024 | Todos os Direitos Reservados</p>
+  </footer>
   </div>
 
   <!-- JavaScript -->
   <script>
+    // Função para alternar a exibição do modal de cadastro
     function toggleModal() {
       const modal = document.getElementById("modalCadastro");
       modal.style.display = modal.style.display === "none" || modal.style.display === "" ? "flex" : "none";
     }
 
-   
-  function showSection(sectionId) {
-    const sections = document.querySelectorAll('.conteudo');
-    sections.forEach(section => section.style.display = 'none');
-    document.getElementById(sectionId).style.display = 'block';
-  }
-
-  // Função para ser executada quando a página carregar
-  window.onload = function() {
-    showSection('meus-pets'); // Mostra a seção dos pets cadastrados ao carregar a página
-  };
-
-
+    // Função para mostrar a seção selecionada e ocultar as outras
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('.conteudo');
+      sections.forEach(section => section.style.display = 'none'); // Oculta todas as seções
+      document.getElementById(sectionId).style.display = 'block'; // Mostra apenas a seção escolhida
+    }
 
     // Fecha o modal ao clicar fora dele
     window.onclick = function (event) {
