@@ -14,11 +14,11 @@ function alternarSecao(secao) {
 
   // Define o indicador abaixo do link ativo
   if (secao === "meus-pets") {
-      indicator.style.left = meusPetsLink.offsetLeft + "px";
-      indicator.style.width = meusPetsLink.offsetWidth + "px";
+    indicator.style.left = meusPetsLink.offsetLeft + "px";
+    indicator.style.width = meusPetsLink.offsetWidth + "px";
   } else if (secao === "postagens") {
-      indicator.style.left = postagensLink.offsetLeft + "px";
-      indicator.style.width = postagensLink.offsetWidth + "px";
+    indicator.style.left = postagensLink.offsetLeft + "px";
+    indicator.style.width = postagensLink.offsetWidth + "px";
   }
 }
 
@@ -41,37 +41,37 @@ function buscarPerfilUsuario() {
       'Content-Type': 'application/json'
     }
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Erro ao buscar perfil do usuário');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    
-    const postagem = data.minhasPostagens;
-    const dados = data.meusDados;
-    const pets = data.dadosMeusPets;
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro ao buscar perfil do usuário');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
 
-    // Exibir dados do usuário
-    document.getElementById("nome-usuario").textContent = dados.Nome;
-    document.getElementById("usuario-email").textContent = dados.Email;
-    document.getElementById("usuario-estado").textContent = dados.Estado;
-    document.getElementById("usuario-cidade").textContent = dados.Cidade;
+      const postagem = data.minhasPostagens;
+      const dados = data.meusDados;
+      const pets = data.dadosMeusPets;
 
-    exibirImagemUsuario(dados);
+      // Exibir dados do usuário
+      document.getElementById("nome-usuario").textContent = dados.Nome;
+      document.getElementById("usuario-email").textContent = dados.Email;
+      document.getElementById("usuario-estado").textContent = dados.Estado;
+      document.getElementById("usuario-cidade").textContent = dados.Cidade;
+
+      exibirImagemUsuario(dados);
 
 
-    // Exibir pets
-    estruturarDadosPets(pets);
+      // Exibir pets
+      estruturarDadosPets(pets);
 
-    // Exibir postagens
-    exibirPostagens(postagem);
-  })
-  .catch(error => {
-    console.error('Erro:', error);
-  });
+      // Exibir postagens
+      exibirPostagens(postagem);
+    })
+    .catch(error => {
+      console.error('Erro:', error);
+    });
 }
 
 // Função para estruturar e exibir os dados dos pets
@@ -91,20 +91,65 @@ function estruturarDadosPets(dadosMeusPets) {
     petElemento.classList.add("pet-card");
 
     petElemento.innerHTML = `
-      <img src="${pets.petPicture}" alt="${pets.TipoAnimal}" class="imagem-pet">
+      <img src="${pets.petPicture}" alt="${pets.TipoAnimal}" class="imagem-pet" style="cursor: pointer;">
       <h4>${pets.TipoAnimal} - ${pets.Cor}</h4>
-      <p><strong>Idade:</strong> ${pets.Idade}</p>
-      <p><strong>Linhagem:</strong> ${pets.Linhagem}</p>
-      <p><strong>Sexo:</strong> ${pets.Sexo}</p>
-      <p><strong>Status:</strong> ${pets.Status === 1 ? 'Ativo' : 'Inativo'}</p>
-      <p><strong>Descrição:</strong> ${pets.Descricao}</p>
-      <p><strong>Data de Registro:</strong> ${new Date(pets.dataRegistro).toLocaleDateString()}</p>
     `;
+
+    // Adiciona um evento de clique para abrir o modal com as informações do pet
+    petElemento.querySelector("img").onclick = function() {
+      openPetModal(pets);
+    };
 
     // Adiciona o elemento de pet à lista de pets no DOM
     petsDiv.appendChild(petElemento);
   });
 }
+
+// Função para abrir o modal e mostrar as informações do pet
+function openPetModal(pets) {
+  const petModal = document.getElementById('petModal');
+  const petInfo = document.getElementById('pet-info');
+
+  // Preenchendo o conteúdo do modal com as informações do pet
+  petInfo.innerHTML = `
+    <img src="${pets.petPicture}" alt="${pets.TipoAnimal}" class="imagem-pet">
+    <h4>${pets.TipoAnimal}</h4>
+    <p><strong>Cor:</strong> ${pets.Cor}</p>
+    <p><strong>Idade:</strong> ${pets.Idade}</p>
+    <p><strong>Linhagem:</strong> ${pets.Linhagem}</p>
+    <p><strong>Sexo:</strong> ${pets.Sexo}</p>
+    <p><strong>Descrição:</strong> ${pets.Descricao}</p>
+ 
+  `;
+
+  // Exibindo o modal
+  petModal.style.display = 'flex';
+}
+
+// Função para fechar o modal
+function closePetModal() {
+  const petModal = document.getElementById('petModal');
+  petModal.style.display = 'none';
+}
+
+
+// Fechar o modal se clicar fora dele
+window.onclick = function (event) {
+  const petModal = document.getElementById('petModal');
+  if (event.target === petModal) {
+    closePetModal();
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 // Função para exibir a lista de postagens do usuário
 function exibirPostagens(postagensUsuario) {
@@ -171,7 +216,7 @@ document.addEventListener('DOMContentLoaded', buscarPerfilUsuario);
 //           document.getElementById("notificationButton").innerHTML = ` <i class="fa-solid fa-bell"></i>
 //           ${countNewNotifies}`
 
-    
+
 
 //           document.getElementById("bodyNotifies").innerHTML += ` <div class="notification">
 //                 <div class="notification-icon">
@@ -341,16 +386,16 @@ function showContent(menuId) {
 
   // Mostra o conteúdo selecionado
   if (menuId === 'mural') {
-      document.getElementById('mural-content').style.display = 'block';
+    document.getElementById('mural-content').style.display = 'block';
   }
   else if (menuId === 'notifications') {
-      document.getElementById('notifications-content').style.display = 'block';
+    document.getElementById('notifications-content').style.display = 'block';
   }
   else if (menuId === 'Cadastro') {
-      document.getElementById('Cadastrar-Pets').style.display = 'block'
+    document.getElementById('Cadastrar-Pets').style.display = 'block'
   }
   else if (menuId === 'view-animals') {
-      document.getElementById('view-animals-content').style.display = 'block';
+    document.getElementById('view-animals-content').style.display = 'block';
   }
 
 }
@@ -368,9 +413,9 @@ function openModal(modalId) {
 
   // Fechar o modal quando clicar no fundo cinza
   document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
-      backdrop.addEventListener('click', () => {
-          modal.hide();
-      });
+    backdrop.addEventListener('click', () => {
+      modal.hide();
+    });
   });
 }
 
@@ -381,37 +426,40 @@ function openModal(modalId) {
 
 // Função para abrir o modal
 function abrirModal() {
-document.getElementById('modal-editar').style.display = 'flex';
+  document.getElementById('modal-editar').style.display = 'flex';
 }
 
 // Função para fechar o modal
 function fecharModal() {
-document.getElementById('modal-editar').style.display = 'none';
+  document.getElementById('modal-editar').style.display = 'none';
 }
 
 // Função para salvar a edição (adapte conforme a lógica do seu site)
 function salvarEdicao() {
-const novoValor = document.getElementById('input-editar').value;
-if (novoValor) {
-  // Atualize o conteúdo do item aqui
-  alert("Novo valor salvo: " + novoValor);
-  fecharModal();
-} else {
-  alert("Por favor, insira um valor.");
-}
+  const novoValor = document.getElementById('input-editar').value;
+  if (novoValor) {
+    // Atualize o conteúdo do item aqui
+    alert("Novo valor salvo: " + novoValor);
+    fecharModal();
+  } else {
+    alert("Por favor, insira um valor.");
+  }
 }
 
 // Função para excluir o item
 function excluirItem() {
-// Exemplo de confirmação antes de excluir
-const confirmacao = confirm("Tem certeza de que deseja excluir este Animal?");
+  // Exemplo de confirmação antes de excluir
+  const confirmacao = confirm("Tem certeza de que deseja excluir este Animal?");
 
-if (confirmacao) {
+  if (confirmacao) {
     // Lógica para remover o elemento ou item
     // Exemplo: remove um elemento do DOM
     const elementoParaRemover = document.getElementById('idDoElemento');
     elementoParaRemover.remove();
     alert("Item excluído com sucesso!");
+  }
 }
-}
+
+
+
 
