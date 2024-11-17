@@ -52,7 +52,7 @@ const userInteractQueries = {
 
       if(returnAnotherUserProfile[0].length >=1) {
         if(userPosts.postagens === undefined) {
-          return {success: "retornando dados de perfil do usuário solicitado", dadosUsuario:returnAnotherUserProfile[0][0], dadosPetsUsuario:returnPetsOfThisUser.dataResponse, saoAmigos:saoAmigos,envioAmizadeFoiFeito:envioAmizadePendente, postagensDoUsuario:await Promise.all(getingPostsUser)}
+          return {success: "retornando dados de perfil do usuário solicitado", dadosUsuario:returnAnotherUserProfile[0][0], dadosPetsUsuario:returnPetsOfThisUser.dataResponse, saoAmigos:saoAmigos,envioAmizadeFoiFeito:envioAmizadePendente}
         }
         const getingPostsUser = await userPosts.postagens.map(async(el,index) => {
           const verifyComments = await Comentario.verComentariosDeUmPostQuery(el.ID);
