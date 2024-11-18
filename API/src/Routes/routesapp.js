@@ -77,7 +77,7 @@ router.get('/MeuPerfil',verificadorDoToken, (req, res) => {
 
 
 router.get('/PerfilUser',verificadorDoToken, (req, res) => {
-  res.sendFile(path.join(newDirName, 'Perfil.html'));
+  res.sendFile(path.join(newDirName, 'Users.html'));
 });
 
 

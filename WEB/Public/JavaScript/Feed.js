@@ -119,7 +119,7 @@ function getMyData() {
         Cookies.set("imagemUsuario", myBlob.meusDados.UserPicture)
 
         document.getElementById("userImage").src = `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${myBlob.meusDados.ID}?alt=media`
-        document.getElementById("userNameContent").innerHTML = `<a href="/PerfilUser" style ="list-style:none">${myBlob.meusDados.Nome}</a>`
+        document.getElementById("userNameContent").innerHTML = `<span style="cursor: default; color: white; text-decoration: none;font-weight: bold;">${myBlob.meusDados.Nome}</span>`
       } else {
         window.location("/LoginPage")
       }
@@ -483,6 +483,7 @@ function perfilUser(userID) {
 
 
 
+
 // função para remover o interesse em algum pet do qual ja demonstrei interesse
 async function removeInterest(event) {
   console.log("clicou")
@@ -724,7 +725,7 @@ async function getMostRecentPosts() {
               </div>
 
               <div class="user-info">
-                 <a href="/PerfilUsuario" onclick="perfilUser(${e.IDUsuario})" class="user-name">${e.NomeUsuario}</a> 
+                 <a href="/PerfilUser" onclick="perfilUser(${e.IDUsuario})" class="user-name">${e.NomeUsuario}</a> 
                 <p class="post-date">${dataAmigavel}</p>
               </div>
 
