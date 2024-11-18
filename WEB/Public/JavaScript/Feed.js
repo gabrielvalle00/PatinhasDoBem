@@ -445,7 +445,7 @@ async function getMyInterests() {
                   </div>
       
                   <div class="formulario-do-pet">
-                    <p class="descrição" onclick="perfilUser(${e.IDDoador})"><strong>Dono do pet:</strong> <img src ="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDDoador}?alt=media" style="border-radius:50%; width:30px;heigth:30px" alt="">"</img>  <a href ="/UserPerfil"> ${e.NomeDoDono} </a></p>
+                    <p class="descrição" onclick="perfilUser(${e.IDDoador})"><strong>Dono do pet:</strong> <img src ="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${e.IDDoador}?alt=media" style="border-radius:50%; width:30px;heigth:30px" alt="">"</img>  <a href ="/PerfilUser"> ${e.NomeDoDono} </a></p>
                     <p class="descrição"><strong>Tipo de Animal:</strong> ${e.TipoAnimal}</p>
                     <p class="descrição"><strong>Linhagem:</strong> ${e.Linhagem}</p>
                     <p class="descrição"><strong>Idade:</strong>  ${e.Idade}</p>
