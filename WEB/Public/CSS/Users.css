@@ -1,0 +1,787 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+/* Estilos básicos para a página */
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  /* Garante que a altura mínima da página seja a altura da janela */
+  font-family: "Poppins", sans-serif;
+}
+
+
+
+.btn-voltar{
+  margin-left: 100%;
+  margin-top: 20px;
+  
+}
+
+
+/* Estilos para o cabeçalho da página */
+.cabecalho__container header {
+  width: 100%;
+  background: url("../../Public/Image/osso.jpg") no-repeat 50% 20% / cover;
+  /* Aplica uma imagem de fundo */
+  min-height: calc(100px + 15vw);
+}
+
+/* Estilos para o rodapé */
+footer {
+  display: block; /* Exibe o rodapé como um bloco */
+  background-color: #11212D;
+  color: #fff; /* Define a cor do texto */
+  text-align: center; /* Alinha o texto ao centro */
+  font-size: 14px; /* Tamanho da fonte */
+  width: 100%; /* O rodapé ocupa 100% da largura */
+  bottom: 0; /* Fixa o rodapé na parte inferior da página */
+  left: 0; /* Alinha o rodapé à esquerda */
+  padding: 8px 0; /* Adiciona padding vertical */
+  font-family: "Armata", sans-serif; /* Fonte usada no rodapé */
+  font-weight: 400; /* Define a espessura da fonte */
+  font-style: normal; /* Define o estilo da fonte */
+  z-index: 1000; /* Garante que o rodapé fique acima de outros elementos */
+  position: relative;
+  margin-top: 12%;
+}
+
+/* Estilos para a coluna esquerda */
+.cabecalho__container .colunas__container .coluna__esquerda {
+  padding: 25px 20px;
+  text-align: center;
+  max-width: 350px;
+  position: relative;
+  margin: 0 auto;
+
+}
+
+/* Estilos para o container da imagem de perfil */
+.cabecalho__container .colunas__container .coluna__esquerda .img__container {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translatex(-50%);
+}
+
+/* Estilos para a imagem de perfil */
+.cabecalho__container .colunas__container .coluna__esquerda .img__container img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18);
+}
+
+/* Estilos para o nome do usuário */
+.cabecalho__container .colunas__container .coluna__esquerda h2 {
+  margin-top: 60px;
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos para a navegação no perfil */
+.cabecalho__container .colunas__container .coluna__direita nav {
+  display: flex;
+  align-items: center;
+  padding: 30px 0;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+/* Estilos para a lista de navegação no perfil */
+.cabecalho__container .colunas__container .coluna__direita nav ul {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+/* Estilos para os links de navegação no perfil */
+.cabecalho__container .colunas__container .coluna__direita nav ul li a {
+  text-transform: uppercase;
+  color: #818181;
+}
+
+
+.fotos1 {
+  border-radius: 20px;
+  margin-top: -0px;
+  margin-left: 50px;
+}
+
+
+/* Responsividade */
+
+/* Estilos aplicados em telas maiores que 868px */
+@media (min-width: 868px) {
+  .cabecalho__container .colunas__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 90%;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 50px;
+  }
+
+  .cabecalho__container .colunas__container .coluna__esquerda {
+    padding: 25px 0px;
+  }
+
+  .cabecalho__container .colunas__container .coluna__direita nav ul {
+    flex-direction: row;
+    gap: 30px;
+  }
+
+  .cabecalho__container .colunas__container .coluna__direita .fotos {
+    height: 365px;
+    overflow: auto;
+    padding: 0 0 30px;
+  }
+}
+
+/* Estilos aplicados em telas maiores que 1017px */
+@media (min-width: 1017px) {
+  .cabecalho__container .colunas__container .coluna__esquerda {
+    margin: 0;
+    margin-right: auto;
+  }
+
+  .cabecalho__container .colunas__container .coluna__direita nav {
+    flex-direction: row;
+  }
+
+  .cabecalho__container .colunas__container .coluna__direita nav button {
+    margin-top: 0;
+  }
+}
+
+
+
+/* Estilo básico das seções */
+.conteudo {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  /* Transição suave de 0.5 segundos */
+}
+
+/* Quando a seção está escondida */
+.conteudo.hidden {
+  opacity: 0;
+  display: none;
+}
+
+/* ---------------------- Estilo das fotos de pets na parte de "POSTAGENS" ------------------*/
+.fotos {
+  display: grid; /* Usando grid para organizar em colunas */
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas de tamanhos iguais */
+  gap: 20px; /* Espaço entre os cards */
+  justify-items: center; /* Centraliza as postagens dentro da grid */
+  margin-top: 20px;
+}
+
+.fotos .postagem-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Garante que o card ocupe toda a largura da coluna */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fotos .postagem-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.fotos img {
+  width: 100%; /* Imagem ocupa toda a largura do card */
+  height: auto; /* Mantém a proporção da imagem */
+  border-radius: 10px;
+}
+
+.fotos .postagem-card .descricao {
+  padding: 15px;
+}
+
+.fotos .postagem-card .descricao p {
+  margin: 5px 0;
+}
+
+/* ---------------------- FIM Estilo das fotos de pets na parte de "POSTAGENS" ------------------*/
+
+
+
+
+
+
+
+
+ul {
+  list-style-type: none;
+  /* Remove marcadores */
+  padding: 0;
+  /* Remove o padding padrão */
+}
+
+.nav-link {
+  padding: 10px 20px;
+  /* Espaçamento interno */
+  text-decoration: none;
+  /* Remove o sublinhado */
+  color: #333;
+  /* Cor do texto */
+  transition: color 0.3s;
+  /* Transição suave para a cor */
+  margin-left: 180px;
+}
+
+
+
+
+
+
+
+/* ------------------------- ESTILIZAÇÃO PARA MEUS-PETS ----------------------- */
+
+/* Estilos da publicação */
+.publicacao {
+  text-align: center;
+  border: 2px solid #fff; /* Define uma borda branca ao redor */
+  padding: 20px;
+  margin: 20px auto; /* Centraliza a publicação horizontalmente */
+  background-color: #fff;
+  max-width: 80%; /* Define a largura máxima da publicação */
+  border-radius: 10px; /* Borda arredondada para a publicação */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar destaque */
+  
+}
+
+/* Estilos da imagem do pet */
+.imagem-pet {
+  padding: 10px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Faz a imagem ficar redonda */
+  object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem distorcer */
+  border: 2px solid #4CAF50; /* Borda verde ao redor da imagem */
+  margin: 0 auto 15px auto; /* Centraliza a imagem e aplica margem inferior */
+}
+
+
+
+
+
+/* ---------------------- BOTÕES PARA EDITAR OU EXCLUIR ANIMAL ----------------------------*/
+.botoes {
+  bottom: 10px;
+  /* Distância do fundo */
+  right: 20px;
+  /* Distância da direita */
+  display: flex;
+  /* Usado para alinhar os botões em linha */
+  gap: 10px;
+  /* Espaço entre os botões */
+  margin-left: 43%;
+  margin-top: 3%;
+
+}
+
+.btn-editar,
+.btn-excluir {
+  background-color: #4CAF50;
+  /* Cor de fundo verde */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.btn-editar:hover,
+.btn-excluir:hover {
+  background-color: #45a049;
+  /* Tom mais escuro ao passar o mouse */
+}
+
+/* ------------------------- FIM ----------------------- */
+
+
+
+
+
+/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
+
+/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
+
+/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
+
+/* Modal de fundo */
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo mais escuro */
+  z-index: 1000;
+  padding: 30px;
+  overflow-y: auto; /* Permite rolagem vertical se necessário */
+}
+
+/* Conteúdo do modal */
+.modal-content {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 90vw; /* O modal terá até 90% da largura da tela */
+  width: 100%;
+  max-height: 90vh; /* Limita a altura a 90% da tela */
+  overflow-y: auto; /* Adiciona rolagem interna se o conteúdo ultrapassar a altura */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5); /* Sombra para destaque */
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.modal-content h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #4CAF50;
+  margin-bottom: 25px;
+}
+
+.Cadastro-pets .form-group {
+  margin-bottom: 20px;
+}
+
+.Cadastro-pets label {
+  display: block;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.animal {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.animal:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+.adc-image {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.adc-image h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.botao-salvar {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.btn-salvar {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-salvar:hover {
+  background-color: #45A049;
+}
+
+
+/* ------------------------ FIM MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
+
+
+
+
+
+
+
+/* =============== Navbar ============== */
+/* Estilo do Navbar */
+.nav1 {
+  background-color: #11212D; /* Cor de fundo */
+  padding: 15px 20px; /* Espaçamento interno */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px; /* Largura máxima */
+  margin: auto; /* Centraliza */
+}
+
+/* Estilo do Logo */
+.logo img {
+  width: 45px; /* Largura do logo */
+  height: auto; /* Altura automática */
+  margin-left: 20px;
+}
+
+.img1{
+border-radius: 50%;
+width: 50px;
+height: 50px;
+text-align: center;
+}
+
+.img1 img {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+}
+
+
+/* Estilo da Barra de Pesquisa */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0; /* Cor de fundo */
+  border-radius: 30px; /* Bordas arredondadas */
+  padding: 5px 15px; /* Espaçamento interno */
+  transition: background-color 0.3s ease; /* Transição suave */
+  flex-grow: 1; /* Para expandir */
+  margin: 0 150px; /* Margem lateral */
+  margin-left: 300px;
+}
+
+.search-bar i {
+  color: #888; /* Cor do ícone */
+  font-size: 20px; /* Tamanho do ícone */
+  margin-right: 10px; /* Espaçamento à direita */
+}
+
+.search-bar input {
+  border: none; /* Sem borda */
+  background: none; /* Sem fundo */
+  outline: none; /* Sem contorno */
+  font-size: 16px; /* Tamanho da fonte */
+  color: #333; /* Cor do texto */
+  width: 100%; /* Largura total */
+}
+
+.search-bar:hover {
+  background-color: #e0e0e0; /* Cor ao passar o mouse */
+}
+
+/* Estilo do Dropdown */
+.dropdown {
+  position: relative; /* Para posicionamento correto do dropdown */
+  margin-left: 50px;
+}
+
+.profile-dropdown-pic {
+  width: 40px; /* Tamanho da imagem do perfil */
+  height: 40px; /* Tamanho da imagem do perfil */
+  border-radius: 50%; /* Tornar imagem redonda */
+  cursor: pointer; /* Muda o cursor ao passar por cima */
+  margin-left: 0px;
+}
+
+
+/* Aumentar o tamanho do ícone e o botão */
+.sino {
+  font-size: 22px; /* Aumenta o tamanho geral do botão */
+  margin-left: 10px;
+}
+
+.sino i {
+  font-size: 2em; /* Aumenta o tamanho do ícone */
+  color: #000000; /* Ajuste de cor opcional */
+}
+
+/* Ajuste o espaçamento e o tamanho da área de clique */
+#notifications {
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Estilo do botão */
+#notificationButton {
+  background-color: #4A5C6A; /* Verde suave */
+ border-color:#4A5C6A ;
+ color: #000000;
+}
+
+/* Hover no botão */
+#notificationButton:hover {
+  
+  
+  transform: scale(1.1);
+}
+
+/* Aumenta o tamanho do ícone */
+#notificationButton i {
+  font-size: 30px; /* Ajuste o tamanho conforme necessário */
+  margin-top: 10px;
+}
+
+
+/* Estilo dos itens do menu */
+
+/* Remove a seta do botão dropdown */
+#notificationButton::after {
+  display: none;
+  content: none;
+}
+
+
+
+#notificationButton::after {
+  display: none;
+}
+
+
+
+
+
+
+/* ------------------------- ESTILIZAÇÃO PARA INFORMAÇOES DO PERFIL ------------------------------ */
+.perfil-usuario {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.perfil-usuario h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.perfil-usuario p {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: #555;
+  margin: 10px 0;
+}
+
+.perfil-usuario i {
+  color: #888;
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.perfil-usuario span {
+  color: #333;
+}
+
+
+/* ------------------------- FIM DA  ESTILIZAÇÃO PARA INFORMAÇOES DO PERFIL ------------------------------ */
+
+
+
+
+
+
+
+.coluna__direita {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 800px;
+  margin-left: 300px;
+  margin-top: -330px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 2px solid #ddd;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+  padding: 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #3498db;
+}
+
+.conteudo {
+  margin-top: 20px;
+}
+
+.btn-cadastrar,
+.btn-editar,
+.btn-excluir {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-cadastrar:hover,
+.btn-editar:hover,
+.btn-excluir:hover {
+  background-color: #2980b9;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+ 
+}
+
+
+.h3-meus-pets{
+  margin-top: -50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Modal do Pet */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  width: 70%;
+  max-width: 600px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.imagem-pet {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4CAF50;
+  margin: 0 auto 15px;
+}
