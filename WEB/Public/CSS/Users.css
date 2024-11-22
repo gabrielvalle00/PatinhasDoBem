@@ -12,15 +12,20 @@ body {
 }
 
 
+/* ------------------------- ESTILIZAÇÃO DO BOTÃO DE VOLTAR ------------------- */
 
 .btn-voltar{
   margin-left: 100%;
   margin-top: 20px;
-  
 }
 
+/* ------------------------ FIM DA ESTILIZAÇÃO DO BOTÃO DE VOLTAR ------------------- */
 
-/* Estilos para o cabeçalho da página */
+
+
+
+/* ------------------- ESTILOS PARA O CABEÇALHO DA PÁGINA  ---------------- */
+
 .cabecalho__container header {
   width: 100%;
   background: url("../../Public/Image/osso.jpg") no-repeat 50% 20% / cover;
@@ -28,7 +33,13 @@ body {
   min-height: calc(100px + 15vw);
 }
 
-/* Estilos para o rodapé */
+/* ------------------- FIM DO ESTILOS PARA O CABEÇALHO DA PÁGINA  ---------------- */
+
+
+
+
+/* -------------------- ESTILIZAÇÃO DA PARTE DO RODAPÉ DO FOOTER ------------------ */
+
 footer {
   display: block; /* Exibe o rodapé como um bloco */
   background-color: #11212D;
@@ -47,7 +58,12 @@ footer {
   margin-top: 12%;
 }
 
-/* Estilos para a coluna esquerda */
+/* -------------------- FIM DA ESTILIZAÇÃO DA PARTE DO RODAPÉ DO FOOTER ------------------ */
+
+
+
+
+/* --------------------- ESTILIZAÇÃO DA COLUNA ESQUERDA DA PAGINA ------------------------- */
 .cabecalho__container .colunas__container .coluna__esquerda {
   padding: 25px 20px;
   text-align: center;
@@ -57,7 +73,7 @@ footer {
 
 }
 
-/* Estilos para o container da imagem de perfil */
+/* ------------------- Estilos para o container da imagem de perfil ------------------------ */
 .cabecalho__container .colunas__container .coluna__esquerda .img__container {
   position: absolute;
   top: -60px;
@@ -65,7 +81,7 @@ footer {
   transform: translatex(-50%);
 }
 
-/* Estilos para a imagem de perfil */
+/* ------------------------ Estilos para a imagem de perfil --------------------------------- */
 .cabecalho__container .colunas__container .coluna__esquerda .img__container img {
   width: 120px;
   height: 120px;
@@ -75,7 +91,7 @@ footer {
   box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18);
 }
 
-/* Estilos para o nome do usuário */
+/* --------------------------- Estilos para o nome do usuário ------------------------------- */
 .cabecalho__container .colunas__container .coluna__esquerda h2 {
   margin-top: 60px;
   font-weight: 600;
@@ -86,16 +102,7 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
-/* Estilos para a navegação no perfil */
+/* -------------------------- Estilos para a navegação no perfil ----------------------------- */
 .cabecalho__container .colunas__container .coluna__direita nav {
   display: flex;
   align-items: center;
@@ -104,28 +111,32 @@ footer {
   flex-direction: column;
 }
 
-/* Estilos para a lista de navegação no perfil */
+/* ------------------- Estilos para a lista de navegação no perfil ----------------------------- */
 .cabecalho__container .colunas__container .coluna__direita nav ul {
   display: flex;
   gap: 20px;
   flex-direction: column;
 }
 
-/* Estilos para os links de navegação no perfil */
+/* --------------------- Estilos para os links de navegação no perfil --------------------------- */
 .cabecalho__container .colunas__container .coluna__direita nav ul li a {
   text-transform: uppercase;
   color: #818181;
 }
 
 
+/* ------------------------ ESTILIZAÇÃO DAS FOTOS DOS CACHORROS ---------------------------------- */
 .fotos1 {
   border-radius: 20px;
   margin-top: -0px;
   margin-left: 50px;
 }
+/* ------------------------ FIM DA ESTILIZAÇÃO DAS FOTOS DOS CACHORROS ---------------------------------- */
 
 
-/* Responsividade */
+
+
+/* -------------------------------  Responsividade -------------------------------------- */
 
 /* Estilos aplicados em telas maiores que 868px */
 @media (min-width: 868px) {
@@ -172,7 +183,6 @@ footer {
 }
 
 
-
 /* Estilo básico das seções */
 .conteudo {
   opacity: 1;
@@ -185,6 +195,9 @@ footer {
   opacity: 0;
   display: none;
 }
+
+
+
 
 /* ---------------------- Estilo das fotos de pets na parte de "POSTAGENS" ------------------*/
 .fotos {
@@ -286,52 +299,10 @@ ul {
 
 
 
-
-/* ---------------------- BOTÕES PARA EDITAR OU EXCLUIR ANIMAL ----------------------------*/
-.botoes {
-  bottom: 10px;
-  /* Distância do fundo */
-  right: 20px;
-  /* Distância da direita */
-  display: flex;
-  /* Usado para alinhar os botões em linha */
-  gap: 10px;
-  /* Espaço entre os botões */
-  margin-left: 43%;
-  margin-top: 3%;
-
-}
-
-.btn-editar,
-.btn-excluir {
-  background-color: #4CAF50;
-  /* Cor de fundo verde */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.btn-editar:hover,
-.btn-excluir:hover {
-  background-color: #45a049;
-  /* Tom mais escuro ao passar o mouse */
-}
-
-/* ------------------------- FIM ----------------------- */
-
-
-
-
-
 /* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
 
-/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
 
-/* ------------------------ MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
-
-/* Modal de fundo */
+/* -------------------------------- Modal de fundo -------------------------------- */
 .modal {
   display: flex;
   align-items: center;
@@ -347,7 +318,7 @@ ul {
   overflow-y: auto; /* Permite rolagem vertical se necessário */
 }
 
-/* Conteúdo do modal */
+/* ------------------------------- Conteúdo do modal --------------------------------- */
 .modal-content {
   background-color: #fff;
   padding: 40px;
@@ -439,11 +410,7 @@ ul {
   background-color: #45A049;
 }
 
-
 /* ------------------------ FIM MODAL PARA CADASTRO DE ANIMAIS -------------------------*/
-
-
-
 
 
 
@@ -728,6 +695,106 @@ nav ul {
 
 
 
+/* ---------------------------------  ESTILIZAÇÃO DA PAGINA DE POSTAGENS ------------------------------------ */
+
+.postagem-container {
+  margin: 30px auto;
+  padding: 10px 0;
+  max-width: 800px;
+  border-top: 1px solid #eaeaea;
+}
+
+.postagem-container:first-child {
+  border-top: none; /* Remove o divisor antes da primeira postagem */
+}
+
+.postagem {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.postagem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.descricao {
+  margin-bottom: 15px;
+}
+
+.descricao p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.descricao strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.imagem-post {
+  display: block;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-top: 15px;
+  border: 1px solid #eee;
+}
+
+.imagem-post:hover {
+  filter: brightness(0.95);
+}
+
+.postagem-footer {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #888;
+  text-align: right;
+}
+
+.postagem-card {
+  margin-bottom: 20px; /* Espaçamento entre postagens */
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.postagem-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.descricao {
+  margin-bottom: 10px;
+}
+
+.imagem-post {
+  display: block;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+
+.conteudo-1{
+  margin-left: 0px;
+}
+
+
+/* -------------------------- "FIM" DA ESTILIZAÇÃO DA PAGINA DE POSTAGENS --------------------------------------- */
 
 
 
@@ -735,16 +802,7 @@ nav ul {
 
 
 
-
-
-
-
-
-
-
-
-
-/* Modal do Pet */
+/* ---------------- Modal do Pet ao clicar na foto do pet exibe as estilizações e as informações ----------------- */
 .modal {
   display: none;
   position: fixed;
@@ -785,3 +843,52 @@ nav ul {
   border: 2px solid #4CAF50;
   margin: 0 auto 15px;
 }
+
+/* ---------------- FIM do Modal do Pet ao clicar na foto do pet exibe as estilizações e as informações ----------------- */
+
+
+
+
+
+
+
+
+/* ------------------- Estilização do contêiner da imagem da foto de perfil e da foto da publicação ---------------------------- */
+.img__container {
+  position: relative;
+  display: inline-block;
+}
+
+.img__container img {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.img__container img:hover {
+  transform: scale(1.1);
+}
+
+/* Estilização do modal */
+.modal {
+  display: none; /* Oculta o modal por padrão */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+
+/* ------------------ FIM da Estilização do contêiner da imagem da foto de perfil e da foto da publicação ------------------------ */
+
+
+
+
+
+
+

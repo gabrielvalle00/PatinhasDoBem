@@ -32,7 +32,7 @@ function alternarSecao(secao) {
   document.getElementById(secao).style.display = "block";
 }
 
-// Função para buscar dados do perfil do usuário
+
 // Função para buscar dados do perfil do usuário
 function buscarPerfilUsuario() {
   // Obtém o ID do cookie
@@ -121,7 +121,7 @@ function estruturarDadosPets(dadosMeusPets) {
 
     petElemento.innerHTML = `
       <img src="${pets.petPicture}" alt="${pets.TipoAnimal}" class="imagem-pet" style="cursor: pointer;">
-      <h4>${pets.TipoAnimal} - ${pets.Cor}</h4>
+      <h4>${pets.TipoAnimal}</h4>
     `;
 
     // Adiciona um evento de clique para abrir o modal com as informações do pet
@@ -173,25 +173,23 @@ window.onclick = function (event) {
 function exibirPostagens(postagensUsuario) {
   const postagensDiv = document.getElementById("lista-postagens");
   postagensDiv.innerHTML = ""; // Limpa a lista antes de exibir
+  
 
-  postagensUsuario.forEach((postagem) => {
+  postagensUsuario.forEach(postagem => {
     const postagemElemento = document.createElement("div");
     postagemElemento.classList.add("postagem-card");
-
+  
     postagemElemento.innerHTML = `
-      <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/postagem%2F${
-        postagem.ID
-      }?alt=media" alt="Postagem">
       <div class="descricao">
-        <p><strong>Descrição:</strong> ${postagem.Descricao}</p>
-        <p><strong>Data:</strong> ${new Date(
-          postagem.dataPublicacao
-        ).toLocaleString()}</p>
+          <p><strong>Descrição:</strong> ${postagem.Descricao}</p>
+          <p><strong>Data:</strong> ${new Date(postagem.dataPublicacao).toLocaleString()}</p>
       </div>
+      <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/postagem%2F${postagem.ID}?alt=media" class="imagem-post" onclick="expandirFoto(this)">
     `;
-
+  
     postagensDiv.appendChild(postagemElemento);
   });
+  
 }
 
 // Chame a função ao carregar a página
@@ -440,4 +438,46 @@ function excluirItem() {
     elementoParaRemover.remove();
     alert("Item excluído com sucesso!");
   }
+}
+
+
+
+
+
+
+function definirImagemPadrao() {
+  const fotoUser = document.getElementById("foto-user");
+  const urlPadrao = "https://via.placeholder.com/150";
+  
+  if (!fotoUser.src || fotoUser.src === window.location.href) {
+    fotoUser.src = urlPadrao;
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Exibir "Meus pets" por padrão
+  alternarSecao('meus-pets');
+  buscarPerfilUsuario();
+});
+
+
+
+
+function expandirFoto(imgElement) {
+  const modal = document.getElementById("modal-imagem");
+  const imagemExpandida = document.getElementById("imagem-expandida");
+
+  // Define o src da imagem expandida para a imagem clicada
+  imagemExpandida.src = imgElement.src;
+
+  // Exibe o modal
+  modal.style.display = "flex";
+}
+
+function fecharModal() {
+  const modal = document.getElementById("modal-imagem");
+
+  // Oculta o modal
+  modal.style.display = "none";
 }

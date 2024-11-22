@@ -541,3 +541,8 @@ position: fixed;
     object-fit: contain;
     margin-left: 110px;
 }
+
+
+.espaçamento{
+    margin-left: 5px;
+}

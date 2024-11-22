@@ -150,8 +150,13 @@
 
       <div class="coluna__esquerda">
         <div class="img__container">
-          <img id="foto-user" />
+          <img id="foto-user" src="https://via.placeholder.com/150" alt="" onclick="expandirFoto(this)" />
           <span></span>
+        </div>
+
+        <!-- Modal para exibir a imagem -->
+        <div id="modal-imagem" class="modal" onclick="fecharModal()">
+          <img id="imagem-expandida" />
         </div>
 
 
@@ -232,17 +237,26 @@
           
           </div>
         </div>
+           <!-- Seção "Postagens" -->
+   <div class="conteudo-1" id="postagens">
+
+    <div id="lista-postagens">
+      <!-- Aqui vão as postagens -->
+      <div class="postagem">
+        <h4 class="titulo-postagem">Título da Postagem</h4>
+        <p class="conteudo-postagem">Este é o conteúdo de exemplo para uma postagem. Mais conteúdo pode ser
+          adicionado dinamicamente.</p>
       </div>
-    </div>
-
-    <!-- Seção "Postagens" -->
-    <div class="conteudo" id="postagens">
-      <h3>Suas postagens</h3>
-      <div id="lista-postagens"></div>
+      <!------------------- Adicionar mais postagens dinamicamente ---------------------->
     </div>
   </div>
+</div>
+      </div>
+      
+    </div>
 
-  </div>
+
+
 
 
   <!-- Rodapé -->
@@ -259,6 +273,15 @@
       const sections = document.querySelectorAll('.conteudo');
       sections.forEach(section => section.style.display = 'none'); // Oculta todas as seções
       document.getElementById(sectionId).style.display = 'block'; // Mostra apenas a seção escolhida
+    }
+
+
+    // Fecha o modal ao clicar fora dele
+    window.onclick = function (event) {
+      const modal = document.getElementById("modalCadastro");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
     }
 
   </script>
