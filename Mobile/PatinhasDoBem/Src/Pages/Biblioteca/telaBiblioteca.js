@@ -79,7 +79,7 @@ export default function TelaBiblioteca({ navigation }) {
       'Deseja usar esta foto?',
       [
         { text: 'Cancelar', style: 'cancel' },
-        { text: 'Usar ffoto do pet', onPress: () => {
+        { text: 'Usar foto do pet', onPress: () => {
             navigation.navigate('Pet', { imagemSelecionada: uri });
             Alert.alert('Foto do Pet atualizada!');
           }},
