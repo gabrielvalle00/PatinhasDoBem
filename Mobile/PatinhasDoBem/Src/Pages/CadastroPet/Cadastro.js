@@ -152,7 +152,7 @@ const CadastroPet = ({ navigation, route }) => {
 
   const renderInput = (placeholder, iconName, value, onChangeText) => (
     <View style={styles.inputContainer}>
-      <MaterialIcons name={iconName} size={24} color="#B0BEC5" />
+      <MaterialIcons name={iconName} size={24} color="orange" />
       <TextInput
         style={styles.input}
         placeholder={placeholder}
@@ -185,7 +185,7 @@ const CadastroPet = ({ navigation, route }) => {
                 style={{ width: 250, height: 300, borderRadius: 50 }}
               />
             ) : (
-              <Ionicons name="add-outline" size={40} color="#fff" style={{ marginTop: 6 }} />
+              <Ionicons name="add-outline" size={40} color="orange" style={{ marginTop: 6 }} />
             )}
           </TouchableOpacity>
 
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   button: {
-    backgroundColor: "#134973",
+    backgroundColor: "#11212D",
     padding: 15,
     borderRadius: 15,
     alignItems: "center",

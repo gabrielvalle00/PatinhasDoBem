@@ -264,8 +264,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     backgroundColor: "#11212D", // Cor do botão
     borderRadius: 20,
-    borderWidth: 3,        // Define a espessura da borda
-    borderColor: 'orange', // Define a cor da borda
     height: 52,
     alignItems: "center",
     justifyContent: "center",
