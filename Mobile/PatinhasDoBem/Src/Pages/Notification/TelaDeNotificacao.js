@@ -1,36 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+  Image,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import api from "../../Service/tokenService";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import api from "../../Service/tokenService"; // Certifique-se de configurar corretamente o serviço de API
 
-// Componente principal
 const TelaNotificacoes = () => {
   const [notificacoes, setNotificacoes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Função para buscar as notificações de amizade do usuário
+  // Função para buscar as notificações
   const buscarNotificacoes = () => {
     setIsLoading(true);
     AsyncStorage.getItem("token")
       .then((token) => {
         if (!token) {
           Alert.alert("Erro", "Usuário não autenticado.");
-          return Promise.reject("Usuário não autenticado");
+          throw new Error("Usuário não autenticado");
         }
-        return api.get("/MinhasSolicitacoes", {}, {
+        return api.get("/MinhasSolicitacoes", {
           headers: { authorization: token },
         });
       })
       .then((response) => {
-        console.log("Notificações recebidas:", response.data);
-        setNotificacoes(response.data.invites || []);  // Garantindo que notificacoes seja um array, mesmo que esteja vazio
+        setNotificacoes(response.data.invites || []);
         setIsLoading(false);
-
-        // Verifica se não há notificações
-        if (response.data.invites?.length === 0) {
-          Alert.alert("Sem Notificações", "Você não tem notificações pendentes.");
-        }
       })
       .catch((error) => {
         console.error("Erro ao buscar notificações:", error);
@@ -44,19 +46,21 @@ const TelaNotificacoes = () => {
       .then((token) => {
         if (!token) {
           Alert.alert("Erro", "Usuário não autenticado.");
-          return Promise.reject("Usuário não autenticado");
+          throw new Error("Usuário não autenticado");
         }
-        return api.post("/AceitaSolicitacaoAmizade", { inviteID }, {
-          headers: { authorization: token },
-        });
+        return api.post(
+          "/AceitaSolicitacaoAmizade",
+          { inviteID },
+          { headers: { authorization: token } }
+        );
       })
       .then(() => {
         Alert.alert("Solicitação Aceita", "Você aceitou a solicitação de amizade.");
-        buscarNotificacoes(); // Recarregar as notificações
+        buscarNotificacoes(); // Atualiza as notificações
       })
       .catch((error) => {
         console.error("Erro ao aceitar solicitação:", error);
-        Alert.alert("Erro", "Houve um erro ao aceitar a solicitação de amizade.");
+        Alert.alert("Erro", "Não foi possível aceitar a solicitação.");
       });
   };
 
@@ -66,33 +70,33 @@ const TelaNotificacoes = () => {
       .then((token) => {
         if (!token) {
           Alert.alert("Erro", "Usuário não autenticado.");
-          return Promise.reject("Usuário não autenticado");
+          throw new Error("Usuário não autenticado");
         }
-        return api.post("/RecusarSolicitacaoAmizade", { inviteID }, {
-          headers: { authorization: token },
-        });
+        return api.post(
+          "/RecusarSolicitacaoAmizade",
+          { inviteID },
+          { headers: { authorization: token } }
+        );
       })
       .then(() => {
         Alert.alert("Solicitação Recusada", "Você recusou a solicitação de amizade.");
-        buscarNotificacoes(); // Recarregar as notificações
+        buscarNotificacoes(); // Atualiza as notificações
       })
       .catch((error) => {
         console.error("Erro ao recusar solicitação:", error);
-        Alert.alert("Erro", "Houve um erro ao recusar a solicitação de amizade.");
+        Alert.alert("Erro", "Não foi possível recusar a solicitação.");
       });
   };
 
-  // Função para marcar todas as notificações como visualizadas
+  // Função para marcar notificações como visualizadas
   const marcarNotificacoesComoVisualizadas = () => {
     AsyncStorage.getItem("token")
       .then((token) => {
         if (!token) {
           Alert.alert("Erro", "Usuário não autenticado.");
-          return Promise.reject("Usuário não autenticado");
+          throw new Error("Usuário não autenticado");
         }
-        return api.put("/MarcarNotificacoesVisto", {}, {
-          headers: { authorization: token },
-        });
+        return api.put("/MarcarNotificacoesVisto", {}, { headers: { authorization: token } });
       })
       .then(() => {
         const notificacoesAtualizadas = notificacoes.map((notificacao) => ({
@@ -106,60 +110,74 @@ const TelaNotificacoes = () => {
       });
   };
 
-  // Chama a função para buscar notificações ao carregar a tela
+  // Busca as notificações ao montar a tela
   useEffect(() => {
     buscarNotificacoes();
   }, []);
 
-  // Função de renderização dos itens da lista
+  // Renderização de cada item da lista
   const renderItem = ({ item }) => (
     <View style={[styles.notificacao, item.visualizada && styles.notificacaoLida]}>
       <View style={styles.notificacaoHeader}>
-        {/* Exibindo a foto do solicitante */}
         <Image
           source={{
-            uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${item.IDSolicitante}?alt=media`, 
+            uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${item.IDSolicitante}?alt=media`,
           }}
           style={styles.fotoUsuario}
         />
         <Text style={styles.nomeSolicitante}>{item.Nome}</Text>
       </View>
-      <TouchableOpacity style={styles.botaoAceitar} onPress={() => aceitarSolicitacao(item.ID)}>
-        <Text style={styles.textoBotao}>Aceitar Solicitação</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.botaoRecusar} onPress={() => recusarSolicitacao(item.ID)}>
-        <Text style={styles.textoBotao}>Recusar Solicitação</Text>
-      </TouchableOpacity>
+      <Text style={styles.mensagemSolicitacao}>
+        {item.Interessado === 1
+          ? "está interessado em um de seus pets"
+          : "enviou uma solicitação de amizade"}
+      </Text>
+      <View style={styles.botoes}>
+        <TouchableOpacity
+          style={styles.botaoAceitar}
+          onPress={() => aceitarSolicitacao(item.ID)}
+        >
+          <Text style={styles.textoBotao}>Aceitar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.botaoRecusar}
+          onPress={() => recusarSolicitacao(item.ID)}
+        >
+          <Text style={styles.textoBotao}>Recusar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Minhas Notificações</Text>
+      <Text style={styles.header}>Notificações</Text>
       {isLoading ? (
         <ActivityIndicator size="large" color="#007bff" />
       ) : (
-        <>
-          {notificacoes.length === 0 ? (
-            <Text style={styles.mensagemSemNotificacoes}>Você não tem notificações pendentes.</Text>
-          ) : (
-            <FlatList
-              data={notificacoes}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.ID.toString()}
-            />
-          )}
-        </>
+        <FlatList
+          data={notificacoes}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.ID.toString()}
+          ListEmptyComponent={
+            <Text style={styles.mensagemSemNotificacoes}>
+              Você não tem notificações pendentes.
+            </Text>
+          }
+        />
       )}
-      <TouchableOpacity style={styles.botao} onPress={marcarNotificacoesComoVisualizadas}>
+      <TouchableOpacity
+        style={styles.botaoVisualizar}
+        onPress={marcarNotificacoesComoVisualizadas}
+      >
         <Icon name="done-all" size={24} color="white" />
-        <Text style={styles.textoBotao}>Marcar todas como visualizadas</Text>
+        <Text style={styles.textoBotao}>Marcar todas como lidas</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-// Estilos da tela
+// Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -167,7 +185,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f8f9fa",
   },
   header: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
@@ -175,16 +193,11 @@ const styles = StyleSheet.create({
   },
   notificacao: {
     padding: 15,
-    backgroundColor: "#ffffff",
-    marginBottom: 15,
-    borderRadius: 12,
+    backgroundColor: "#fff",
+    marginBottom: 10,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#dee2e6",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
+    borderColor: "#ddd",
   },
   notificacaoLida: {
     backgroundColor: "#e9ecef",
@@ -192,56 +205,54 @@ const styles = StyleSheet.create({
   notificacaoHeader: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
   },
   fotoUsuario: {
-    width: 45,
-    height: 45,
-    borderRadius: 22.5,
-    marginRight: 12,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
   },
   nomeSolicitante: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
-    color: "#495057",
+    color: "#343a40",
+  },
+  mensagemSolicitacao: {
+    marginTop: 10,
+    color: "#6c757d",
+  },
+  botoes: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10,
   },
   botaoAceitar: {
-    padding: 12,
     backgroundColor: "#28a745",
-    borderRadius: 8,
-    marginTop: 10,
-    alignItems: "center",
+    padding: 10,
+    borderRadius: 5,
   },
   botaoRecusar: {
-    padding: 12,
     backgroundColor: "#dc3545",
-    borderRadius: 8,
-    marginTop: 10,
-    alignItems: "center",
+    padding: 10,
+    borderRadius: 5,
   },
   textoBotao: {
-    color: "white",
-    fontSize: 16,
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   mensagemSemNotificacoes: {
-    fontSize: 18,
-    color: "#868e96",
     textAlign: "center",
-    marginTop: 30,
+    color: "#6c757d",
   },
-  botao: {
+  botaoVisualizar: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
-    padding: 15,
+    alignItems: "center",
     backgroundColor: "#007bff",
-    borderRadius: 12,
-    marginTop: 30,
-  },
-  textoBotao: {
-    color: "white",
-    fontSize: 16,
-    marginLeft: 10,
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
   },
 });
 

@@ -76,12 +76,12 @@ export default function TelaBiblioteca({ navigation }) {
   const selectImageForProfile = (uri) => {
     Alert.alert(
       'Selecionar Foto',
-      'Deseja usar esta foto como perfil?',
+      'Deseja usar esta foto?',
       [
         { text: 'Cancelar', style: 'cancel' },
-        { text: 'Usar como perfil', onPress: () => {
+        { text: 'Usar foto do pet', onPress: () => {
             navigation.navigate('Pet', { imagemSelecionada: uri });
-            Alert.alert('Foto de perfil atualizada!');
+            Alert.alert('Foto do Pet atualizada!');
           }},
       ],
       { cancelable: true }

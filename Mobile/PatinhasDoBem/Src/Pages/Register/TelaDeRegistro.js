@@ -364,8 +364,6 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    borderWidth: 3,        // Define a espessura da borda
-    borderColor: 'orange', // Define a cor da borda
   },
   avatar: {
     width: 100,
