@@ -4,30 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- TITULO DA PÁGINA -->
   <title>Patinhas do Bem</title>
+
   <!-- Definindo o Favicon com GIF animado -->
   <link rel="icon" type="image/gif" href="../../Public/Image/logo animada.gif">
 
-
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
 
+  <!-- bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
   <!-- CSS -->
   <link rel="stylesheet" href="../../Public/CSS/Perfil.css" />
 
 </head>
 
+
 <body>
-
-
 
   <nav class="nav1">
 
@@ -42,8 +41,6 @@
         <input type="search" id="search-input" placeholder="Procure usuários, inspirações e doações"
           oninput="searchContent()">
       </div>
-
-
 
 
 
@@ -63,32 +60,30 @@
         </ul>
       </div>
 
-      <!-- Modal de Notificações -->
+      <!------------------------------------- Modal de Notificações ---------------------------------------->
+
       <div class="modal fade" id="notificacoesModal" tabindex="-1" aria-labelledby="notificacoesModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <!-- Cabeçalho do Modal -->
+            <!-------------------------------- Cabeçalho do Modal ------------------------------------------>
             <div class="modal-header">
               <h5 class="modal-title" id="notificacoesModalLabel">Notificações</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
 
-            <!-- Corpo do Modal -->
+            <!--------------------------------- Corpo do Modal ---------------------------------------------->
             <div class="modal-body" id="bodyNotifies">
-
               <!-- Notificação adicional -->
-
             </div>
 
-
-
           </div>
-
         </div>
       </div>
 
-      <!-- Modal de Solicitação de Amizade -->
+
+
+      <!------------------------------- Modal de Solicitação de Amizade -------------------------------------->
       <div class="modal fade" id="amizadeModal" tabindex="-1" aria-labelledby="amizadeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -97,8 +92,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body" id="inviteBody">
-              <!-- Exemplo de Solicitação de Amizade -->
-
+              <!--------------------- Exemplo de Solicitação de Amizade --------------------------------------->
               <hr>
             </div>
 
@@ -106,7 +100,6 @@
         </div>
       </div>
 
-      <!-- JavaScript para abrir o modal -->
       <!-- JavaScript para forçar o fechamento -->
       <script>
         // Função para abrir o modal
@@ -125,11 +118,6 @@
 
 
       <!-------------------------------------------- FIM  ------------------------------------------>
-
-
-
-
-
 
     </div>
   </nav>
@@ -150,9 +138,15 @@
 
       <div class="coluna__esquerda">
         <div class="img__container">
-          <img id="foto-user" />
+          <img id="foto-user" src="https://via.placeholder.com/150" alt="" onclick="expandirFoto(this)" />
           <span></span>
         </div>
+
+        <!-- Modal para exibir a imagem -->
+        <div id="modal-imagem" class="modal" onclick="fecharModal()">
+          <img id="imagem-expandida" />
+        </div>
+
 
 
 
@@ -201,27 +195,16 @@
         <!-- Seção "Meus pets" -->
         <div class="conteudo" id="meus-pets">
           <h3 class="h3-meus-pets">Meus pets</h3>
-
           <button class="btn-cadastrar" onclick="toggleModal()">Cadastrar Animais</button>
           <div class="fotos1">
-
-            <!-- Dentro da seção "Meus Pets", dentro do <div class="publicacao"> -->
             <div class="publicacao">
-
-
-              
-              <div class="foto-pet" id="lista-pets"
-                onclick="openPetModal()">
-
+              <div class="foto-pet" id="lista-pets" onclick="openPetModal()">
                 <img src="foto-do-pet.jpg" alt="Foto do Pet" class="imagem-pet">
               </div>
-
-
               <div class="informacoes-pet" id="lista-pets">
-             
+                <!-- Informações adicionais do pet podem ser inseridas aqui -->
               </div>
             </div>
-
             <!-- Modal para exibir as informações do pet -->
             <div id="petModal" class="modal" style="display: none;">
               <div class="modal-content">
@@ -232,26 +215,34 @@
                 </div>
               </div>
             </div>
-
             <div id="lista-pets"></div>
+            <!-- <button class="btn-excluir">Excluir</button> -->
+          </div>
+        </div>
 
-          
-            <button class="btn-excluir">Excluir</button>
+        <!-- Seção "Postagens" -->
+        <div class="conteudo-1" id="postagens">
+
+          <div id="lista-postagens">
+            <!-- Aqui vão as postagens -->
+            <div class="postagem">
+              <h4 class="titulo-postagem">Título da Postagem</h4>
+              <p class="conteudo-postagem">Este é o conteúdo de exemplo para uma postagem. Mais conteúdo pode ser
+                adicionado dinamicamente.</p>
+            </div>
+            <!------------------- Adicionar mais postagens dinamicamente ---------------------->
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Seção "Postagens" -->
-    <div class="conteudo" id="postagens">
-      <h3>Suas postagens</h3>
-      <div id="lista-postagens"></div>
+
+
     </div>
-  </div>
 
   </div>
 
-  <!-- Modal para Cadastro de Animais -->
+  <!------------------------------- Modal PARA CADASTRO DE ANIMAIS --------------------------->
+
   <div id="modalCadastro" class="modal">
     <div class="modal-content">
       <span class="close-btn" onclick="toggleModal()">&times;</span>
@@ -318,14 +309,24 @@
     </div>
   </div>
 
+  <!------------------------------- FIM DO Modal PARA CADASTRO DE ANIMAIS --------------------------->
 
-  <!-- Rodapé -->
+
+
+
+  <!-------------------------- RODAPÉ DA PÁGINA  -------------------------->
   <footer class="rodape">
     <p>&copy; Patinhas Do Bem 2024 | Todos os Direitos Reservados</p>
   </footer>
+  <!------------------- -- FIM DO RODAPÉ DA PÁGINA  -------------------------->
+
+
   </div>
 
-  <!-- JavaScript -->
+
+
+
+  <!--------------------------------------- JavaScript -------------------------------------->
   <script>
     // Função para alternar a exibição do modal de cadastro
     function toggleModal() {
@@ -348,12 +349,14 @@
       }
     }
   </script>
+  <!--------------------------------------- FIM DO JAVAScript -------------------------------------->
+
+
 </body>
 
 
-
-
-
+<!------------------------ ROTA PARA A PAGINA DE JavaScript ---------------------------------->
 <script src="../../Public/JavaScript/Perfil.js"></script>
+<!-------------------- FIM DA ROTA PARA A PAGINA DE JavaScript ---------------------------------->
 
 </html>

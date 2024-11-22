@@ -23,6 +23,7 @@ app.use(cors())
 const port= process.env.PORT !== undefined? process.env.PORT:3000;
 
 
+
 io.on('connection', (socket) => {
   // Verifique o token aqui, se necessário
   socket.on('chatInject', (contatoID) => {
