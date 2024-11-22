@@ -20,7 +20,7 @@ const cookieParser = require('cookie-parser');
 
 app.use(cors())
 
-const port= process.env.PORT !== undefined? process.env.PORT:5000;
+const port= process.env.PORT !== undefined? process.env.PORT:3000;
 
 
 io.on('connection', (socket) => {
