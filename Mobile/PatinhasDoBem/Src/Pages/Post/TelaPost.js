@@ -27,6 +27,7 @@ const TelaPostagens = () => {
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const [descricao, setDescricao] = useState("");
   const [imageUri, setImageUri] = useState(null);
+  const [curtido, setCurtido] = useState(false);
 
   useEffect(() => {
     carregarPostagens();
@@ -49,6 +50,8 @@ const TelaPostagens = () => {
         );
       })
       .then((response) => {
+        console.log(response.data);
+        
         setPostagens((prevPostagens) => {
           const newPosts = response.data.posts;
           const uniquePosts = [
@@ -120,9 +123,17 @@ const TelaPostagens = () => {
           />
         )}
         <View style={styles.actionsContainer}>
-          <TouchableOpacity onPress={() => reagirPostagem(item.ID, "Curtir")}>
-            <Text style={styles.actionText}>Curtir</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+        onPress={() =>
+          reagirPostagem(item.ID, curtido ? "Descurtir" : "Curtir")
+        }
+      >
+        <Icon
+          name={curtido ? "favorite" : "favorite-border"}
+          size={24}
+          color={curtido ? "#11212D" : "gray"}
+        />
+      </TouchableOpacity>
           <TouchableOpacity onPress={() => comentarPostagem(item.ID)}>
             <Text style={styles.actionText}>Comentar</Text>
           </TouchableOpacity>
@@ -166,10 +177,7 @@ const TelaPostagens = () => {
           await uploadBytes(storageRef, blob);
         }
   
-        Toast.show({
-          type: "success",
-          text1: "Postagem criada com sucesso!",
-        });
+        Alert.alert("Postagem feita com sucesso!")
   
         // Limpa os campos e fecha o modal
         setDescricao("");
@@ -180,10 +188,7 @@ const TelaPostagens = () => {
       })
       .catch((error) => {
         console.error("Erro ao criar postagem:", error);
-        Toast.show({
-          type: "error",
-          text1: "Erro ao criar postagem.",
-        });
+        Alert.alert("erro ao fazer postagem")
       });
   };
 
@@ -218,19 +223,14 @@ const TelaPostagens = () => {
           }
         );
       })
-      .then(() => {
-        Toast.show({
-          type: "success",
-          text1: "Reação adicionada com sucesso!",
-        });
-        carregarPostagens();
+      .then((e) => {
+        console.log(e);
+        setCurtido(tipo === "Curtir"); // Atualiza estado com base na reação enviada
+        carregarPostagens(); // Atualiza as postagens após a reação
       })
       .catch((error) => {
         console.error("Erro ao reagir a postagem:", error);
-        Toast.show({
-          type: "error",
-          text1: "Erro ao reagir a postagem.",
-        });
+        Alert.alert("Erro ao reagir a postagem")
       });
   };
 
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "#11212D",
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
   },
