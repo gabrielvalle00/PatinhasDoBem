@@ -38,7 +38,7 @@ function HomeTabs() {
   return (
     <>
       {/* Define a StatusBar com fundo azul e conteúdo branco */}
-      <StatusBar backgroundColor="orange" barStyle="light-content" />
+      <StatusBar backgroundColor="#11212D" barStyle="light-content" />
       {/* Resto do aplicativo */}
     
     <Tab.Navigator
@@ -121,7 +121,7 @@ export default function App() {
   return (
     <>
       {/* Define a StatusBar com fundo azul e conteúdo branco */}
-      <StatusBar backgroundColor="orange" barStyle="light-content" />
+      <StatusBar backgroundColor="#11212D" barStyle="light-content" />
       {/* Resto do aplicativo */}
     <NavigationContainer>
     

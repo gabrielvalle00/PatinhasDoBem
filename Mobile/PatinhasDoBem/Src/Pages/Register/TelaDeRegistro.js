@@ -369,12 +369,12 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: "#E1E2E6",
+    backgroundColor: "#EcEcE6",
     marginTop: 48,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center", // Centraliza o botão na tela
-    borderWidth: 3,        // Define a espessura da borda
+    borderWidth: 1,        // Define a espessura da borda
     borderColor: 'orange', // Define a cor da borda
   },
 });
