@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback,useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../Service/tokenService";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,useFocusEffect } from "@react-navigation/native";
 
 export default function TelaContatos() {
   const [contatosDeInteresses, setContatosDeInteresses] = useState([]);
@@ -46,9 +46,11 @@ export default function TelaContatos() {
       });
   };
 
-  useEffect(() => {
-    buscarContatos();
-  }, []);
+  useFocusEffect(
+    useCallback(()=>{
+      buscarContatos();
+    },[])
+  )
 
   const renderContact = (item) => (
     <TouchableOpacity

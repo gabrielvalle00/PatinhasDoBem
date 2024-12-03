@@ -26,11 +26,13 @@ const TelaNotificacoes = () => {
           Alert.alert("Erro", "Usuário não autenticado.");
           throw new Error("Usuário não autenticado");
         }
-        return api.get("/MinhasSolicitacoes", {
+        return api.get("/MinhasSolicitacoes",{}, {
           headers: { authorization: token },
         });
       })
       .then((response) => {
+        console.log(response);
+        
         setNotificacoes(response.data.invites || []);
         setIsLoading(false);
       })

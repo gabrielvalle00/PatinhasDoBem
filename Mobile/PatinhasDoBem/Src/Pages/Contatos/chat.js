@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "../../Service/tokenService";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useRoute, useNavigation, useFocusEffect } from "@react-navigation/native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons"; // Importando ícones
 import moment from 'moment';
 
@@ -56,6 +56,10 @@ export default function TelaMensagens() {
         setIsLoading(false);
       });
   };
+
+ 
+  
+
 
   const enviarMensagem = () => {
     if (!novaMensagem.trim()) return;
@@ -216,6 +220,7 @@ const styles = StyleSheet.create({
   },
   messagesContainer: {
     paddingBottom: 80,
+    marginTop:100
   },
   messageItem: {
     padding: 10,
