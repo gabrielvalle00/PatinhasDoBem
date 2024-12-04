@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"; // Usando react-navigation/bottom-tabs
@@ -35,6 +36,9 @@ const Tab = createBottomTabNavigator();
 
 // Configurando as Tabs (Home, Mensagem, Notificação, Perfil)
 function HomeTabs() {
+ 
+
+   
   return (
     <>
       {/* Define a StatusBar com fundo azul e conteúdo branco */}
@@ -52,19 +56,18 @@ function HomeTabs() {
             size = 24;
           } else if (route.name === "Mensagem") {
             iconName = "comments";
-
             size = 24;
           } else if (route.name === "Pets") {
             iconName = "paw";
             size = focused ? 50 : 40; // Maior quando focado
-            color = "#11212D"; // Cor personalizada
+            color = "#ff8c00"; // Cor personalizada
             iconStyle = {
               shadowColor: "#000",
               shadowOffset: { width: 0, height: 10 },
               shadowOpacity: 0.3,
               shadowRadius: 5,
               elevation: 10, // Para Android
-            }; // Efeito de sombra
+            }; 
           } else if (route.name === "Notificação") {
             iconName = "bell";
             size = 24;
@@ -86,9 +89,14 @@ function HomeTabs() {
           );
         },
         tabBarShowLabel: false, // Remove os nomes
-        tabBarActiveTintColor: "#11212D",
-        tabBarInactiveTintColor: "gray",
-        tabBarStyle: { display: "flex" }, // Estilo da barra de navegação
+        tabBarActiveTintColor: "orange",
+        tabBarInactiveTintColor: "#fff",
+        tabBarStyle: { display: "flex" },
+        tabBarStyle: {
+          backgroundColor: "#11212D", // Cor de fundo azul escuro
+          borderTopWidth: 0, // Remove a borda superior
+          elevation: 5, // Sombra para Android
+        },
       })}
     >
       <Tab.Screen

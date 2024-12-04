@@ -20,6 +20,7 @@ const UserProfileScreen = ({ route, navigation }) => {
   const [envioAmizadeFoiFeito, setEnvioAmizadeFoiFeito] = useState(false); // Estado para amizade
   const [numColumns, setNumColumns] = useState(3); // Estado para o número de colunas
   const userID = route.params?.userID;
+  
 
   // Função para alternar o estado de solicitação de amizade
   const handleAmizade = () => {
@@ -30,15 +31,19 @@ const UserProfileScreen = ({ route, navigation }) => {
           return;
         }
 
-        // API para enviar ou cancelar amizade
+        // Definindo o endpoint para a solicitação de amizade
         const endpoint = envioAmizadeFoiFeito
-          ? `/cancelarAmizade/${userID}`
-          : `/enviarAmizade/${userID}`;
+          ? "/RemoveSolicitacao"  // Caso já tenha enviado a solicitação
+          : "/SolicitaAmizade";   // Caso queira enviar a solicitação
 
-        return api.post(endpoint, {}, { headers: { authorization: token } });
+        const method = envioAmizadeFoiFeito ? 'delete' : 'post';
+
+        // Enviar solicitação de amizade ou remover
+        return api[method](endpoint, {IDDestinatario: userID }, { headers: { authorization: token } });
       })
-      .then(() => {
-        setEnvioAmizadeFoiFeito(!envioAmizadeFoiFeito); // Alterna o estado
+      .then((e) => {
+        console.log(e);
+        setEnvioAmizadeFoiFeito(!envioAmizadeFoiFeito); // Alterna o estado de amizade
       })
       .catch((error) => {
         console.error("Erro ao alterar estado de amizade:", error);
@@ -61,7 +66,6 @@ const UserProfileScreen = ({ route, navigation }) => {
           });
         })
         .then((response) => {
-          console.log(response);
           setProfileData(response.data);
           setEnvioAmizadeFoiFeito(response.data.envioAmizadeFoiFeito); // Define o estado inicial
           setLoading(false);
@@ -123,7 +127,7 @@ const UserProfileScreen = ({ route, navigation }) => {
              {/* Botão de Amizade */}
            <View style={styles.friendButtonContainer}>
             <TouchableOpacity
-              style={[
+              style={[ 
                 styles.friendButton,
                 envioAmizadeFoiFeito ? styles.friendButtonSent : styles.friendButtonRequest,
               ]}
@@ -143,9 +147,7 @@ const UserProfileScreen = ({ route, navigation }) => {
             </Text>
           </View>
 
-           
-
-          {/* Lista de Posts */}
+            {/* Lista de Posts */}
           <FlatList
             data={postagens || []}
             keyExtractor={(item) => item.ID.toString()}
@@ -213,19 +215,18 @@ const styles = StyleSheet.create({
   username: { fontSize: 16, fontWeight: "bold" },
   friendButtonContainer: {marginLeft:-110, marginVertical: 5, marginTop:120 },
   friendButton: { padding: 10, borderRadius: 5, alignItems: "center" },
-  friendButtonRequest: { backgroundColor: "#1a73e8" },
+  friendButtonRequest: { backgroundColor: "#11212D" },
   friendButtonSent: { backgroundColor: "#aaa" },
   friendButtonText: { color: "#fff", fontSize: 16, fontWeight: "bold" },
   petsContainer: { padding: 15 },
   petsTitle: { fontSize: 18, fontWeight: "bold", marginBottom: 10 },
   postItem: { flex: 1, margin: 5, aspectRatio: 1, backgroundColor: "#f0f0f0", borderRadius: 10, overflow: "hidden", height: 100 },
-  postImage: { width: "100%", height: "100%" },
-  petItem: { flexDirection: "column", alignItems: "center", marginVertical: 10 },
-  petImageContainer: { position: "relative", marginRight: 15 },
-  petImage: { width: 60, height: 60, borderRadius: 5 },
-  petName: { fontSize: 12 },
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
-  errorText: { textAlign: "center", margin: 20 },
+  postImage: { width: "100%", height: "100%", borderRadius: 10 },
+  petItem: { marginRight: 15, alignItems: "center" },
+  petImageContainer: { width: 80, height: 80, borderRadius: 10, overflow: "hidden", backgroundColor: "#f0f0f0" },
+  petImage: { width: "100%", height: "100%", borderRadius: 10 },
+  petName: { marginTop: 5, fontSize: 14, fontWeight: "bold" },
+  errorText: { color: "red", textAlign: "center", marginTop: 20 },
 });
 
 export default UserProfileScreen;

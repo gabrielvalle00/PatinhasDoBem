@@ -18,6 +18,10 @@ export default function TelaContatos() {
   const [isLoading, setIsLoading] = useState(false);
   const [mostrarInteresses, setMostrarInteresses] = useState(true); // Estado para alternar entre os tipos de contatos
   const navigation = useNavigation();
+  // const userID = route.params?.IDUsuario;
+
+  console.log();
+  
 
   // Função para buscar os contatos da API
   const buscarContatos = () => {
@@ -31,6 +35,8 @@ export default function TelaContatos() {
         return api.get("/MeusContatos", {}, { headers: { authorization: token } });
       })
       .then((response) => {
+        console.log(response.data);
+        
         if (response.data.success) {
           setContatosDeInteresses(response.data.contatosDeInteresses);
           setContatosSemInteresses(response.data.contatosSemInteresses);
@@ -57,6 +63,7 @@ export default function TelaContatos() {
       style={styles.contactItem}
       onPress={() =>
         navigation.navigate("Mensagens", {
+           userID: item.IDUsuario,
           contatoID: item.contatoID,
           nome: item.Nome,
         })

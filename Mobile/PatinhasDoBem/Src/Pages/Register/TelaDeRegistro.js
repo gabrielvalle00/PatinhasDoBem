@@ -197,7 +197,7 @@ class TelaRegistro extends Component {
     <View style={styles.form}>
       <Text style={styles.inputTitle}>{title}</Text>
       <View style={styles.inputContainer}>
-        <Ionicons name={iconName} size={20} color="orange" />
+        <Ionicons name={iconName} size={20} color="#11212D" />
         <TextInput
           style={styles.input}
           keyboardType={keyboardType}
@@ -252,7 +252,7 @@ class TelaRegistro extends Component {
               style={{ width: 100, height: 100, borderRadius: 50 }}
             />
           ) : (
-            <Ionicons name="person-outline" size={40} color="orange" style={{ marginTop: 6 }} />
+            <Ionicons name="person-outline" size={40} color="#11212D" style={{ marginTop: 6 }} />
           )}
         </TouchableOpacity>
 
@@ -271,7 +271,7 @@ class TelaRegistro extends Component {
               style={styles.inputContainer}
               onPress={() => this.setState({ showDatePicker: true })}
             >
-              <Ionicons name="calendar-outline" size={20} color="orange" />
+              <Ionicons name="calendar-outline" size={20} color="#11212D" />
               <Text style={[styles.input, { paddingTop: 7 }]}>
                 {dataNascimento.toLocaleDateString()}
               </Text>
@@ -347,14 +347,14 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottomColor: "orange",
+    borderBottomColor: "#11212D",
     borderBottomWidth: 2,
     paddingBottom: 5,
   },
   input: {
     height: 40,
     flex: 1,
-    color: "orange",
+    color: "#11212D",
     paddingHorizontal: 10,
   },
   button: {
@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center", // Centraliza o botão na tela
     borderWidth: 1,        // Define a espessura da borda
-    borderColor: 'orange', // Define a cor da borda
+    borderColor: '#11212D', // Define a cor da borda
   },
 });
 
