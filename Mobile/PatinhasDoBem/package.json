@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@react-native-async-storage/async-storage": "1.23.1",
+    "@react-native-community/blur": "^4.4.1",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-native-cookies/cookies": "^6.2.1",
     "@react-native-picker/picker": "^2.9.0",
@@ -35,6 +36,7 @@
     "react-native": "0.76.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-deck-swiper": "^2.0.17",
+    "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-image-resizer": "^1.4.5",
     "react-native-modal-datetime-picker": "^18.0.0",

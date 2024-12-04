@@ -154,7 +154,7 @@ class LoginScreen extends Component {
               <View style={styles.form}>
                 <Text style={styles.inputTitle}>Endereço de E-mail</Text>
                 <View style={styles.inputContainer}>
-                  <Ionicons name="mail-outline" size={20} color="orange" />
+                  <Ionicons name="mail-outline" size={20} color="#11212D" />
                   <TextInput
                     style={styles.input}
                     autoCapitalize="none"
@@ -168,7 +168,7 @@ class LoginScreen extends Component {
               <View style={styles.form}>
                 <Text style={styles.inputTitle}>Senha</Text>
                 <View style={styles.inputContainer}>
-                  <Ionicons name="lock-closed-outline" size={20} color="orange" />
+                  <Ionicons name="lock-closed-outline" size={20} color="#11212D" />
                   <TextInput
                     style={styles.input}
                     secureTextEntry
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: "orange", // Cor da borda do campo de input
+    borderBottomColor: "#11212D", // Cor da borda do campo de input
     borderBottomWidth: 2,
     height: 40,
   },
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
     fontSize: 15,
-    color: "orange",
+    color: "#11212D",
   },
   button: {
     marginHorizontal: 30,

@@ -31,7 +31,7 @@ const TelaNotificacoes = () => {
         });
       })
       .then((response) => {
-        console.log(response);
+        console.log("aaaaaaa",response);
         
         setNotificacoes(response.data.invites || []);
         setIsLoading(false);
@@ -80,7 +80,9 @@ const TelaNotificacoes = () => {
           { headers: { authorization: token } }
         );
       })
-      .then(() => {
+      .then((e) => {
+        console.log("eita",e);
+        
         Alert.alert("Solicitação Recusada", "Você recusou a solicitação de amizade.");
         buscarNotificacoes(); // Atualiza as notificações
       })
@@ -100,7 +102,8 @@ const TelaNotificacoes = () => {
         }
         return api.put("/MarcarNotificacoesVisto", {}, { headers: { authorization: token } });
       })
-      .then(() => {
+      .then((e) => {
+       console.log(e);
         const notificacoesAtualizadas = notificacoes.map((notificacao) => ({
           ...notificacao,
           visualizada: true,

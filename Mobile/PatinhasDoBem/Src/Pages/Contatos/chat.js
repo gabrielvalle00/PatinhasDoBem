@@ -21,7 +21,7 @@ import moment from 'moment';
 export default function TelaMensagens() {
   const route = useRoute();
   const navigation = useNavigation();
-  const { contatoID, nome } = route.params;
+  const {  userID ,contatoID, nome } = route.params;
   const [mensagens, setMensagens] = useState([]);
   const [novaMensagem, setNovaMensagem] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -114,7 +114,7 @@ export default function TelaMensagens() {
 
           <Image
             source={{
-              uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${contatoID}?alt=media`,
+              uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${userID}?alt=media`,
             }}
             style={styles.avatar}
           />
