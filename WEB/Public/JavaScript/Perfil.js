@@ -508,3 +508,43 @@ function fecharModal() {
   // Oculta o modal
   modal.style.display = "none";
 }
+
+
+
+
+
+async function cadastrarPet() {
+  console.log("Iniciando cadastro de pet");
+
+  // Obtém valores dos campos de entrada para cadastrar o pet
+  const tipo = document.getElementById("TipoAnimal").value;
+  const linhagem = document.getElementById("raca").value;
+  const idade = document.getElementById("idade").value;
+  const sexo = document.getElementById("sexo").value;
+  const cor = document.getElementById("cor").value;
+  const descricao = document.getElementById("descricao").value;
+  const imagem = document.getElementById("post-image").files[0];
+
+  try {
+    // Faz uma requisição POST para cadastrar o pet com os dados coletados
+    await axios.post("http://localhost:3000/CadastraPet", {
+      TipoAnimal: tipo, 
+      Linhagem: linhagem,
+      Idade: idade,
+      Sexo: sexo,
+      Cor: cor,
+      Descricao: descricao,
+     
+      
+    }).then(response => {
+      if(response.data.success) {
+        alert("Pet cadastrado com sucesso!"); // Exibe mensagem de sucesso
+      }
+      toggleModal(); // Fecha o modal de cadastro
+    }).catch(error => {
+      console.error("Erro ao cadastrar pet:", error); // Exibe erro caso a requisição falhe
+    });
+  } catch (error) {
+    console.error("Erro ao cadastrar pet:", error); // Captura erros gerais da função
+  }
+}
