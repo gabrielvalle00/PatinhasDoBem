@@ -5,10 +5,12 @@ const petManagement = {
   try {
     const IDDoador = req.dataUser.ID; // Certifique-se de que o middleware de autenticação está preenchendo req.dataUser
     const { TipoAnimal, Linhagem, Idade, Sexo, Cor, Descricao } = req.body;
+    console.log(req.body);
 
     if (TipoAnimal && Linhagem && Idade && Sexo && Cor && Descricao) {
       const createPetForm = new Pet(new Date(), TipoAnimal, Linhagem, null, Idade, Sexo, Cor, Descricao, IDDoador);
       const newPetCreate = await createPetForm.cadastraPetQuery();
+      console.log(newPetCreate);
      return res.json(newPetCreate);
     } else {
      return res.json({ error: "Não foi possível fazer o cadastro do pet, faltam informações a respeito do pet." });

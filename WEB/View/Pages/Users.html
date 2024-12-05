@@ -29,110 +29,7 @@
 
 
 
-  <nav class="nav1">
-
-    <!------------------------- Container na parte de cima da pagina ---------------------->!
-    <div class="container">
-      <h2 class="logo">
-        <img src="../../Public/Image/logo animada.gif" alt="Logo do Site">
-
-      </h2>
-      <div class="search-bar">
-        <i class="uil uil-search"></i>
-        <input type="search" id="search-input" placeholder="Procure usuários, inspirações e doações"
-          oninput="searchContent()">
-      </div>
-
-
-
-
-
-
-      <!------------------ NOTIFICAÇÕES E SOLICITAÇÕES DE AMIZADE ------------------>
-
-      <!-- Botão de Notificação -->
-      <div class="dropdown" id="notify">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationButton"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fa-solid fa-bell"></i>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="notificationButton">
-          <li onclick="checkNotifies()"><a class="dropdown-item" href="#" onclick="openModal('notificacoesModal')"
-              id="notifyContent">Notificações</a></li>
-          <li><a class="dropdown-item" href="#" onclick="openModal('amizadeModal')" id="friendInviter"></a></li>
-        </ul>
-      </div>
-
-      <!-- Modal de Notificações -->
-      <div class="modal fade" id="notificacoesModal" tabindex="-1" aria-labelledby="notificacoesModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <!-- Cabeçalho do Modal -->
-            <div class="modal-header">
-              <h5 class="modal-title" id="notificacoesModalLabel">Notificações</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-
-            <!-- Corpo do Modal -->
-            <div class="modal-body" id="bodyNotifies">
-
-              <!-- Notificação adicional -->
-
-            </div>
-
-
-
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Modal de Solicitação de Amizade -->
-      <div class="modal fade" id="amizadeModal" tabindex="-1" aria-labelledby="amizadeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="amizadeModalLabel">Solicitação de Amizade</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body" id="inviteBody">
-              <!-- Exemplo de Solicitação de Amizade -->
-
-              <hr>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- JavaScript para abrir o modal -->
-      <!-- JavaScript para forçar o fechamento -->
-      <script>
-        // Função para abrir o modal
-        function openModal(modalId) {
-          var modal = new bootstrap.Modal(document.getElementById(modalId));
-          modal.show();
-
-          // Fechar o modal quando clicar no fundo cinza
-          document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
-            backdrop.addEventListener('click', () => {
-              modal.hide();
-            });
-          });
-        }
-      </script>
-
-
-      <!-------------------------------------------- FIM  ------------------------------------------>
-
-
-
-
-
-
-    </div>
-  </nav>
+  
   <!---------------------------- Fim do Container na parte de cima da pagina ---------------------->
 
 
@@ -176,6 +73,17 @@
         </div>
 
 
+        <div id="solicitacao-container">
+          <button class="btn-solicitacao" onclick="alternarAmizade()" id="botaoAmizade">
+            <i class="fa-solid fa-user-plus"></i> Solicitar Amizade
+          </button>
+          <p id="mensagem" style="display: none;"></p>
+        </div>
+        
+        
+        
+
+
 
       </div>
 
@@ -184,7 +92,7 @@
 
 
       <div class="btn-voltar">
-        <button onclick="window.history.back()">Voltar</button>
+        <button onclick="window.history.back()">← Voltar</button>
       </div>
 
 

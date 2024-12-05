@@ -629,6 +629,48 @@ select.animal {
 
 
 
+/* Estilização geral do botão */
+#notificationButton {
+    margin-top: 10px;
+    background-color: #f08a5d; /* Cor principal */
+    color: #ffffff; /* Ícone branco */
+    font-size: 20px; /* Tamanho do ícone */
+    border: none; /* Remove borda padrão */
+    border-radius: 50%; /* Formato circular */
+    width: 50px; /* Largura e altura iguais para criar o círculo */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+    cursor: pointer; /* Mostra o cursor clicável */
+    transition: transform 0.2s, background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Efeito de hover */
+  #notificationButton:hover {
+    background-color: orange; /* Cor ao passar o mouse */
+    transform: scale(1.1); /* Aumenta levemente o tamanho */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Intensifica a sombra */
+  }
+  
+  /* Efeito ao clicar */
+  #notificationButton:active {
+    transform: scale(0.95); /* Reduz o tamanho ao clicar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Diminui a sombra */
+  }
+  
+  /* Estilo específico do ícone */
+  #notificationButton i {
+    transition: transform 0.3s;
+  }
+  
+  #notificationButton:hover i {
+    transform: rotate(15deg); /* Ícone inclinado levemente no hover */
+  }
+  
+
+
 
 
 
@@ -1182,4 +1224,13 @@ img {
 
 .sair{
     margin-left: 15px;
+}
+
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #fff; /* Herda a cor do texto */
+}
+
+a:hover {
+    color: orange; /* Mantém a cor mesmo ao passar o mouse */
 }

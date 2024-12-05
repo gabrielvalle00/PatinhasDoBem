@@ -481,3 +481,47 @@ function fecharModal() {
   // Oculta o modal
   modal.style.display = "none";
 }
+
+
+
+
+
+// ------------------------- FUNÇÃO SIMPLES DE ENVIAR SOLICITAÇÃO DE AMIZADE ---------------------------- //
+
+function enviarSolicitacao() {
+  // Exibe uma mensagem de sucesso
+  const mensagem = document.getElementById('mensagem');
+  mensagem.textContent = "Solicitação enviada com sucesso!";
+  mensagem.style.display = 'block';
+
+  // Desabilita o botão e muda o texto para "Solicitado"
+  const botao = document.querySelector('.btn-solicitacao');
+  botao.textContent = "Solicitado";
+  botao.disabled = true;
+  botao.style.backgroundColor = 'grenn'; // Cor para indicar botão desabilitado
+  botao.style.cursor = 'not-allowed';
+}
+
+function alternarAmizade() {
+  const botao = document.getElementById('botaoAmizade');
+  const mensagem = document.getElementById('mensagem');
+
+  // Verifica o estado atual do botão
+  if (botao.classList.contains('solicitado')) {
+    // Se já é "amigo", cancelar amizade
+    botao.classList.remove('solicitado');
+    botao.innerHTML = '<i class="fa-solid fa-user-plus"></i> Solicitar Amizade';
+    botao.style.backgroundColor = '#4CAF50'; // Volta ao verde original
+    mensagem.textContent = "Amizade cancelada.";
+    mensagem.className = "cancelado";
+    mensagem.style.display = 'block';
+  } else {
+    // Se não é "amigo", enviar solicitação
+    botao.classList.add('solicitado');
+    botao.innerHTML = '<i class="fa-solid fa-user-check"></i> Cancelar Amizade';
+    botao.style.backgroundColor = '#f44336'; // Vermelho para cancelar
+    mensagem.textContent = "Solicitação enviada com sucesso!";
+    mensagem.className = "sucesso";
+    mensagem.style.display = 'block';
+  }
+}

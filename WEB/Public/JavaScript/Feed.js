@@ -690,7 +690,7 @@ async function getMostRecentPosts() {
             <span class="close" onclick="closePublishModal()">&times;</span>
             <h2>Criar Publicação</h2>
             <textarea id="post-content" placeholder="Conteúdo da Postagem" required></textarea>
-            <input type="file" id="post-image" accept="image/*">
+            <input type="file" id="post-image" accept="image/*" >
             <button onclick="createNewPost()">Publicar</button>
           </div>
         </div>
