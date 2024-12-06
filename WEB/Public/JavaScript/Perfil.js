@@ -517,34 +517,68 @@ async function cadastrarPet() {
   console.log("Iniciando cadastro de pet");
 
   // Obtém valores dos campos de entrada para cadastrar o pet
-  const tipo = document.getElementById("TipoAnimal").value;
-  const linhagem = document.getElementById("raca").value;
-  const idade = document.getElementById("idade").value;
-  const sexo = document.getElementById("sexo").value;
-  const cor = document.getElementById("cor").value;
-  const descricao = document.getElementById("descricao").value;
-  const imagem = document.getElementById("post-image").files[0];
+  const dados = {
+    tipo: document.getElementById("TipoAnimal").value,
+    linhagem: document.getElementById("raca").value,
+    idade: document.getElementById("idade").value,
+    sexo: document.getElementById("sexo").value,
+    cor: document.getElementById("cor").value,
+    descricao: document.getElementById("descricao").value,
+  };
+
+  if (!dados.tipo || !dados.linhagem || !dados.idade || !dados.sexo || !dados.cor || !dados.descricao) {
+    alert("Por favor, preencha todos os campos obrigatórios.");
+    return;
+  }
 
   try {
     // Faz uma requisição POST para cadastrar o pet com os dados coletados
-    await axios.post("http://localhost:3000/CadastraPet", {
-      TipoAnimal: tipo, 
-      Linhagem: linhagem,
-      Idade: idade,
-      Sexo: sexo,
-      Cor: cor,
-      Descricao: descricao,
-     
-      
-    }).then(response => {
-      if(response.data.success) {
-        alert("Pet cadastrado com sucesso!"); // Exibe mensagem de sucesso
-      }
-      toggleModal(); // Fecha o modal de cadastro
-    }).catch(error => {
-      console.error("Erro ao cadastrar pet:", error); // Exibe erro caso a requisição falhe
+    const resposta = await fetch("/CadastraPet", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dados),
     });
-  } catch (error) {
-    console.error("Erro ao cadastrar pet:", error); // Captura erros gerais da função
+
+    const resultado = await resposta.json();
+
+    if (resultado && resultado.success && resultado.success.includes("sucesso")) {
+      const ID = resultado.idDoPet;
+      console.log("ID do pet cadastrado:", ID);
+
+      // Fazer upload da imagem para o Firebase usando o ID do usuário
+      const file = document.getElementById("image-input").files[0];
+      if (!file) {
+        alert("Nenhuma imagem selecionada para upload.");
+        return;
+      }
+
+      // Inicialize o Firebase Storage (verifique se a inicialização já foi feita em outro lugar)
+      const storageRef = firebase.storage().ref().child(`pets/${ID}`);
+      const snapshot = await storageRef.put(file);
+
+      console.log("Upload concluído com sucesso!", snapshot);
+      alert("Cadastro realizado com sucesso e imagem enviada!");
+
+      // Limpar campos do formulário
+      clearForm();
+    } else {
+      alert("Erro no cadastro: " + (resultado.message || "Mensagem não especificada."));
+    }
+  } catch (erro) {
+    console.error("Erro ao enviar dados:", erro);
+    alert("Ocorreu um erro ao tentar enviar os dados. Por favor, tente novamente mais tarde.");
   }
+}
+
+// Função para limpar o formulário
+function clearForm() {
+  document.getElementById("TipoAnimal").value = "";
+  document.getElementById("raca").value = "";
+  document.getElementById("idade").value = "";
+  document.getElementById("sexo").value = "";
+  document.getElementById("cor").value = "";
+  document.getElementById("descricao").value = "";
+  document.getElementById("image-input").value = "";
 }
