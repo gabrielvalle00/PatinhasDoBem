@@ -15,6 +15,12 @@
   <!-- Definindo o Favicon com GIF animado -->
   <link rel="icon" type="image/gif" href="../../Public/Image/logo animada.gif">
 
+
+      <!-- Adicione o Firebase SDK -->
+   <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
+
   <!-- font-awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.6.0/css/all.css">
@@ -211,7 +217,7 @@
         </div>
 
         <div class="botao-salvar">
-          <button type="button" class="btn-salvar" onclick="cadastrarPet()">Salvar</button>
+          <button type="button" class="btn-salvar" onclick="cadastrarPet()">Cadastrar Pet</button>
         </div>
       </div>
     </div>
@@ -266,6 +272,7 @@
 <!------------------------ ROTA PARA A PAGINA DE JavaScript ---------------------------------->
 <script src="../../Public/JavaScript/Perfil.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js"></script>
+<script src="../../Public/JavaScript/FirebaseConfig.js"></script>
 <!-------------------- FIM DA ROTA PARA A PAGINA DE JavaScript ---------------------------------->
 
 </html>
