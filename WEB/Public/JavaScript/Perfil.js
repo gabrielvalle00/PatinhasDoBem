@@ -91,7 +91,7 @@ function estruturarDadosPets(dadosMeusPets) {
     petElemento.classList.add("pet-card");
 
     petElemento.innerHTML = `
-      <img src="${pets.petPicture}" alt="${pets.TipoAnimal}" class="imagem-pet" style="cursor: pointer;">
+      <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${pets.ID}?alt=media" alt="${pets.TipoAnimal}" class="imagem-pet" style="cursor: pointer;">
       <h4>${pets.TipoAnimal}</h4>
     `;
 
@@ -112,7 +112,7 @@ function openPetModal(pets) {
 
   // Preenchendo o conteúdo do modal com as informações do pet
   petInfo.innerHTML = `
-    <img src="${pets.petPicture}" alt="${pets.TipoAnimal}" class="imagem-pet">
+    <img src="https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/pets%2F${pets.ID}?alt=media" alt="${pets.TipoAnimal}" class="imagem-pet">
     <h4>${pets.TipoAnimal}</h4>
     <p><strong>Cor:</strong> ${pets.Cor}</p>
     <p><strong>Idade:</strong> ${pets.Idade}</p>
@@ -512,73 +512,84 @@ function fecharModal() {
 
 
 
+function cadastrarPet() {
 
-async function cadastrarPet() {
-  console.log("Iniciando cadastro de pet");
+  // Campos do formulário de cadastro de pet
+  const tipo = document.getElementById("TipoAnimal").value.trim();
+  const raca = document.getElementById("raca").value.trim();
+  const idade = document.getElementById("idade").value.trim();
+  const sexo = document.getElementById("sexo").value.trim();
+  const cor = document.getElementById("cor").value.trim();
+  const descricao = document.getElementById("descricao").value.trim();
+  const imagem = document.getElementById("post-image").files[0]; // Imagem do pet
 
-  // Obtém valores dos campos de entrada para cadastrar o pet
-  const dados = {
-    tipo: document.getElementById("TipoAnimal").value,
-    linhagem: document.getElementById("raca").value,
-    idade: document.getElementById("idade").value,
-    sexo: document.getElementById("sexo").value,
-    cor: document.getElementById("cor").value,
-    descricao: document.getElementById("descricao").value,
+  // Verificação dos campos
+  if (!tipo || !raca || !idade || !sexo || !cor || !descricao || !imagem) {
+    alert("Por favor, preencha todos os campos corretamente!");
+    return false;
+  }
+
+  // Dados do formulário
+  const dadosPet = {
+    TipoAnimal: tipo,
+    Linhagem: raca,
+    Idade: idade,
+    Sexo: sexo,
+    Cor: cor,
+    Descricao: descricao,
   };
 
-  if (!dados.tipo || !dados.linhagem || !dados.idade || !dados.sexo || !dados.cor || !dados.descricao) {
-    alert("Por favor, preencha todos os campos obrigatórios.");
-    return;
-  }
+  // Envia os dados do formulário ao backend
+  fetch("/CadastraPet", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dadosPet),
+  })
+    .then((resposta) => resposta.json())
+    .then((resultado) => {
+      console.log(resultado.data);
+      if (resultado && resultado.success && resultado.success.includes("sucesso")) {
+        const IDPet = resultado.idDoPet;
+        console.log("ID do pet cadastrado:", IDPet);
 
-  try {
-    // Faz uma requisição POST para cadastrar o pet com os dados coletados
-    const resposta = await fetch("/CadastraPet", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dados),
-    });
+        // Fazer upload da imagem para o Firebase usando o ID do pet
+        if (imagem) {
+          const storageRef = firebase.storage().ref().child(`pets/${IDPet}`);
+          return storageRef.put(imagem)
+            .then((snapshot) => {
+              console.log("Upload da imagem concluído com sucesso!", snapshot);
+              alert("Cadastro realizado com sucesso e imagem enviada!");
 
-    const resultado = await resposta.json();
-
-    if (resultado && resultado.success && resultado.success.includes("sucesso")) {
-      const ID = resultado.idDoPet;
-      console.log("ID do pet cadastrado:", ID);
-
-      // Fazer upload da imagem para o Firebase usando o ID do usuário
-      const file = document.getElementById("image-input").files[0];
-      if (!file) {
-        alert("Nenhuma imagem selecionada para upload.");
-        return;
+              // Limpar campos do formulário
+              clearPetForm();
+            })
+            .catch((error) => {
+              console.error("Erro ao fazer upload da imagem:", error);
+              alert("Erro ao enviar a imagem. Por favor, tente novamente.");
+            });
+        } else {
+          alert("Nenhuma imagem selecionada para upload.");
+        }
+      } else {
+        alert("Erro no cadastro: " + (resultado.success || "Mensagem não especificada."));
       }
-
-      // Inicialize o Firebase Storage (verifique se a inicialização já foi feita em outro lugar)
-      const storageRef = firebase.storage().ref().child(`pets/${ID}`);
-      const snapshot = await storageRef.put(file);
-
-      console.log("Upload concluído com sucesso!", snapshot);
-      alert("Cadastro realizado com sucesso e imagem enviada!");
-
-      // Limpar campos do formulário
-      clearForm();
-    } else {
-      alert("Erro no cadastro: " + (resultado.message || "Mensagem não especificada."));
-    }
-  } catch (erro) {
-    console.error("Erro ao enviar dados:", erro);
-    alert("Ocorreu um erro ao tentar enviar os dados. Por favor, tente novamente mais tarde.");
-  }
+    })
+    .catch((erro) => {
+      console.error("Erro ao enviar dados:", erro);
+      alert("Ocorreu um erro ao tentar enviar os dados. Por favor, tente novamente mais tarde.");
+    });
 }
 
-// Função para limpar o formulário
-function clearForm() {
+// Função para limpar os campos do formulário
+function clearPetForm() {
   document.getElementById("TipoAnimal").value = "";
   document.getElementById("raca").value = "";
   document.getElementById("idade").value = "";
   document.getElementById("sexo").value = "";
   document.getElementById("cor").value = "";
   document.getElementById("descricao").value = "";
-  document.getElementById("image-input").value = "";
+  document.getElementById("post-image").value = ""; // Limpa o campo de imagem
+  document.body.className = "sign-in-js";
 }
