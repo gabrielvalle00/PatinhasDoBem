@@ -765,7 +765,7 @@ async function getMostRecentPosts() {
         })
       } else {
         document.getElementById("mural-content").innerHTML = `
-          <button id="open-modal" class="btn btn-primary" onclick="openPublishModal()">Criar
+          <button id="open-modal" class="btn" onclick="openPublishModal()">Criar
           Publicação</button>
             <div id="publish-modal" class="modal" style="display:none;">
               <div class="modal-content">
