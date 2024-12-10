@@ -256,6 +256,9 @@ nav {
 .left {
     flex: 1;
     padding: -40px;
+    margin-left: -2px;
+    margin-top: -5px;
+    
     /* Adiciona algum espaço */
 }
 
@@ -268,11 +271,11 @@ nav {
     border-radius: 10px; /* Bordas arredondadas */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave ao redor da imagem */
     object-fit: cover; /* Garante que a imagem cubra o espaço disponível sem distorcer */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves para efeitos de hover */
+
   }
   
   .post-image:hover {
-    transform: scale(1.05); /* Aumenta um pouco a imagem ao passar o mouse */
+ 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais forte quando a imagem é hover */
   }
 
@@ -345,6 +348,7 @@ nav {
 
 /* Estilo do Modal */
 .modal {
+    
     display: none;
     /* Escondido por padrão */
     position: fixed;
@@ -378,6 +382,7 @@ nav {
     /* Largura do modal */
     max-width: 500px;
     /* Largura máxima */
+    
 }
 
 .close {
@@ -474,6 +479,9 @@ nav {
 }
 
 .modal {
+
+
+
     display: none;
     /* Escondido por padrão */
     position: fixed;
@@ -502,6 +510,7 @@ nav {
     border: 1px solid #888;
     width: 80%;
     /* Largura do modal */
+    
 }
 
 
@@ -991,6 +1000,7 @@ img {
 
 /* Estilos gerais do post */
 .feed-post {
+    margin-top: 20px;
     border: 1px solid #e1e1e1;
     border-radius: 10px;
     padding: 15px;
@@ -1233,4 +1243,57 @@ a {
 
 a:hover {
     color: orange; /* Mantém a cor mesmo ao passar o mouse */
+}
+
+
+
+.btn{
+    margin-top: 5px;
+}
+
+
+.mensagens{
+    margin-left: 110px;
+}
+
+
+.post-options {
+    position: relative;
+}
+
+.three-dots {
+    display: inline-block;
+    position: relative;
+}
+
+.dots-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.menu {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.report-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.report-button:hover {
+    background: #f8f9fa;
 }
