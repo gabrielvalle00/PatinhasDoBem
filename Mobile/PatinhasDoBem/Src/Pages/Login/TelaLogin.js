@@ -134,7 +134,7 @@ class LoginScreen extends Component {
                 shadowOffset: { width: 0, height: 4 },  // Posição da sombra
                 shadowOpacity: 0.3,           // Opacidade da sombra
                 shadowRadius: 10,             // Suavidade da sombra
-                elevation: 10,                // Sombra para Android
+                elevation: 20,                // Sombra para Android
               }}
             />
             {this.state.fontLoaded && ( // Verifica se a fonte está carregada

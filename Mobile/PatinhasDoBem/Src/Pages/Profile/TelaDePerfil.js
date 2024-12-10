@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import Toast from "react-native-toast-message";
 import api from "../../Service/tokenService";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation,useFocusEffect } from "@react-navigation/native";
 
 const TelaDePerfil = ({ route, navigation }) => {
   const [profileData, setProfileData] = useState(null);
@@ -123,10 +124,9 @@ const TelaDePerfil = ({ route, navigation }) => {
     );
   }
 
+
+
   return (
-
-
-
 
     <ScrollView style={styles.container}>
       {profileData ? (
