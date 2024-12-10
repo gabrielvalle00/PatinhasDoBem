@@ -18,7 +18,7 @@ import { Toast } from "react-native-toast-message";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Importar corretamente
 import { storage } from "../../Firebase/FirebaseConfig"; // Certifique-se de que 'storage' esteja sendo exportado corretamente
 
-const TelaPostagens = () => {
+const TelaPostagens = ({ route, navigation }) => {
   const [postagens, setPostagens] = useState([]);
   const [loading, setLoading] = useState(true);
   const [gapQuantity, setGapQuantity] = useState(0);
@@ -51,7 +51,7 @@ const TelaPostagens = () => {
       })
       .then((response) => {
         console.log(response.data);
-        
+
         setPostagens((prevPostagens) => {
           const newPosts = response.data.posts;
           const uniquePosts = [
@@ -97,7 +97,9 @@ const TelaPostagens = () => {
   const renderUserItem = ({ item }) => (
     <View style={styles.userResultContainer}>
       {item.UserPicture && (
-        <Image source={{ uri: item.UserPicture }} style={styles.userImage} />
+        <TouchableOpacity onPress={() => navigation.navigate('User', { userId: item.UserId })}>
+          <Image source={{ uri: item.UserPicture }} style={styles.userImage} />
+        </TouchableOpacity>
       )}
       <Text style={styles.userName}>{item.nome}</Text>
     </View>
@@ -107,7 +109,9 @@ const TelaPostagens = () => {
     <View style={styles.postContainer}>
       <View style={styles.userInfoContainer}>
         {item.UserPicture && (
-          <Image source={{ uri: item.UserPicture }} style={styles.userImage} />
+          <TouchableOpacity onPress={() => navigation.navigate('User', { userId: item.UserId })}>
+            <Image source={{ uri: item.UserPicture }} style={styles.userImage} />
+          </TouchableOpacity>
         )}
         <Text style={styles.userName}>{item.NomeUsuario}</Text>
       </View>
@@ -123,17 +127,17 @@ const TelaPostagens = () => {
           />
         )}
         <View style={styles.actionsContainer}>
-        <TouchableOpacity
-        onPress={() =>
-          reagirPostagem(item.ID, curtido ? "Descurtir" : "Curtir")
-        }
-      >
-        <Icon
-          name={curtido ? "favorite" : "favorite-border"}
-          size={24}
-          color={curtido ? "#11212D" : "gray"}
-        />
-      </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              reagirPostagem(item.ID, curtido ? "Descurtir" : "Curtir")
+            }
+          >
+            <Icon
+              name={curtido ? "favorite" : "favorite-border"}
+              size={24}
+              color={curtido ? "#11212D" : "gray"}
+            />
+          </TouchableOpacity>
           <TouchableOpacity onPress={() => comentarPostagem(item.ID)}>
             <Text style={styles.actionText}>Comentar</Text>
           </TouchableOpacity>
@@ -150,11 +154,11 @@ const TelaPostagens = () => {
       });
       return;
     }
-  
+
     const descricaoLimpa = descricao.replace(/[^a-zA-Z0-9\s]/g, "");
-  
+
     let imageUrl = null;
-  
+
     AsyncStorage.getItem("token")
       .then((token) => {
         return api.post(
@@ -167,23 +171,23 @@ const TelaPostagens = () => {
       })
       .then(async (response) => {
         console.log(response);
-  
+
         const postID = response.data.idPostagem;
-  
+
         if (imageUri) {
           const response = await fetch(imageUri);
           const blob = await response.blob();
           const storageRef = ref(storage, `postagem/${postID}`);
           await uploadBytes(storageRef, blob);
         }
-  
+
         Alert.alert("Postagem feita com sucesso!")
-  
+
         // Limpa os campos e fecha o modal
         setDescricao("");
         setImageUri(null);
         setShowCreatePostModal(false); // Fecha o modal
-  
+
         carregarPostagens();
       })
       .catch((error) => {
@@ -192,7 +196,7 @@ const TelaPostagens = () => {
       });
   };
 
-    
+
 
   const selecionarImagem = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -285,7 +289,7 @@ const TelaPostagens = () => {
             onSubmitEditing={handleSearch}
           />
         </View>
-        
+
         <TouchableOpacity
           style={styles.iconContainer}
           onPress={() => setShowCreatePostModal(true)}
