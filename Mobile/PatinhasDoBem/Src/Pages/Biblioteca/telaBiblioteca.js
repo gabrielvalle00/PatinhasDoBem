@@ -17,7 +17,7 @@ export default function TelaBiblioteca({ navigation }) {
     if (status === 'granted') {
       const album = await MediaLibrary.getAssetsAsync({
         mediaType: 'photo',
-        first: 50,
+        first: 200,
         sortBy: [MediaLibrary.SortBy.creationTime],
       });
 

@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import * as ImagePicker from 'expo-image-picker';
 import api from "../../Service/tokenService";
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Para armazenamento do token
@@ -29,15 +30,24 @@ const CadastroPet = ({ navigation, route }) => {
   const [Descricao, setDescricao] = useState("");
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
 
+
   useEffect(() => {
     if (route.params?.imagemSelecionada) {
       setImagemSelecionada(route.params.imagemSelecionada);
-
     }
-  }, [route.params?.imagemSelecionada]);
+  }, [route.params]);
 
+  const selecionarImagem = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 0.7,
+    });
+    if (!result.canceled) {
+      setImagemSelecionada(result.assets[0].uri);
+    }
+  };
 
- 
   const handleCadastroPet = async () => {
     // Validação das entradas
     if (!TipoAnimal || !Linhagem || !Idade || !Sexo || !Cor || !Descricao) {
@@ -50,7 +60,7 @@ const CadastroPet = ({ navigation, route }) => {
       });
       return;
     }
-  
+
     if (!imagemSelecionada) {
       Toast.show({
         text1: 'Erro',
@@ -62,16 +72,16 @@ const CadastroPet = ({ navigation, route }) => {
 
       return;
     }
-  
+
     try {
       // Recupera o token armazenado
       const token = await AsyncStorage.getItem('token');
-  
+
       if (!token) {
         Alert.alert('Erro', 'Usuário não autenticado. Faça login novamente.');
         return;
       }
-  
+
       // Primeiro, cadastra o pet no backend
       const petData = {
         TipoAnimal: String(TipoAnimal),
@@ -81,59 +91,59 @@ const CadastroPet = ({ navigation, route }) => {
         Cor: String(Cor),
         Descricao: String(Descricao),
       };
-  
+
       // Enviando os dados do pet para o backend
       api.post("/CadastraPet", petData, {
         headers: {
           authorization: token, // Envia o token no cabeçalho
         },
       })
-      .then(async (e) => {
-        const idDoPet = e.data.idDoPet; // Obter o ID do pet retornado pela API
-  
-        if (!idDoPet) {
-          throw new Error("Erro ao obter ID do pet.");
-        }
-  
-        // Redimensionar a imagem antes do upload (opcional)
-        const manipResult = await ImageManipulator.manipulateAsync(
-          imagemSelecionada,
-          [{ resize: { width: 800 } }], // Redimensionar a imagem para largura de 800px
-          { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
-        );
-  
-        // Converter a imagem para blob
-        const responseImage = await fetch(manipResult.uri);
-        const blob = await responseImage.blob();
-  
-        // Nomear a imagem com o ID do pet
-        const imageRef = ref(storage, `pets/${idDoPet}.jpg`);
-  
-        // Faz o upload da imagem para o Firebase Storage
-        return uploadBytes(imageRef, blob);
-      })
-      .then(() => {
-        // Caso a requisição e upload tenham sucesso
-        Toast.show({
-          text1: 'Sucesso',
-          text2: 'Cadastro realizado com sucesso!',
-          position: 'top',
-          type: 'success',
-          visibilityTime: 3000, // Tempo em milissegundos para mostrar a notificação
+        .then(async (e) => {
+          const idDoPet = e.data.idDoPet; // Obter o ID do pet retornado pela API
+
+          if (!idDoPet) {
+            throw new Error("Erro ao obter ID do pet.");
+          }
+
+          // Redimensionar a imagem antes do upload (opcional)
+          const manipResult = await ImageManipulator.manipulateAsync(
+            imagemSelecionada,
+            [{ resize: { width: 800 } }],
+            { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
+          );
+
+          // Converter a imagem para blob
+          const responseImage = await fetch(manipResult.uri);
+          const blob = await responseImage.blob();
+
+          // Nomear a imagem com o ID do pet
+          const imageRef = ref(storage, `pets/${idDoPet}`);
+
+          // Faz o upload da imagem para o Firebase Storage
+          return uploadBytes(imageRef, blob);
+        })
+        .then(() => {
+          // Caso a requisição e upload tenham sucesso
+          Toast.show({
+            text1: 'Sucesso',
+            text2: 'Cadastro realizado com sucesso!',
+            position: 'top',
+            type: 'success',
+            visibilityTime: 3000, // Tempo em milissegundos para mostrar a notificação
+          });
+          navigation.goBack();
+        })
+        .catch((error) => {
+          console.error("Erro ao cadastrar pet:", error);
+          Toast.show({
+            text1: 'Erro',
+            text2: 'Ocorreu um erro ao cadastrar o pet.',
+            position: 'top',
+            type: 'error',
+            visibilityTime: 3000, // Tempo em milissegundos para mostrar a notificação
+          });
         });
-        navigation.goBack();
-      })
-      .catch((error) => {
-        console.error("Erro ao cadastrar pet:", error);
-        Toast.show({
-          text1: 'Erro',
-          text2: 'Ocorreu um erro ao cadastrar o pet.',
-          position: 'top',
-          type: 'error',
-          visibilityTime: 3000, // Tempo em milissegundos para mostrar a notificação
-        });
-      });
-  
+
     } catch (error) {
       console.error("Erro ao cadastrar pet:", error);
       Toast.show({
@@ -143,11 +153,11 @@ const CadastroPet = ({ navigation, route }) => {
         type: 'error',
         visibilityTime: 3000, // Tempo em milissegundos para mostrar a notificação
       });
-      
+
     }
   };
-  
-  
+
+
 
 
   const renderInput = (placeholder, iconName, value, onChangeText) => (
@@ -178,7 +188,7 @@ const CadastroPet = ({ navigation, route }) => {
 
           <Text style={styles.header}>Cadastrar Pet</Text>
 
-          <TouchableOpacity style={styles.avatar} onPress={() => navigation.navigate("Biblioteca")}>
+          <TouchableOpacity style={styles.avatar} onPress={selecionarImagem}>
             {imagemSelecionada ? (
               <Image
                 source={{ uri: imagemSelecionada }}
