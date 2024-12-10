@@ -27,7 +27,7 @@ const TelaPostagens = ({ route, navigation }) => {
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const [descricao, setDescricao] = useState("");
   const [imageUri, setImageUri] = useState(null);
-  const [curtido, setCurtido] = useState(false);
+ 
 
   useEffect(() => {
     carregarPostagens();
@@ -51,12 +51,26 @@ const TelaPostagens = ({ route, navigation }) => {
       })
       .then((response) => {
         console.log(response.data);
+        
+        const formattedPosts = response.data.posts.map((post) => ({
+          ...post,
+          dataFormatada: new Intl.DateTimeFormat("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZone: "America/Sao_Paulo",
+          }).format(new Date(post.dataPublicacao)),
+
+        }));
+
 
         setPostagens((prevPostagens) => {
-          const newPosts = response.data.posts;
           const uniquePosts = [
             ...prevPostagens,
-            ...newPosts.filter(
+            ...formattedPosts.filter(
               (newPost) =>
                 !prevPostagens.some((prevPost) => prevPost.ID === newPost.ID)
             ),
@@ -94,6 +108,7 @@ const TelaPostagens = ({ route, navigation }) => {
       });
   };
 
+
   const renderUserItem = ({ item }) => (
     <View style={styles.userResultContainer}>
       {item.UserPicture && (
@@ -114,6 +129,7 @@ const TelaPostagens = ({ route, navigation }) => {
           </TouchableOpacity>
         )}
         <Text style={styles.userName}>{item.NomeUsuario}</Text>
+        <Text style={styles.date}>{item.dataFormatada}</Text>
       </View>
 
       <View style={styles.card}>
@@ -127,24 +143,22 @@ const TelaPostagens = ({ route, navigation }) => {
           />
         )}
         <View style={styles.actionsContainer}>
-          <TouchableOpacity
-            onPress={() =>
-              reagirPostagem(item.ID, curtido ? "Descurtir" : "Curtir")
-            }
-          >
+          <TouchableOpacity onPress={() => reagirPostagem(item)}>
             <Icon
-              name={curtido ? "favorite" : "favorite-border"}
+              name={item.avaliei ? "favorite" : "favorite-border"}
               size={24}
-              color={curtido ? "#11212D" : "gray"}
+              color={item.avaliei ? "#11212D" : "gray"}
             />
           </TouchableOpacity>
+          <Text style={styles.like}>{item.quantidadeDeLike}</Text>
           <TouchableOpacity onPress={() => comentarPostagem(item.ID)}>
-            <Text style={styles.actionText}>Comentar</Text>
+            <Icon name="comment" size={28} color="gray" />
           </TouchableOpacity>
         </View>
       </View>
     </View>
   );
+
 
   const criarPostagem = async () => {
     if (!descricao) {
@@ -216,27 +230,46 @@ const TelaPostagens = ({ route, navigation }) => {
     }
   };
 
-  const reagirPostagem = (postID, tipo) => {
+  const reagirPostagem = (postID) => {
+    const tipo = "like"; // Tipo de reação fixo
+
     AsyncStorage.getItem("token")
       .then((token) => {
+        if (!token) {
+          throw new Error("Token não encontrado");
+        }
+        // Enviar a requisição à API
         return api.post(
           "/ReagirPostagem",
-          { postID, tipo },
+          { IDPostagem: postID, tipo: "like" },
           {
             headers: { authorization: token },
           }
         );
       })
-      .then((e) => {
-        console.log(e);
-        setCurtido(tipo === "Curtir"); // Atualiza estado com base na reação enviada
-        carregarPostagens(); // Atualiza as postagens após a reação
+      .then((response) => {
+        console.log("Reação registrada com sucesso:", response.data);
+
+        const updatedPostagens = postagens.map((p) =>
+          p.ID === postID
+            ? {
+              ...p,
+              avaliei: !p.avaliei, // Alterna o estado de curtida
+              quantidadeDeLike: p.avaliei
+                ? p.quantidadeDeLike - 1
+                : p.quantidadeDeLike + 1,
+            }
+            : p
+        );
+
+        setPostagens(updatedPostagens); // Atualiza a lista de postagens
       })
       .catch((error) => {
-        console.error("Erro ao reagir a postagem:", error);
-        Alert.alert("Erro ao reagir a postagem")
+        console.error("Erro ao reagir à postagem:", error.message || error);
+        Alert.alert("Erro", "Não foi possível reagir à postagem. Tente novamente.");
       });
   };
+
 
   const comentarPostagem = (postID) => {
     const comentario = prompt("Digite seu comentário:");
@@ -372,6 +405,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flex: 1,
   },
+  like: {
+    marginLeft: -295,
+    marginTop: 2,
+    color: "gray"
+
+  },
   searchInput: { flex: 1, marginLeft: 10 },
   iconContainer: {
     justifyContent: "center",
@@ -382,6 +421,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
+  },
+  date: {
+    color: "gray",
+    fontSize: 12,
+    marginLeft: -96,
+    marginTop: 35
+
   },
   userInfoContainer: {
     flexDirection: "row",
