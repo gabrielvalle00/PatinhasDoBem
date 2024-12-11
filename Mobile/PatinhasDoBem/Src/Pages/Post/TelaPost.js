@@ -659,7 +659,7 @@ const styles = StyleSheet.create({
     borderColor: "#e0e0e0",
   },
   comeCont: {
-    flex: 1,
+   
   },
   commentUser: {
     fontWeight: "bold",
@@ -670,7 +670,7 @@ const styles = StyleSheet.create({
   },
   commentText: {
     flex: 1,
-    width: "auto",
+    width: 350,
     fontSize: 14,
     color: "#555555",
     backgroundColor: "#f4f4f4",
