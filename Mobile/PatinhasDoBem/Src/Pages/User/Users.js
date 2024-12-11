@@ -115,7 +115,7 @@ const UserProfileScreen = ({ route, navigation }) => {
               <Text style={styles.statNumber}>
                 {dadosPets ? dadosPets.length : 0}
               </Text>
-              <Text style={styles.statLabel}>Meus Pets</Text>
+              <Text style={styles.statLabel}>Pets</Text>
             </View>
             <View style={styles.statsContainer}>
               <Text style={styles.statNumber}>
@@ -173,7 +173,7 @@ const UserProfileScreen = ({ route, navigation }) => {
 
           {/* Lista de Pets */}
           <View style={styles.petsContainer}>
-            <Text style={styles.petsTitle}>Meus Pets</Text>
+            <Text style={styles.petsTitle}>Pets</Text>
             <FlatList
               data={dadosPets || []}
               keyExtractor={(item, index) =>
