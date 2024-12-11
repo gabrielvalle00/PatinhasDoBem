@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as ImagePicker from "expo-image-picker";
 import { Toast } from "react-native-toast-message";
+import { Ionicons } from "@expo/vector-icons";
 import { format } from 'date-fns'; // Para formatar a data
 import { ptBR } from 'date-fns/locale'; // Para idioma português
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Importar corretamente
@@ -29,7 +30,7 @@ const TelaPostagens = ({ route, navigation }) => {
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const [descricao, setDescricao] = useState("");
   const [imageUri, setImageUri] = useState(null);
-
+  const [comentario, setComentario] = useState("");
 
   useEffect(() => {
     carregarPostagens();
@@ -154,13 +155,10 @@ const TelaPostagens = ({ route, navigation }) => {
             />
           </TouchableOpacity>
           <Text style={styles.like}>{item.quantidadeDeLike}</Text>
-          <TouchableOpacity onPress={() => comentarPostagem(item.ID)}>
-            <Icon name="comment" size={28} color="gray" />
-          </TouchableOpacity>
         </View>
 
         {/* Renderizando os comentários */}
-        <View style={styles.commentsContainer}>
+        <View>
           {item.comentariosDoPost && item.comentariosDoPost.length > 0 ? (
             item.comentariosDoPost.map((comentario, index) => (
               <View key={index} style={styles.commentContainer}>
@@ -177,11 +175,25 @@ const TelaPostagens = ({ route, navigation }) => {
                 <View style={styles.comeCont}>
                   <Text style={styles.commentText}>{comentario.Texto}</Text>
                 </View>
+
               </View>
             ))
           ) : (
             <Text style={styles.noComments}>Nenhum comentário ainda.</Text>
           )}
+
+          <View style={styles.inputContainer1}>
+            <TextInput
+              style={styles.input1}
+              placeholder="Comentar..."
+              value={comentario}
+              onChangeText={setComentario}
+              placeholderTextColor="#11212D"
+            />
+            <TouchableOpacity onPress={comentarPostagem} style={styles.iconContainer1}>
+              <Ionicons name="send" size={20} color="#11212D" />
+            </TouchableOpacity>
+          </View>
         </View>
 
 
@@ -302,9 +314,15 @@ const TelaPostagens = ({ route, navigation }) => {
   };
 
 
-  const comentarPostagem = (postID) => {
-    const comentario = prompt("Digite seu comentário:");
-    if (!comentario) return;
+  const comentarPostagem = () => {
+    if (!comentario.trim()) {
+      Toast.show({
+        type: "error",
+        text1: "Comentário vazio.",
+        text2: "Por favor, escreva algo antes de enviar.",
+      });
+      return;
+    }
 
     AsyncStorage.getItem("token")
       .then((token) => {
@@ -321,6 +339,7 @@ const TelaPostagens = ({ route, navigation }) => {
           type: "success",
           text1: "Comentário adicionado com sucesso!",
         });
+        setComentario(""); // Limpa o campo após o envio
         carregarPostagens();
       })
       .catch((error) => {
@@ -419,6 +438,26 @@ const TelaPostagens = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  inputContainer1: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    paddingHorizontal: 15,
+  },
+  input1: {
+    flex: 1,
+    height: 45,
+    fontSize: 16,
+    color: "#333",
+  },
+  iconContainer1: {
+    marginLeft: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: { flex: 1, backgroundColor: "#f5f5f5" },
   header: {
     flexDirection: "row",
@@ -437,7 +476,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   like: {
-    marginLeft: -295,
+    flex: 1,
     marginTop: 2,
     color: "gray"
 
@@ -587,7 +626,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   commentsContainer: {
-    marginTop: 20,
+    marginTop: 5,
     paddingHorizontal: 15,
     paddingVertical: 10,
     backgroundColor: "#f9f9f9",
@@ -620,7 +659,7 @@ const styles = StyleSheet.create({
     borderColor: "#e0e0e0",
   },
   comeCont: {
-    flex: 1,
+   
   },
   commentUser: {
     fontWeight: "bold",
@@ -631,12 +670,13 @@ const styles = StyleSheet.create({
   },
   commentText: {
     flex: 1,
+    width: 350,
     fontSize: 14,
     color: "#555555",
     backgroundColor: "#f4f4f4",
     padding: 8,
     marginTop: 40,
-    marginLeft: -150,
+    marginLeft: -140,
     borderRadius: 6,
   },
   noComments: {
