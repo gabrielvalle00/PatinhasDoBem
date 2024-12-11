@@ -18,8 +18,6 @@ import TelaDePerfil from "./Src/Pages/Profile/TelaDePerfil";
 import Mensagem from "./Src/Pages/Contatos/chat";
 import TelaDePets from "./Src/Pages/Animals/VisualizarPet";
 import CadastroPet from "./Src/Pages/CadastroPet/Cadastro";
-import TelaBiblioteca from "./Src/Pages/Biblioteca/telaBiblioteca";
-import TelaBibliotecaPerfil from "./Src/Pages/Biblioteca perfil/telaBibliotecaPerfil";
 import TelaMeusInteresses from "./Src/Pages/MeusInteresses/Interesses";
 import UserProfileScreen from "./Src/Pages/User/Users";
 import TelaDeEdicao from "./Src/Pages/EdicaoPet/TelaPetEdicao";
@@ -166,18 +164,6 @@ export default function App() {
               <Stack.Screen
                 name="Pet"
                 component={CadastroPet}
-                options={{ headerShown: false }} // Oculta o header
-              />
-
-              <Stack.Screen
-                name="Biblioteca"
-                component={TelaBiblioteca}
-                options={{ headerShown: false }} // Oculta o header
-              />
-
-              <Stack.Screen
-                name="BibliotecaPerfil"
-                component={TelaBibliotecaPerfil}
                 options={{ headerShown: false }} // Oculta o header
               />
 

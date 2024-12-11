@@ -15,6 +15,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as ImagePicker from "expo-image-picker";
 import { Toast } from "react-native-toast-message";
+import { format } from 'date-fns'; // Para formatar a data
+import { ptBR } from 'date-fns/locale'; // Para idioma português
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Importar corretamente
 import { storage } from "../../Firebase/FirebaseConfig"; // Certifique-se de que 'storage' esteja sendo exportado corretamente
 
@@ -27,7 +29,7 @@ const TelaPostagens = ({ route, navigation }) => {
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const [descricao, setDescricao] = useState("");
   const [imageUri, setImageUri] = useState(null);
-  const [curtido, setCurtido] = useState(false);
+
 
   useEffect(() => {
     carregarPostagens();
@@ -52,11 +54,25 @@ const TelaPostagens = ({ route, navigation }) => {
       .then((response) => {
         console.log(response.data);
 
+        const formattedPosts = response.data.posts.map((post) => ({
+          ...post,
+          dataFormatada: new Intl.DateTimeFormat("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZone: "America/Sao_Paulo",
+          }).format(new Date(post.dataPublicacao)),
+
+        }));
+
+
         setPostagens((prevPostagens) => {
-          const newPosts = response.data.posts;
           const uniquePosts = [
             ...prevPostagens,
-            ...newPosts.filter(
+            ...formattedPosts.filter(
               (newPost) =>
                 !prevPostagens.some((prevPost) => prevPost.ID === newPost.ID)
             ),
@@ -94,6 +110,7 @@ const TelaPostagens = ({ route, navigation }) => {
       });
   };
 
+
   const renderUserItem = ({ item }) => (
     <View style={styles.userResultContainer}>
       {item.UserPicture && (
@@ -114,6 +131,7 @@ const TelaPostagens = ({ route, navigation }) => {
           </TouchableOpacity>
         )}
         <Text style={styles.userName}>{item.NomeUsuario}</Text>
+        <Text style={styles.date}>{item.dataFormatada}</Text>
       </View>
 
       <View style={styles.card}>
@@ -126,25 +144,52 @@ const TelaPostagens = ({ route, navigation }) => {
             style={styles.postImage}
           />
         )}
+
         <View style={styles.actionsContainer}>
-          <TouchableOpacity
-            onPress={() =>
-              reagirPostagem(item.ID, curtido ? "Descurtir" : "Curtir")
-            }
-          >
+          <TouchableOpacity onPress={() => reagirPostagem(item)}>
             <Icon
-              name={curtido ? "favorite" : "favorite-border"}
+              name={item.avaliei ? 'favorite' : 'favorite-border'}
               size={24}
-              color={curtido ? "#11212D" : "gray"}
+              color={item.avaliei ? '#11212D' : 'gray'}
             />
           </TouchableOpacity>
+          <Text style={styles.like}>{item.quantidadeDeLike}</Text>
           <TouchableOpacity onPress={() => comentarPostagem(item.ID)}>
-            <Text style={styles.actionText}>Comentar</Text>
+            <Icon name="comment" size={28} color="gray" />
           </TouchableOpacity>
         </View>
+
+        {/* Renderizando os comentários */}
+        <View style={styles.commentsContainer}>
+          {item.comentariosDoPost && item.comentariosDoPost.length > 0 ? (
+            item.comentariosDoPost.map((comentario, index) => (
+              <View key={index} style={styles.commentContainer}>
+                <Image
+                  source={{
+                    uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${comentario.IDUsuario}?alt=media`,
+                  }}
+                  style={styles.comentImage}
+                />
+                <Text style={styles.datas}>
+                  {format(new Date(comentario.Data), "dd/MM/yyyy HH:mm", { locale: ptBR })}
+                </Text>
+                <Text style={styles.commentUser}>{comentario.Nome}</Text>
+                <View style={styles.comeCont}>
+                  <Text style={styles.commentText}>{comentario.Texto}</Text>
+                </View>
+              </View>
+            ))
+          ) : (
+            <Text style={styles.noComments}>Nenhum comentário ainda.</Text>
+          )}
+        </View>
+
+
       </View>
     </View>
   );
+
+
 
   const criarPostagem = async () => {
     if (!descricao) {
@@ -216,27 +261,46 @@ const TelaPostagens = ({ route, navigation }) => {
     }
   };
 
-  const reagirPostagem = (postID, tipo) => {
+  const reagirPostagem = (postID) => {
+    const tipo = "like"; // Tipo de reação fixo
+
     AsyncStorage.getItem("token")
       .then((token) => {
+        if (!token) {
+          throw new Error("Token não encontrado");
+        }
+        // Enviar a requisição à API
         return api.post(
           "/ReagirPostagem",
-          { postID, tipo },
+          { IDPostagem: postID, tipo: "like" },
           {
             headers: { authorization: token },
           }
         );
       })
-      .then((e) => {
-        console.log(e);
-        setCurtido(tipo === "Curtir"); // Atualiza estado com base na reação enviada
-        carregarPostagens(); // Atualiza as postagens após a reação
+      .then((response) => {
+        console.log("Reação registrada com sucesso:", response.data);
+
+        const updatedPostagens = postagens.map((p) =>
+          p.ID === postID
+            ? {
+              ...p,
+              avaliei: !p.avaliei, // Alterna o estado de curtida
+              quantidadeDeLike: p.avaliei
+                ? p.quantidadeDeLike - 1
+                : p.quantidadeDeLike + 1,
+            }
+            : p
+        );
+
+        setPostagens(updatedPostagens); // Atualiza a lista de postagens
       })
       .catch((error) => {
-        console.error("Erro ao reagir a postagem:", error);
-        Alert.alert("Erro ao reagir a postagem")
+        console.error("Erro ao reagir à postagem:", error.message || error);
+        Alert.alert("Erro", "Não foi possível reagir à postagem. Tente novamente.");
       });
   };
+
 
   const comentarPostagem = (postID) => {
     const comentario = prompt("Digite seu comentário:");
@@ -372,6 +436,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flex: 1,
   },
+  like: {
+    marginLeft: -295,
+    marginTop: 2,
+    color: "gray"
+
+  },
   searchInput: { flex: 1, marginLeft: 10 },
   iconContainer: {
     justifyContent: "center",
@@ -382,6 +452,20 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
+  },
+  date: {
+    color: "gray",
+    fontSize: 12,
+    marginLeft: -96,
+    marginTop: 35
+
+  },
+  datas: {
+    color: "gray",
+    fontSize: 12,
+    marginLeft: 5,
+    marginTop: 20
+
   },
   userInfoContainer: {
     flexDirection: "row",
@@ -501,6 +585,65 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 18,
     marginRight: 10,
+  },
+  commentsContainer: {
+    marginTop: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  commentContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: 15,
+    padding: 10,
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  comentImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginBottom: 5,
+    borderWidth: 1,
+    borderColor: "#e0e0e0",
+  },
+  comeCont: {
+    flex: 1,
+  },
+  commentUser: {
+    fontWeight: "bold",
+    fontSize: 14,
+    marginLeft: -100,
+    color: "#333333",
+    marginBottom: 5,
+  },
+  commentText: {
+    flex: 1,
+    fontSize: 14,
+    color: "#555555",
+    backgroundColor: "#f4f4f4",
+    padding: 8,
+    marginTop: 40,
+    marginLeft: -150,
+    borderRadius: 6,
+  },
+  noComments: {
+    fontSize: 14,
+    color: "#999999",
+    textAlign: "center",
+    paddingVertical: 10,
   },
 });
 
