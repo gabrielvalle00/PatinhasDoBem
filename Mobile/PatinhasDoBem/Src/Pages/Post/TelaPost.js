@@ -15,6 +15,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as ImagePicker from "expo-image-picker";
 import { Toast } from "react-native-toast-message";
+import { format } from 'date-fns'; // Para formatar a data
+import { ptBR } from 'date-fns/locale'; // Para idioma português
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Importar corretamente
 import { storage } from "../../Firebase/FirebaseConfig"; // Certifique-se de que 'storage' esteja sendo exportado corretamente
 
@@ -27,7 +29,7 @@ const TelaPostagens = ({ route, navigation }) => {
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
   const [descricao, setDescricao] = useState("");
   const [imageUri, setImageUri] = useState(null);
- 
+
 
   useEffect(() => {
     carregarPostagens();
@@ -51,7 +53,7 @@ const TelaPostagens = ({ route, navigation }) => {
       })
       .then((response) => {
         console.log(response.data);
-        
+
         const formattedPosts = response.data.posts.map((post) => ({
           ...post,
           dataFormatada: new Intl.DateTimeFormat("pt-BR", {
@@ -142,12 +144,13 @@ const TelaPostagens = ({ route, navigation }) => {
             style={styles.postImage}
           />
         )}
+
         <View style={styles.actionsContainer}>
           <TouchableOpacity onPress={() => reagirPostagem(item)}>
             <Icon
-              name={item.avaliei ? "favorite" : "favorite-border"}
+              name={item.avaliei ? 'favorite' : 'favorite-border'}
               size={24}
-              color={item.avaliei ? "#11212D" : "gray"}
+              color={item.avaliei ? '#11212D' : 'gray'}
             />
           </TouchableOpacity>
           <Text style={styles.like}>{item.quantidadeDeLike}</Text>
@@ -155,9 +158,37 @@ const TelaPostagens = ({ route, navigation }) => {
             <Icon name="comment" size={28} color="gray" />
           </TouchableOpacity>
         </View>
+
+        {/* Renderizando os comentários */}
+        <View style={styles.commentsContainer}>
+          {item.comentariosDoPost && item.comentariosDoPost.length > 0 ? (
+            item.comentariosDoPost.map((comentario, index) => (
+              <View key={index} style={styles.commentContainer}>
+                <Image
+                  source={{
+                    uri: `https://firebasestorage.googleapis.com/v0/b/patinhasdobem-f25f8.appspot.com/o/perfil%2F${comentario.IDUsuario}?alt=media`,
+                  }}
+                  style={styles.comentImage}
+                />
+                <Text style={styles.datas}>
+                  {format(new Date(comentario.Data), "dd/MM/yyyy HH:mm", { locale: ptBR })}
+                </Text>
+                <Text style={styles.commentUser}>{comentario.Nome}</Text>
+                <View style={styles.comeCont}>
+                  <Text style={styles.commentText}>{comentario.Texto}</Text>
+                </View>
+              </View>
+            ))
+          ) : (
+            <Text style={styles.noComments}>Nenhum comentário ainda.</Text>
+          )}
+        </View>
+
+
       </View>
     </View>
   );
+
 
 
   const criarPostagem = async () => {
@@ -429,6 +460,13 @@ const styles = StyleSheet.create({
     marginTop: 35
 
   },
+  datas: {
+    color: "gray",
+    fontSize: 12,
+    marginLeft: 5,
+    marginTop: 20
+
+  },
   userInfoContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -547,6 +585,65 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 18,
     marginRight: 10,
+  },
+  commentsContainer: {
+    marginTop: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  commentContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: 15,
+    padding: 10,
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  comentImage: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginBottom: 5,
+    borderWidth: 1,
+    borderColor: "#e0e0e0",
+  },
+  comeCont: {
+    flex: 1,
+  },
+  commentUser: {
+    fontWeight: "bold",
+    fontSize: 14,
+    marginLeft: -100,
+    color: "#333333",
+    marginBottom: 5,
+  },
+  commentText: {
+    flex: 1,
+    fontSize: 14,
+    color: "#555555",
+    backgroundColor: "#f4f4f4",
+    padding: 8,
+    marginTop: 40,
+    marginLeft: -150,
+    borderRadius: 6,
+  },
+  noComments: {
+    fontSize: 14,
+    color: "#999999",
+    textAlign: "center",
+    paddingVertical: 10,
   },
 });
 

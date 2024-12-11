@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.11.0",
     "apisauce": "^3.0.1",
     "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
     "dotenv-safe": "^9.1.0",
     "expo": "^52.0.5",
     "expo-font": "~13.0.1",
